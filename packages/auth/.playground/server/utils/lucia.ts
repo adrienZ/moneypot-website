@@ -8,8 +8,12 @@ import sqlite from "better-sqlite3";
 import fs from "fs";
 
 const db = sqlite(":memory:");
+import { resolve } from 'path';
+import { fileURLToPath } from 'url';
 
-db.exec(fs.readFileSync("schema.sql", "utf8"));
+const dbPath = resolve(fileURLToPath(import.meta.url), "../../../", "schema.sql");
+
+db.exec(fs.readFileSync(dbPath, "utf8"));
 
 export const auth = lucia({
 	adapter: betterSqlite3(db, {
@@ -27,7 +31,6 @@ export const auth = lucia({
 });
 
 const runtimeConfig = useRuntimeConfig();
-
 export const githubAuth = github(auth, {
 	clientId: runtimeConfig.githubClientId,
 	clientSecret: runtimeConfig.githubClientSecret,

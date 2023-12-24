@@ -3,5 +3,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
 		githubClientId: "",
 		githubClientSecret: ""
+  },
+  typescript: {
+    strict: true,
   }
 })

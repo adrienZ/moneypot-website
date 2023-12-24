@@ -1,18 +1,12 @@
 {
   "name": "moneypot-website",
-  "private": true,
-  "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "packages": "dotenv -- pnpm --filter",
+    "app": "pnpm packages @nuxt-monorepo/app",
+    "dev": "dotenv -- pnpm -r dev",
+    "build": "dotenv -- pnpm -r build"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
-    "nuxt": "^3.8.2",
-    "vue": "^3.3.12",
-    "vue-router": "^4.2.5"
+    "dotenv-cli": "^7.3.0"
   }
 }

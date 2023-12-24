@@ -1,0 +1,10 @@
+{
+  "name": "@moneypot/ui",
+  "version": "0.0.1",
+  "private": "true",
+  "type": "module",
+  "main": "./nuxt.config.ts",
+  "devDependencies": {
+    "nuxt": "^3.0.0"
+  }
+}

@@ -21,7 +21,7 @@ export const auth = lucia({
 	env: process.dev ? "DEV" : "PROD",
 	getUserAttributes: (data) => {
 		return {
-			githubUsername: data.username
+			username: data.username
 		};
 	}
 });
@@ -30,7 +30,8 @@ const runtimeConfig = useRuntimeConfig();
 
 export const githubAuth = github(auth, {
 	clientId: runtimeConfig.githubClientId,
-	clientSecret: runtimeConfig.githubClientSecret
+	clientSecret: runtimeConfig.githubClientSecret,
+	scope: ["user:email"]
 });
 
 export type Auth = typeof auth;

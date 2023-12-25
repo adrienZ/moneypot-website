@@ -12,10 +12,12 @@
     "postinstall": "nuxt prepare .playground"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.8",
     "nuxt": "^3.8.2"
   },
   "dependencies": {
-    "arctic": "^0.10.2",
-    "unstorage": "^1.10.1"
+    "@lucia-auth/oauth": "latest",
+    "better-sqlite3": "^8.4.0",
+    "lucia": "latest"
   }
 }

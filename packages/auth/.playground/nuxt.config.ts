@@ -1,9 +1,16 @@
 export default defineNuxtConfig({
+  devtools: { 
+    enabled: true,
+  },
+  modules: [
+    '@nuxt/devtools',
+  ],
   extends: ['..'],
   runtimeConfig: {
-    github: {
-      clientId: '',
-      clientSecret: ''
-    },
+    githubClientId: "",
+    githubClientSecret: ""
+  },
+  typescript: {
+    strict: true,
   }
 })

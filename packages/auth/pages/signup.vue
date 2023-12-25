@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 const user = useUser();
+
+// TODO: use middleware
 if (user.value) {
 	await navigateTo("/"); // redirect to profile page
 }
@@ -10,7 +12,7 @@ const handleSubmit = async (e: Event) => {
 	if (!(e.target instanceof HTMLFormElement)) return;
 	const formData = new FormData(e.target);
 	try {
-		await $fetch("/api/login", {
+		await $fetch("/api/signup", {
 			method: "POST",
 			body: {
 				username: formData.get("username"),
@@ -31,15 +33,14 @@ const handleSubmit = async (e: Event) => {
 </script>
 
 <template>
-	<h1>Sign in</h1>
-	<form method="post" action="/api/login" @submit.prevent="handleSubmit">
+	<h1>Sign up</h1>
+	<form method="post" action="/api/signup" @submit.prevent="handleSubmit">
 		<label for="username">Username</label>
 		<input name="username" id="username" /><br />
 		<label for="password">Password</label>
 		<input type="password" name="password" id="password" /><br />
 		<input type="submit" />
 	</form>
-	<a href="/api/login/github">Sign in with GitHub</a>
 	<p class="error">{{ errorMessage }}</p>
-	<NuxtLink to="/signup">Create an account</NuxtLink>
+	<NuxtLink to="/login">Sign in</NuxtLink>
 </template>

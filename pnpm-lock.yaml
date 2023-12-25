@@ -28,7 +28,7 @@ importers:
         specifier: workspace:^
         version: link:../ui
       '@nuxt/devtools':
-        specifier: latest
+        specifier: ^1.0.6
         version: 1.0.6(nuxt@3.8.2)(vite@5.0.10)
       drizzle-kit:
         specifier: ^0.20.7

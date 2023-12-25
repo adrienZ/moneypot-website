@@ -15,7 +15,7 @@
     "@lucia-auth/adapter-sqlite": "^2.0.1",
     "@moneypot/auth": "workspace:^",
     "@moneypot/ui": "workspace:^",
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "^1.0.6",
     "drizzle-kit": "^0.20.7",
     "nuxt": "^3.8.2",
     "vue": "^3.3.12",

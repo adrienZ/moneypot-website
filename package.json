@@ -1,8 +1,5 @@
 {
   "name": "moneypot-website",
-  "engines": {
-		"node": "20.9.0"
-	},
   "scripts": {
     "packages": "dotenv -- pnpm --filter",
     "app": "pnpm packages @nuxt-monorepo/app",

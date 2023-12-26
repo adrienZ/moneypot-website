@@ -7,13 +7,15 @@
     "dev": "nuxt dev",
     "generate": "pnpm exec drizzle-kit generate:sqlite",
     "push": "pnpm exec drizzle-kit push:sqlite",
-    "introspect": "pnpm exec drizzle-kit introspect:sqlite"
+    "introspect": "pnpm exec drizzle-kit introspect:sqlite",
+    "studio": "pnpm exec drizzle-kit studio"
   },
   "devDependencies": {
     "@lucia-auth/adapter-sqlite": "^2.0.1",
     "drizzle-kit": "^0.20.7"
   },
   "dependencies": {
+    "@moneypot/auth": "workspace:^",
     "drizzle-orm": "^0.29.1"
   }
 }

@@ -9,7 +9,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "db:generate": "pnpm exec drizzle-kit generate:sqlite"
+    "db:generate": "pnpm exec drizzle-kit generate:sqlite",
+    "db:push": "pnpm exec drizzle-kit push:sqlite"
   },
   "devDependencies": {
     "@lucia-auth/adapter-sqlite": "^2.0.1",

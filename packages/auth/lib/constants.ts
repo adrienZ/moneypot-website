@@ -1,0 +1,1 @@
+export const TABLE_PREFIX = "auth_layer_"

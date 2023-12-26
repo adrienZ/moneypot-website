@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/devtools',
   ],
-  extends: ['..'],
+  extends: ['@moneypot/auth'],
   runtimeConfig: {
     githubClientId: "",
     githubClientSecret: ""

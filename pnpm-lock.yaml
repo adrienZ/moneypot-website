@@ -16,7 +16,7 @@ importers:
     dependencies:
       drizzle-orm:
         specifier: ^0.29.1
-        version: 0.29.1
+        version: 0.29.1(@types/better-sqlite3@7.6.8)(better-sqlite3@8.7.0)
     devDependencies:
       '@lucia-auth/adapter-sqlite':
         specifier: ^2.0.1
@@ -51,6 +51,9 @@ importers:
       better-sqlite3:
         specifier: ^8.4.0
         version: 8.7.0
+      drizzle-orm:
+        specifier: ^0.29
+        version: 0.29.1(@types/better-sqlite3@7.6.8)(better-sqlite3@8.7.0)
       lucia:
         specifier: latest
         version: 2.7.6
@@ -2053,7 +2056,6 @@ packages:
     resolution: {integrity: sha512-ASndM4rdGrzk7iXXqyNC4fbwt4UEjpK0i3j4q4FyeQrLAthfB6s7EF135ZJE0qQxtKIMFwmyT6x0switET7uIw==}
     dependencies:
       '@types/node': 20.10.5
-    dev: true
 
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
@@ -2075,7 +2077,6 @@ packages:
     resolution: {integrity: sha512-nNPsNE65wjMxEKI93yOP+NPGGBJz/PoN3kZsVLee0XMiJolxSekEVD8wRwBUBqkwc7UWop0edW50yrCQW4CyRw==}
     dependencies:
       undici-types: 5.26.5
-    dev: true
 
   /@types/resolve@1.20.2:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -3261,7 +3262,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /drizzle-orm@0.29.1:
+  /drizzle-orm@0.29.1(@types/better-sqlite3@7.6.8)(better-sqlite3@8.7.0):
     resolution: {integrity: sha512-yItc4unfHnk8XkDD3/bdC63vdboTY7e7I03lCF1OJYABXSIfQYU9BFTQJXMMovVeb3T1/OJWwfW/70T1XPnuUA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -3322,6 +3323,9 @@ packages:
         optional: true
       sqlite3:
         optional: true
+    dependencies:
+      '@types/better-sqlite3': 7.6.8
+      better-sqlite3: 8.7.0
     dev: false
 
   /duplexer@0.1.2:
@@ -6571,7 +6575,6 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
-    dev: true
 
   /undici@5.28.2:
     resolution: {integrity: sha512-wh1pHJHnUeQV5Xa8/kyQhO7WFa8M34l026L5P/+2TYiakvGy5Rdc8jWZVyG7ieht/0WgJLEd3kcU5gKx+6GC8w==}

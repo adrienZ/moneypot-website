@@ -19,5 +19,12 @@
     "@lucia-auth/oauth": "latest",
     "better-sqlite3": "^8.4.0",
     "lucia": "latest"
+  },
+  "peerDependencies": {
+    "drizzle-orm": "^0.29"
+  },
+  "exports": {
+    "./schema": "./schema.ts",
+    ".": "./nuxt.config.ts"
   }
 }

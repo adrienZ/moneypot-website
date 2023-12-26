@@ -8,9 +8,9 @@ export const user = sqliteTable('user', {
   // username VARCHAR(31) NOT NULL UNIQUE
   username: text('username').notNull(),
   // email VARCHAR(31) NOT NULL UNIQUE,
-  // email: text("email").notNull().unique(),
+  email: text("email").notNull().unique().default("test@test.com"),
   // email_verified INTEGER NOT NULL
-  // emailVerified: integer("email_verified", { mode: "boolean" }).notNull()
+  emailVerified: integer("email_verified", { mode: "boolean" }).notNull().default(false)
 });
 
 export type User = InferModel<typeof user>

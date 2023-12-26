@@ -3,11 +3,16 @@ import { github } from "@lucia-auth/oauth/providers";
 import { betterSqlite3 } from "@lucia-auth/adapter-sqlite";
 import { h3 } from "lucia/middleware";
 import { drizzle, BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
-import { join } from 'pathe'
+import { join, dirname, resolve } from 'pathe'
 import sqlite from "better-sqlite3";
+import url from 'node:url'
 
 
-const sqliteDatabase = sqlite(join(process.cwd(), './db.sqlite'));
+
+const __filename = url.fileURLToPath(import.meta.url);
+const dbFolder = resolve(dirname(__filename), "../../");
+
+const sqliteDatabase = sqlite(join(dbFolder, './db.sqlite'));
 export const db: BetterSQLite3Database = drizzle(sqliteDatabase);
 
 export const auth = lucia({

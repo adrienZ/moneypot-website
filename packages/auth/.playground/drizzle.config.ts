@@ -6,7 +6,7 @@ export default defineConfig({
   schema: './server/database/schema.ts',
   driver: 'better-sqlite',
   dbCredentials: {
-    url: join(process.cwd(), './db.sqlite')
+    url: join(__dirname, './db.sqlite')
   },
   verbose: true,
   strict: true,

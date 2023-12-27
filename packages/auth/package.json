@@ -5,7 +5,8 @@
   "type": "module",
   "main": "./nuxt.config.ts",
   "scripts": {
-    "dev": "nuxi dev .playground",
+    "dev": "nuxi dev",
+    "playground": "nuxi dev .playground",
     "build": "nuxt build .playground",
     "generate": "nuxt generate .playground",
     "preview": "nuxt preview .playground",
@@ -13,15 +14,17 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.8",
-    "nuxt": "^3.8.2"
+    "lucia": "3.0.0-beta.13",
+    "nuxt": "^3.8.2",
+    "oslo": "^0.26.1"
   },
   "dependencies": {
-    "@lucia-auth/oauth": "latest",
-    "better-sqlite3": "^8.4.0",
-    "lucia": "latest"
+    "arctic": "^0.10.2",
+    "better-sqlite3": "^8.4.0"
   },
   "peerDependencies": {
-    "drizzle-orm": "^0.29"
+    "drizzle-orm": "^0.29",
+    "lucia": "^3.0.0"
   },
   "exports": {
     "./schema": "./schema.ts",

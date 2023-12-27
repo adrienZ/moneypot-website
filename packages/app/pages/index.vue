@@ -20,7 +20,7 @@ const { data: allUsers } = await useAsyncData(() => $fetch('/api/users'));
 
 <template>
 	<h1>Profile</h1>
-	<p>User id: {{ user.userId }}</p>
+	<p>User id: {{ user.id }}</p>
 	<p>username: {{ user.username }}</p>
 	<form method="post" action="/api/logout" @submit.prevent="handleLogout">
 		<input type="submit" value="Sign out" />

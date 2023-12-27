@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "b16adbdb-1e77-46db-bcad-db17a8d656fd",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "6f1f8c60-accb-4bff-b4e9-a18200de4178",
+  "prevId": "09e45c4b-8709-4400-91d3-630f7c0057e5",
   "tables": {
     "auth_layer_user": {
       "name": "auth_layer_user",

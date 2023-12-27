@@ -1,17 +1,17 @@
-export default defineEventHandler(async (event) => {
-	const authRequest = auth.handleRequest(event);
-	const session = await authRequest.validate();
-	if (session) {
-		return sendRedirect(event, "/");
-	}
-	const [url, state] = await githubAuth.getAuthorizationUrl();
+import { generateState } from "arctic";
 
-	setCookie(event, "github_oauth_state", state, {
-		httpOnly: true,
-		secure: !process.dev,
-		path: "/",
-		maxAge: 60 * 60
+export default defineEventHandler(async (event) => {
+	const state = generateState();
+	const url = await github.createAuthorizationURL(state, {
+		scopes: []
 	});
 
+	setCookie(event, "github_oauth_state", state, {
+		path: "/",
+		secure: process.env.NODE_ENV === "production",
+		httpOnly: true,
+		maxAge: 60 * 10,
+		sameSite: "lax"
+	});
 	return sendRedirect(event, url.toString());
 });

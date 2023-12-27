@@ -8,6 +8,13 @@
       "when": 1703624966226,
       "tag": "0000_thankful_wendigo",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1703637493775,
+      "tag": "0001_shiny_starfox",
+      "breakpoints": true
     }
   ]
 }

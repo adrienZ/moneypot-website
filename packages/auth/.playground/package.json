@@ -11,7 +11,7 @@
     "studio": "pnpm exec drizzle-kit studio"
   },
   "devDependencies": {
-    "@lucia-auth/adapter-sqlite": "^2.0.1",
+    "@lucia-auth/adapter-sqlite": "3.0.0-beta.11",
     "drizzle-kit": "^0.20.7"
   },
   "dependencies": {

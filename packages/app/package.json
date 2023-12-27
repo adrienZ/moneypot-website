@@ -10,10 +10,11 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "db:generate": "pnpm exec drizzle-kit generate:sqlite",
-    "db:push": "pnpm exec drizzle-kit push:sqlite"
+    "db:push": "pnpm exec drizzle-kit push:sqlite",
+    "db:studio": "pnpm exec drizzle-kit studio"
   },
   "devDependencies": {
-    "@lucia-auth/adapter-sqlite": "^2.0.1",
+    "@lucia-auth/adapter-sqlite": "3.0.0-beta.11",
     "@moneypot/auth": "workspace:^",
     "@moneypot/ui": "workspace:^",
     "@nuxt/devtools": "^1.0.6",
@@ -23,6 +24,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "drizzle-orm": "^0.29.1"
+    "drizzle-orm": "^0.29.1",
+    "lucia": "3.0.0-beta.13"
   }
 }

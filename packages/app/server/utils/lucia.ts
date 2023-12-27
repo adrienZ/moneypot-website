@@ -1,7 +1,5 @@
-import { lucia } from "lucia";
-import { github } from "@lucia-auth/oauth/providers";
-import { betterSqlite3 } from "@lucia-auth/adapter-sqlite";
-import { h3 } from "lucia/middleware";
+import { Lucia } from "lucia";
+import { BetterSqlite3Adapter } from "@lucia-auth/adapter-sqlite";
 import { drizzle, BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 import { join, dirname, resolve } from 'pathe'
 import sqlite from "better-sqlite3";
@@ -14,26 +12,29 @@ const dbFolder = resolve(dirname(__filename), "../../");
 const sqliteDatabase = sqlite(join(dbFolder, './db.sqlite'));
 export const db: BetterSQLite3Database = drizzle(sqliteDatabase);
 
-export const auth = lucia({
-	adapter: betterSqlite3(sqliteDatabase, {
-		user: `${TABLE_PREFIX}user`,
-		session: `${TABLE_PREFIX}user_session`,
-		key: `${TABLE_PREFIX}user_key`
-	}),
-	middleware: h3(),
-	env: process.dev ? "DEV" : "PROD",
-	getUserAttributes: (data) => {
+
+const adapter = new BetterSqlite3Adapter(sqliteDatabase, {
+	user: `${TABLE_PREFIX}user`,
+	session: `${TABLE_PREFIX}user_session`,
+});
+
+export const lucia = new Lucia(adapter, {
+	sessionCookie: {
+		attributes: {
+			secure: !import.meta.dev
+		}
+	},
+	getUserAttributes: (attributes) => {
 		return {
-			username: data.username
+			username: attributes.username,
+			// githubId: attributes.githubId
 		};
 	}
 });
 
-const runtimeConfig = useRuntimeConfig();
-export const githubAuth = github(auth, {
-	clientId: runtimeConfig.githubClientId,
-	clientSecret: runtimeConfig.githubClientSecret,
-	scope: ["user"]
-});
-
-export type Auth = typeof auth;
+declare module "lucia" {
+	interface Register {
+		Lucia: typeof lucia;
+	}
+	interface DatabaseUserAttributes extends Omit<import("../database/schema").User, "id"> {}
+}

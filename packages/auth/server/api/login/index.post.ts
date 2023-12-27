@@ -1,58 +1,53 @@
-import { LuciaError } from "lucia";
+import { Argon2id } from "oslo/password";
+import { user } from "../../../schema";
+import { eq } from "drizzle-orm";
 
-export default defineEventHandler(async (event) => {
-	const { username, password } = await readBody<{
-		username: unknown;
-		password: unknown;
-	}>(event);
-	// basic check
+export default eventHandler(async (event) => {
+	const formData = await readFormData(event);
+	const username = formData.get("username");
 	if (
 		typeof username !== "string" ||
-		username.length < 1 ||
-		username.length > 31
+		username.length < 3 ||
+		username.length > 31 ||
+		!/^[a-z0-9_-]+$/.test(username)
 	) {
 		throw createError({
 			message: "Invalid username",
 			statusCode: 400
 		});
 	}
-	if (
-		typeof password !== "string" ||
-		password.length < 1 ||
-		password.length > 255
-	) {
+	const password = formData.get("password");
+	if (typeof password !== "string" || password.length < 6 || password.length > 255) {
 		throw createError({
 			message: "Invalid password",
 			statusCode: 400
 		});
 	}
-	try {
-		// find user by key
-		// and validate password
-		const key = await auth.useKey("username", username.toLowerCase(), password);
-		const session = await auth.createSession({
-			userId: key.userId,
-			attributes: {}
-		});
-		const authRequest = auth.handleRequest(event);
-		authRequest.setSession(session);
-		return sendRedirect(event, "/"); // redirect to profile page
-	} catch (e) {
-		if (
-			e instanceof LuciaError &&
-			(e.message === "AUTH_INVALID_KEY_ID" ||
-				e.message === "AUTH_INVALID_PASSWORD")
-		) {
-			// user does not exist
-			// or invalid password
-			throw createError({
-				message: "Incorrect username or password",
-				statusCode: 400
-			});
-		}
+
+	const [ existingUser ] = await db
+    .select()
+    .from(user)
+    .where(eq(user.username, username))
+    .limit(1)
+    .execute()
+
+
+	if (!existingUser) {
 		throw createError({
-			message: "An unknown error occurred",
-			statusCode: 500
+			message: "Incorrect username or password",
+			statusCode: 400
 		});
 	}
+
+	const validPassword = await new Argon2id().verify(existingUser.password, password);
+	if (!validPassword) {
+		throw createError({
+			message: "Incorrect username or password",
+			statusCode: 400
+		});
+	}
+
+	const lucia = useLuciaAuth(event);
+	const session = await lucia.createSession(existingUser.id, {});
+	appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 });

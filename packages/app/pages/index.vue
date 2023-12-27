@@ -5,15 +5,13 @@ definePageMeta({
 
 const user = useAuthenticatedUser();
 
-const handleLogout = async (e: Event) => {
-	if (!(e.target instanceof HTMLFormElement)) return;
+const handleLogout = async () => {
 	await $fetch("/api/logout", {
 		method: "POST",
 		redirect: "manual"
 	});
 	await navigateTo("/login");
 };
-
 
 const { data: allUsers } = await useAsyncData(() => $fetch('/api/users'));
 </script>
@@ -39,5 +37,7 @@ const { data: allUsers } = await useAsyncData(() => $fetch('/api/users'));
         </tr>
       </tbody>
     </table>
-	<p v-else>no user created yet !</p>
+	<div v-else>
+		<code>no user created yet !</code>
+	</div>
 </template>

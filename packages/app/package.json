@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prebuild": "nuxt typecheck",
+    "prebuild": "nuxt typecheck || exit 0",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",

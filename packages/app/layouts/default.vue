@@ -5,7 +5,16 @@
     </header>
     <hr />
 
+    <br />
+
     <slot />
+
+    <br />
+
+    <hr />
+    <footer>
+      The footer
+    </footer>
   </div>
 </template>
 

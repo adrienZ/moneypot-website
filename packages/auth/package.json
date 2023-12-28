@@ -15,7 +15,7 @@
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.8",
     "lucia": "3.0.0-beta.13",
-    "nuxt": "^3.8.2",
+    "nuxt": "^3.9.0",
     "oslo": "^0.26.1"
   },
   "dependencies": {

@@ -19,7 +19,7 @@
     "@moneypot/ui": "workspace:^",
     "@nuxt/devtools": "^1.0.6",
     "drizzle-kit": "^0.20.7",
-    "nuxt": "^3.8.2",
+    "nuxt": "^3.9.0",
     "vue": "^3.3.12",
     "vue-router": "^4.2.5"
   },

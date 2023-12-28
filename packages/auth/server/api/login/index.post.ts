@@ -43,6 +43,6 @@ export default eventHandler(async (event) => {
 	}
 
 	const lucia = useLuciaAuth(event);
-	const session = await lucia.createSession(existingUser.id, {});
+	const session = await lucia.createSession(existingUser.externalId, {});
 	appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 });

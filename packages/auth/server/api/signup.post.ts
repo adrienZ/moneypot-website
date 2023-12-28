@@ -31,21 +31,20 @@ export default eventHandler(async (event) => {
 	try {
 		const lucia = useLuciaAuth(event);
 
-		await db
-			.insert(user)
-			.values({
-				id: userId,
-				username,
-				password: hashedPassword
-			})
-		const session = await lucia.createSession(userId, {});
+		const createdUser = await useDatabaseQueries(event).insertUser({
+			externalId: userId,
+			username,
+			password: hashedPassword
+		});
+
+		const session = await lucia.createSession(createdUser.id, {});
 		appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 	} catch (e) {
 		if (e instanceof SqliteError && e.code === "SQLITE_CONSTRAINT_UNIQUE") {
 			throw createError({
 				message: "Username already used",
 				statusCode: 500
-			});
+			});	
 		}
 		throw createError({
 			message: "An unknown error occurred",

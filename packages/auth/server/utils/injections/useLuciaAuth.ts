@@ -6,5 +6,5 @@ export function useLuciaAuth(h3Event: H3Event) {
 		throw new Error("No lucia auth detect");
 	}
 
-  return auth.lucia
+  return auth.lucia;
 }

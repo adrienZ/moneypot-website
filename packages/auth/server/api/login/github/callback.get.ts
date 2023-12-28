@@ -1,7 +1,6 @@
 import { OAuth2RequestError } from "arctic";
-import { generateId } from "lucia";
-import { user } from "../../../../schema";
-import { eq } from "drizzle-orm";
+import { DatabaseSessionAttributes, generateId } from "lucia";
+import { ILuciaAuthNuxtAdaptater } from "~/schema";
 
 export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
@@ -17,6 +16,7 @@ export default defineEventHandler(async (event) => {
 
 	try {
 		const tokens = await github.validateAuthorizationCode(code);
+		const db = useDatabaseQueries(event);
 		const githubUserResponse = await fetch("https://api.github.com/user", {
 			headers: {
 				Authorization: `Bearer ${tokens.accessToken}`
@@ -25,27 +25,31 @@ export default defineEventHandler(async (event) => {
 		const githubUser: GitHubUser = await githubUserResponse.json();
 		let email = githubUser.email;
 
-		if (!email) {
-			const githubEmailsResponse = await fetch("https://api.github.com/user/emails", {
-				headers: {
-					Authorization: `Bearer ${tokens.accessToken}`
-				}
-			});
+		// if (!email) {
+		// 	const githubEmailsResponse = await fetch("https://api.github.com/user/emails", {
+		// 		headers: {
+		// 			Authorization: `Bearer ${tokens.accessToken}`
+		// 		}
+		// 	});
 
-			const githubEmails: GitHubEmail[] = await githubEmailsResponse.json();
-			const primaryEmail = githubEmails.find( emailData => emailData.primary && emailData.verified)?.email ?? null
-			email = primaryEmail
-		}
+		// 	const githubEmails: GitHubEmail[] = await githubEmailsResponse.json();
+		// 	const primaryEmail = githubEmails.find( emailData => emailData.primary && emailData.verified)?.email ?? null
+		// 	email = primaryEmail
+		// }
 
 		/**
 		 * as
 			| DatabaseUser
 			| undefined;
 		 */
-		const [ existingUser ] = await db
-			.select()
-			.from(user)
-			.where(eq(user.githubId, githubUser.id));
+		// const [ existingUser ] = await db
+		// 	.select()
+		// 	.from(user)
+		// 	.where(eq(user.githubId, githubUser.id));
+		const existingUser = await db.getUser(undefined, {
+			providerID: "github",
+			providerUserID: githubUser.id
+		})
 		const lucia = useLuciaAuth(event);
 
 
@@ -57,13 +61,18 @@ export default defineEventHandler(async (event) => {
 
 		const userId = generateId(15);
 
-		useDatabaseQueries(event).insertUser({
-			id: userId,
-			githubId: githubUser.id as unknown as number,
+		const createdUser = await db.insertUser({
+			externalId: userId,
 			username: githubUser.login
 		})
 
-		const session = await lucia.createSession(userId, {});
+		db.insertOauthAccount({
+			providerID: "github",
+			providerUserID: githubUser.id,
+			userId: createdUser.externalId,
+		})
+
+		const session = await lucia.createSession(createdUser.id, {});
 		appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 		return sendRedirect(event, "/");
 	} catch (e) {

@@ -23,6 +23,8 @@ export default defineEventHandler(async (event) => {
 			}
 		});
 		const githubUser: GitHubUser = await githubUserResponse.json();
+		console.log("call");
+
 
 		/**
 		 * as
@@ -35,6 +37,8 @@ export default defineEventHandler(async (event) => {
 			.where(eq(user.githubId, githubUser.id));
 		const lucia = useLuciaAuth(event);
 
+		console.log({ existingUser });
+		
 
 		if (existingUser) {
 			const session = await lucia.createSession(existingUser.id, {});
@@ -43,6 +47,8 @@ export default defineEventHandler(async (event) => {
 		}
 
 		const userId = generateId(15);
+		console.log(userId);
+
 		await db
 			.insert(user)
 			.values({
@@ -52,7 +58,12 @@ export default defineEventHandler(async (event) => {
 			})
 			.execute();
 
+		
+
 		const session = await lucia.createSession(userId, {});
+
+		console.log({session});
+		
 		appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 		return sendRedirect(event, "/");
 	} catch (e) {

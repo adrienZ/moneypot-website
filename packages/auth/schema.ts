@@ -1,5 +1,5 @@
 import { InferModel } from 'drizzle-orm';
-import { text, integer, sqliteTableCreator } from 'drizzle-orm/sqlite-core';
+import { sqliteTableCreator, text, integer } from 'drizzle-orm/sqlite-core'
 import { TABLE_PREFIX } from './lib/constants';
 
 const sqliteTable = sqliteTableCreator(name => `${TABLE_PREFIX}${name}`)

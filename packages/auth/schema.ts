@@ -1,4 +1,4 @@
-import { InferModel } from 'drizzle-orm';
+import type { InferModel } from 'drizzle-orm';
 import { text, integer, sqliteTableCreator } from 'drizzle-orm/sqlite-core';
 import { TABLE_PREFIX } from './lib/constants';
 

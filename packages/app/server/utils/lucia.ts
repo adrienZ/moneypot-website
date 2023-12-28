@@ -1,6 +1,6 @@
 import { Lucia } from "lucia";
 import { BetterSqlite3Adapter } from "@lucia-auth/adapter-sqlite";
-import { drizzle, BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
+import { drizzle } from "drizzle-orm/better-sqlite3";
 import { join, dirname, resolve } from 'pathe'
 import sqlite from "better-sqlite3";
 import url from 'node:url'
@@ -10,7 +10,7 @@ const __filename = url.fileURLToPath(import.meta.url);
 const dbFolder = resolve(dirname(__filename), "../../");
 
 const sqliteDatabase = sqlite(join(dbFolder, './db.sqlite'));
-export const db: BetterSQLite3Database = drizzle(sqliteDatabase);
+export const db = drizzle(sqliteDatabase);
 
 
 const adapter = new BetterSqlite3Adapter(sqliteDatabase, {

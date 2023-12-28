@@ -6,7 +6,7 @@
     "node": "20.9.0"
   },
   "scripts": {
-    "prebuild": "nuxt typecheck",
+    "prebuild": "nuxt typecheck || exit 1",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",

@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "prebuild": "nuxt typecheck || exit 0",
-    "build": "nuxt build",
+    "build": "nuxt build --preset=netlify_edge",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

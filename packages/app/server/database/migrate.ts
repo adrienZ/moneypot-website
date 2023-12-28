@@ -1,4 +1,5 @@
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator'
+import { db } from "../utils/lucia"
 
 async function main() {
   try {

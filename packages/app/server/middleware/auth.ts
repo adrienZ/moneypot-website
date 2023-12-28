@@ -14,11 +14,12 @@ export default defineEventHandler(async (event) => {
         return inserted;
       },
       async getUser(userId, providerData) {
+        
         if (userId) {
           const [ existingUser ] = await db
           .select()
           .from(user)
-          .where(eq(user.externalId, userId))
+          .where(eq(user.username, userId))
           .limit(1)
           .execute();
 

@@ -27,7 +27,7 @@ export default eventHandler(async (event) => {
 
 	if (!existingUser) {
 		throw createError({
-			message: "Incorrect username or password",
+			message: " username nor found",
 			statusCode: 400
 		});
 	}
@@ -41,6 +41,6 @@ export default eventHandler(async (event) => {
 	}
 
 	const lucia = useLuciaAuth(event);
-	const session = await lucia.createSession(existingUser.externalId, {});
+	const session = await lucia.createSession(existingUser.id, {});
 	appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 });

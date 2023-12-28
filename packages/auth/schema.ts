@@ -1,4 +1,3 @@
-import { InferModel } from 'drizzle-orm';
 import { text, integer, sqliteTableCreator } from 'drizzle-orm/sqlite-core';
 import { TABLE_PREFIX } from './lib/constants';
 
@@ -14,7 +13,7 @@ export const user = sqliteTable('user', {
   password: text("password")
 });
 
-export type User = InferModel<typeof user>
+export type User = typeof user.$inferSelect;
 
 // user_session table
 export const userSession = sqliteTable('user_session', {
@@ -23,7 +22,6 @@ export const userSession = sqliteTable('user_session', {
   userId: integer('user_id').notNull().references(() => user.id),
   expiresAt: integer("expires_at", { mode: "timestamp"}).notNull()
 });
-export type UserSession = InferModel<typeof userSession>
 
 const oauthProviders = [ "github" ] as const;
 export const oauthAccount = sqliteTable("oauth_account", {

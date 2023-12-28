@@ -1,6 +1,4 @@
 import { Argon2id } from "oslo/password";
-import { user } from "../../../schema";
-import { eq } from "drizzle-orm";
 
 export default eventHandler(async (event) => {
 	const formData = await readFormData(event);

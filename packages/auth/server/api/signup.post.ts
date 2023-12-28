@@ -1,7 +1,6 @@
 import { Argon2id } from "oslo/password";
 import { generateId } from "lucia";
 import { SqliteError } from "better-sqlite3";
-import { user } from "../../schema";
 
 export default eventHandler(async (event) => {
 	const formData = await readFormData(event);

@@ -24,16 +24,6 @@ export const lucia = new Lucia(adapter, {
 		attributes: {
 			secure: !import.meta.dev
 		}
-	},
-	getSessionAttributes: (attributes) => {
-		return {
-			username: attributes.username,
-		};
-	},
-	getUserAttributes: (attributes) => {
-		return {
-			username: attributes.username,
-		};
 	}
 });
 
@@ -42,5 +32,4 @@ declare module "lucia" {
 		Lucia: typeof lucia;
 	}
 	interface DatabaseUserAttributes extends Omit<import("../database/schema").User, "id"> {}
-	interface DatabaseSessionAttributes extends Omit<import("../database/schema").User, "id"> {}
 }

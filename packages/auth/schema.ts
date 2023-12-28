@@ -19,7 +19,8 @@ export type User = InferModel<typeof user>
 // user_session table
 export const userSession = sqliteTable('user_session', {
   id: text('id').notNull().primaryKey(),
-  userId: text('user_id').notNull().references(() => user.id),
+  // TODO: looks i have no choice but use the column "id" in lucia
+  userId: integer('user_id').notNull().references(() => user.id),
   expiresAt: integer("expires_at", { mode: "timestamp"}).notNull()
 });
 export type UserSession = InferModel<typeof userSession>

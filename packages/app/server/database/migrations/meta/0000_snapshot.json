@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "9de5e4d8-c009-4e38-96ed-530092a21ff1",
+  "id": "edb823c9-fb9a-4f9d-b5cf-96ff091d966e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "auth_layer_oauth_account": {
@@ -112,7 +112,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

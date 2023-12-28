@@ -32,7 +32,7 @@ const { data: allUsers } = await useAsyncData(() => $fetch('/api/users'));
       </thead>
       <tbody>
         <tr v-for="user in allUsers" :key="user.id">
-          <td>{{ user.id }}</td>
+          <td>{{ user.externalId }}</td>
           <td>{{ user.username }}</td>
         </tr>
       </tbody>

@@ -23,7 +23,7 @@ export const userSession = sqliteTable('user_session', {
   expiresAt: integer("expires_at", { mode: "timestamp"}).notNull()
 });
 
-const oauthProviders = [ "github" ] as const;
+const oauthProviders = [ "github", "discord" ] as const;
 export const oauthAccount = sqliteTable("oauth_account", {
   id: integer('id'). notNull().primaryKey({ autoIncrement: true }),
   providerID: text("provider_id", {

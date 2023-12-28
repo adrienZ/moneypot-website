@@ -14,6 +14,9 @@ export const useAuthenticatedUser = () => {
 				"useAuthenticatedUser() can only be used in protected pages"
 			);
 		}
+
+		// remove real id from db
+		delete userValue.id;
 		return userValue;
 	});
 };

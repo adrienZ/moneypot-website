@@ -1,11 +1,12 @@
-import { OAuth2RequestError } from "arctic";
-import { generateId } from "lucia";
+import { DiscordTokens, OAuth2RequestError } from "arctic";
+import { DatabaseSessionAttributes, generateId } from "lucia";
+import { discord } from "../../../../lib/providers/discord";
 
 export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
 	const code = query.code?.toString() ?? null;
 	const state = query.state?.toString() ?? null;
-	const storedState = getCookie(event, "github_oauth_state") ?? null;
+	const storedState = getCookie(event, "discord_oauth_state") ?? null;
 	if (!code || !state || !storedState || state !== storedState) {
 		throw createError({
 			status: 400,
@@ -13,37 +14,23 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-	try {
-		const tokens = await github.validateAuthorizationCode(code);
+  try {
+    const tokens: DiscordTokens = await discord.validateAuthorizationCode(code);
 		const db = useDatabaseQueries(event);
-		const githubUserResponse = await fetch("https://api.github.com/user", {
+
+		const discordUserResponse = await fetch("https://discord.com/api/users/@me", {
 			headers: {
 				Authorization: `Bearer ${tokens.accessToken}`
 			}
 		});
-		const githubUser: GitHubUser = await githubUserResponse.json();
-		let email = githubUser.email;
 
-		// if (!email) {
-		// 	const githubEmailsResponse = await fetch("https://api.github.com/user/emails", {
-		// 		headers: {
-		// 			Authorization: `Bearer ${tokens.accessToken}`
-		// 		}
-		// 	});
+    const discordUser: DiscordUser = await discordUserResponse.json();
 
-		// 	const githubEmails: GitHubEmail[] = await githubEmailsResponse.json();
-		// 	const primaryEmail = githubEmails.find( emailData => emailData.primary && emailData.verified)?.email ?? null
-		// 	email = primaryEmail
-		// }
-
-		const existingUser = await db.getUser(undefined, {
-			providerID: "github",
-			providerUserID: githubUser.id
+    const existingUser = await db.getUser(undefined, {
+			providerID: "discord",
+			providerUserID: discordUser.id
 		})
 		const lucia = useLuciaAuth(event);
-
-		console.log({ existingUser });
-		
 
 		if (existingUser) {
 			const session = await lucia.createSession(existingUser.id, {});
@@ -55,19 +42,20 @@ export default defineEventHandler(async (event) => {
 
 		const createdUser = await db.insertUser({
 			externalId: userId,
-			username: githubUser.login
+			username: discordUser.global_name
 		})
 
 		db.insertOauthAccount({
 			providerID: "github",
-			providerUserID: githubUser.id,
+			providerUserID: discordUser.id,
 			userId: createdUser.externalId,
 		})
+
 
 		const session = await lucia.createSession(createdUser.id, {});
 		appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 		return sendRedirect(event, "/");
-	} catch (e) {
+  } catch (e) {
 		if (e instanceof OAuth2RequestError && e.message === "bad_verification_code") {
 			// invalid code
 			throw createError({
@@ -75,23 +63,22 @@ export default defineEventHandler(async (event) => {
 				message: String(e.description || e.message)
 			});
 		}
-		
 
 		throw createError({
 			status: 500,
 			message: String(e)
 		});
 	}
+
+    // const tokens: DiscordTokens = await discord.validateAuthorizationCode(code);
+  // const tokens: DiscordTokens = await discord.refreshAccessToken(refreshToken);
+
+
+  return "yo"
 });
 
-interface GitHubUser {
+interface DiscordUser {
 	id: string;
-	login: string;
+	global_name: string;
 	email: string | null;
-}
-
-interface GitHubEmail {
-	email: string,
-	primary: boolean,
-	verified: boolean
 }

@@ -1,5 +1,6 @@
 import { verifyRequestOrigin } from "lucia";
-import type { User, Session, Lucia } from "lucia";
+import type { User, Session } from "lucia";
+import { ILuciaAuthNuxtAdaptater } from "~/lib/ILuciaAuthNuxtAdaptater";
 
 export default defineEventHandler(async (event) => {
 	const lucia = useLuciaAuth(event);
@@ -27,7 +28,6 @@ export default defineEventHandler(async (event) => {
 	if (!session) {
 		appendHeader(event, "Set-Cookie", lucia.createBlankSessionCookie().serialize());
 	}
-
 	
 	event.context.session = session;
 	event.context.user = user;
@@ -37,6 +37,7 @@ declare module "h3" {
 	interface H3EventContext {
 		user: User | null;
 		session: Session | null;
-		lucia?: Lucia
+		// implemented by consumer
+		auth?: ILuciaAuthNuxtAdaptater
 	}
 }

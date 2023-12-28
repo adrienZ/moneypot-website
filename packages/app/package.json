@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@libsql/client": "0.4.0-pre.5",
+    "@lucia-auth/adapter-drizzle": "1.0.0-beta.0",
     "drizzle-orm": "^0.29.1",
     "lucia": "3.0.0-beta.13"
   }

@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
           const [ existingUser ] = await db
           .select()
           .from(user)
-          .where(eq(user.externalId, userId))
+          .where(eq(user.username, userId))
           .limit(1)
           .execute();
 

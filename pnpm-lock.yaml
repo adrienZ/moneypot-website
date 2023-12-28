@@ -13,6 +13,9 @@ importers:
       '@libsql/client':
         specifier: 0.4.0-pre.5
         version: 0.4.0-pre.5
+      '@lucia-auth/adapter-drizzle':
+        specifier: 1.0.0-beta.0
+        version: 1.0.0-beta.0(lucia@3.0.0-beta.13)
       drizzle-orm:
         specifier: ^0.29.1
         version: 0.29.1(@libsql/client@0.4.0-pre.5)
@@ -1296,6 +1299,14 @@ packages:
     os: [win32]
     requiresBuild: true
     optional: true
+
+  /@lucia-auth/adapter-drizzle@1.0.0-beta.0(lucia@3.0.0-beta.13):
+    resolution: {integrity: sha512-L4e8zJATX1PbIvvSNQ/VwxrVebEZKtzUkPdFBFSpbVUuc7aa6yqMyHm2lI4cHCWT76pwlZgQmAiE9O2AyqlX/A==}
+    peerDependencies:
+      lucia: 3.0.0-beta.8
+    dependencies:
+      lucia: 3.0.0-beta.13
+    dev: false
 
   /@lucia-auth/adapter-sqlite@3.0.0-beta.11(@libsql/client@0.4.0-pre.5)(lucia@3.0.0-beta.13):
     resolution: {integrity: sha512-Yvnu6p3hP81ldeoaKC66svzc0Kyfxtc54pYukxAMQKFdc+puCcMzCAk71/s5BJwFeyzepA+F1WdV/7jvduKw+g==}

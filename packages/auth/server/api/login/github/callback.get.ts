@@ -23,6 +23,19 @@ export default defineEventHandler(async (event) => {
 			}
 		});
 		const githubUser: GitHubUser = await githubUserResponse.json();
+		let email = githubUser.email;
+
+		if (!email) {
+			const githubEmailsResponse = await fetch("https://api.github.com/user/emails", {
+				headers: {
+					Authorization: `Bearer ${tokens.accessToken}`
+				}
+			});
+
+			const githubEmails: GitHubEmail[] = await githubEmailsResponse.json();
+			const primaryEmail = githubEmails.find( emailData => emailData.primary && emailData.verified)?.email ?? null
+			email = primaryEmail
+		}
 
 		/**
 		 * as
@@ -43,14 +56,12 @@ export default defineEventHandler(async (event) => {
 		}
 
 		const userId = generateId(15);
-		await db
-			.insert(user)
-			.values({
-				id: userId,
-				githubId: githubUser.id,
-				username: githubUser.login
-			})
-			.execute();
+
+		useDatabaseQueries(event).insertUser({
+			id: userId,
+			githubId: githubUser.id as unknown as number,
+			username: githubUser.login
+		})
 
 		const session = await lucia.createSession(userId, {});
 		appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
@@ -75,4 +86,11 @@ export default defineEventHandler(async (event) => {
 interface GitHubUser {
 	id: string;
 	login: string;
+	email: string | null;
+}
+
+interface GitHubEmail {
+	email: string,
+	primary: boolean,
+	verified: boolean
 }

@@ -1,5 +1,6 @@
 import { verifyRequestOrigin } from "lucia";
-import type { User, Session, Lucia } from "lucia";
+import type { User, Session } from "lucia";
+import { ILuciaAuthNuxtAdaptater } from "~/lib/ILuciaAuthNuxtAdaptater";
 
 export default defineEventHandler(async (event) => {
 	const lucia = useLuciaAuth(event);
@@ -37,6 +38,7 @@ declare module "h3" {
 	interface H3EventContext {
 		user: User | null;
 		session: Session | null;
-		lucia?: Lucia
+		// implemented by consumer
+		auth?: ILuciaAuthNuxtAdaptater
 	}
 }

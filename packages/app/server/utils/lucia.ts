@@ -6,8 +6,8 @@ import sqlite from "better-sqlite3";
 import url from 'node:url'
 import { TABLE_PREFIX } from "@moneypot/auth/schema";
 
-const __filename = url.fileURLToPath(import.meta.url);
-const dbFolder = resolve(dirname(__filename), "../../");
+// const __filename = url.fileURLToPath(import.meta.url);
+// const dbFolder = resolve(dirname(__filename), "../../");
 
 const sqliteDatabase = sqlite(":memory:");
 // const sqliteDatabase = sqlite(join(dbFolder, './db.sqlite'));

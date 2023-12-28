@@ -36,3 +36,4 @@ export const userSession = sqliteTable('user_session', {
 export type UserSession = InferModel<typeof userSession>
 
 export { TABLE_PREFIX }
+export type { ILuciaAuthNuxtAdaptater } from "./lib/ILuciaAuthNuxtAdaptater"

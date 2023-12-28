@@ -3,7 +3,7 @@ import { generateState } from "arctic";
 export default defineEventHandler(async (event) => {
 	const state = generateState();
 	const url = await github.createAuthorizationURL(state, {
-		scopes: []
+		scopes: ["read:user", "user:email"]
 	});
 
 	setCookie(event, "github_oauth_state", state, {

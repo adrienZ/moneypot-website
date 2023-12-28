@@ -24,12 +24,7 @@ export default eventHandler(async (event) => {
 		});
 	}
 
-	const [ existingUser ] = await db
-    .select()
-    .from(user)
-    .where(eq(user.username, username))
-    .limit(1)
-    .execute()
+	const existingUser = await useDatabaseQueries(event).getUser(username)
 
 
 	if (!existingUser) {

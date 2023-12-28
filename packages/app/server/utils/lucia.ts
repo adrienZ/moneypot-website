@@ -9,7 +9,7 @@ import { TABLE_PREFIX } from "@moneypot/auth/schema";
 const __filename = url.fileURLToPath(import.meta.url);
 const dbFolder = resolve(dirname(__filename), "../../");
 
-const sqliteDatabase = sqlite(":memory");
+const sqliteDatabase = sqlite(":memory:");
 // const sqliteDatabase = sqlite(join(dbFolder, './db.sqlite'));
 export const db: BetterSQLite3Database = drizzle(sqliteDatabase);
 

@@ -1,6 +1,4 @@
 import { Argon2id } from "oslo/password";
-import { user } from "../../../schema";
-import { eq } from "drizzle-orm";
 
 export default eventHandler(async (event) => {
 	const formData = await readFormData(event);
@@ -24,12 +22,7 @@ export default eventHandler(async (event) => {
 		});
 	}
 
-	const [ existingUser ] = await db
-    .select()
-    .from(user)
-    .where(eq(user.username, username))
-    .limit(1)
-    .execute()
+	const existingUser = await useDatabaseQueries(event).getUser(username)
 
 
 	if (!existingUser) {
@@ -48,6 +41,6 @@ export default eventHandler(async (event) => {
 	}
 
 	const lucia = useLuciaAuth(event);
-	const session = await lucia.createSession(existingUser.id, {});
+	const session = await lucia.createSession(existingUser.externalId, {});
 	appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 });

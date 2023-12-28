@@ -31,7 +31,17 @@ async function login(e: Event) {
 		<br />
 		<input type="submit" />
 	</form>
-	<a href="/api/login/github">Sign in with GitHub</a>
 	<p>{{ error }}</p>
-	<NuxtLink to="/signup">Create an account</NuxtLink>
+
+	<div  data-oauth >
+		<a href="/api/login/github">Sign in with GitHub</a>
+	</div>
+
+	<div  data-oauth >
+		<a  href="/api/login/discord">Sign in with Discord</a>
+	</div>
+
+	<div>
+		<NuxtLink to="/signup">Create an account</NuxtLink>
+	</div>
 </template>

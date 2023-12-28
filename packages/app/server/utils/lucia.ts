@@ -11,7 +11,7 @@ const dbFolder = resolve(dirname(__filename), "../../");
 
 const sqliteDatabase = sqlite(":memory:");
 // const sqliteDatabase = sqlite(join(dbFolder, './db.sqlite'));
-export const db: BetterSQLite3Database = drizzle(sqliteDatabase);
+export const db: BetterSQLite3Database = drizzle(sqliteDatabase, { logger: true });
 
 
 const adapter = new BetterSqlite3Adapter(sqliteDatabase, {
@@ -28,8 +28,9 @@ export const lucia = new Lucia(adapter, {
 	getUserAttributes: (attributes) => {
 		return {
 			username: attributes.username,
-			// githubId: attributes.githubId
-		};
+			// @ts-expect-error
+			externalId: attributes.external_id
+		}
 	}
 });
 
@@ -37,5 +38,5 @@ declare module "lucia" {
 	interface Register {
 		Lucia: typeof lucia;
 	}
-	interface DatabaseUserAttributes extends Omit<import("../database/schema").User, "id"> {}
+	interface DatabaseUserAttributes extends Pick<import("../database/schema").User, "id" | "externalId" | "username"> {}
 }

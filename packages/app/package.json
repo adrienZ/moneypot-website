@@ -17,8 +17,10 @@
     "@moneypot/auth": "workspace:^",
     "@moneypot/ui": "workspace:^",
     "@nuxt/devtools": "^1.0.6",
+    "@vue-email/nuxt": "^0.8.7",
     "drizzle-kit": "^0.20.7",
     "nuxt": "^3.9.0",
+    "resend": "^2.1.0",
     "vue": "^3.3.12",
     "vue-router": "^4.2.5"
   },

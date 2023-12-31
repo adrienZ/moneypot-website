@@ -10,7 +10,8 @@ export const user = sqliteTable('user', {
   externalId: text('external_id').notNull().unique(),
   username: text('username').notNull(),
   // password is optional because of oauth
-  password: text("password")
+  password: text("password"),
+  // email: text("email").notNull()
 });
 
 export type User = typeof user.$inferSelect;

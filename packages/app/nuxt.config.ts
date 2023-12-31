@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   ],
   modules: [
     '@nuxt/devtools',
+    '@vue-email/nuxt'
   ],
   runtimeConfig: {
 		githubClientId: "",
@@ -19,5 +20,9 @@ export default defineNuxtConfig({
   },
   experimental: {
     typedPages: true
+  },
+  vueEmail: {
+    baseUrl: 'htpp://localhost:3000',
+    autoImport: true,
   }
 })

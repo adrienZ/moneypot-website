@@ -8,6 +8,13 @@
       "when": 1703776718797,
       "tag": "0000_nostalgic_lady_bullseye",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1704023581584,
+      "tag": "0001_sticky_scarlet_witch",
+      "breakpoints": true
     }
   ]
 }

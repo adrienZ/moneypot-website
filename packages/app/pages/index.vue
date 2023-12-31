@@ -28,12 +28,14 @@ const { data: allUsers } = await useAsyncData(() => $fetch('/api/users'));
         <tr>
           <th>ID</th>
           <th>Username</th>
+          <th>Email</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="user in allUsers" :key="user.id">
           <td>{{ user.externalId }}</td>
           <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
         </tr>
       </tbody>
     </table>

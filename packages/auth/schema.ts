@@ -11,7 +11,7 @@ export const user = sqliteTable('user', {
   username: text('username').notNull(),
   // password is optional because of oauth
   password: text("password"),
-  // email: text("email").notNull()
+  email: text("email")
 });
 
 export type User = typeof user.$inferSelect;

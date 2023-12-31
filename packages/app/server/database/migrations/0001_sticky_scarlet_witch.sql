@@ -1,0 +1,1 @@
+ALTER TABLE auth_layer_user ADD `email` text;

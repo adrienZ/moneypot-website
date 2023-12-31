@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
     const existingUser = await db.getUser(undefined, {
 			providerID: "discord",
-			providerUserID: discordUser.id
+			providerUserID: discordUser.id,
 		})
 		const lucia = useLuciaAuth(event);
 
@@ -42,7 +42,8 @@ export default defineEventHandler(async (event) => {
 
 		const createdUser = await db.insertUser({
 			externalId: userId,
-			username: discordUser.global_name
+			username: discordUser.global_name,
+			email: discordUser.email
 		})
 
 		db.insertOauthAccount({
@@ -80,5 +81,5 @@ export default defineEventHandler(async (event) => {
 interface DiscordUser {
 	id: string;
 	global_name: string;
-	email: string | null;
+	email: string;
 }

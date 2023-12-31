@@ -24,21 +24,21 @@ export default defineEventHandler(async (event) => {
 		const githubUser: GitHubUser = await githubUserResponse.json();
 		let email = githubUser.email;
 
-		// if (!email) {
-		// 	const githubEmailsResponse = await fetch("https://api.github.com/user/emails", {
-		// 		headers: {
-		// 			Authorization: `Bearer ${tokens.accessToken}`
-		// 		}
-		// 	});
+		if (!email) {
+			const githubEmailsResponse = await fetch("https://api.github.com/user/emails", {
+				headers: {
+					Authorization: `Bearer ${tokens.accessToken}`
+				}
+			});
 
-		// 	const githubEmails: GitHubEmail[] = await githubEmailsResponse.json();
-		// 	const primaryEmail = githubEmails.find( emailData => emailData.primary && emailData.verified)?.email ?? null
-		// 	email = primaryEmail
-		// }
+			const githubEmails: GitHubEmail[] = await githubEmailsResponse.json();
+			const primaryEmail = githubEmails.find( emailData => emailData.primary && emailData.verified)?.email ?? null
+			email = primaryEmail
+		}
 
 		const existingUser = await db.getUser(undefined, {
 			providerID: "github",
-			providerUserID: githubUser.id
+			providerUserID: githubUser.id,
 		})
 		const lucia = useLuciaAuth(event);
 
@@ -52,7 +52,8 @@ export default defineEventHandler(async (event) => {
 
 		const createdUser = await db.insertUser({
 			externalId: userId,
-			username: githubUser.login
+			username: githubUser.login,
+			email
 		})
 
 		db.insertOauthAccount({

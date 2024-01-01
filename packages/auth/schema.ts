@@ -8,10 +8,10 @@ const sqliteTable = sqliteTableCreator(name => `${TABLE_PREFIX}${name}`)
 export const user = sqliteTable('user', {
   id: integer('id').notNull().primaryKey({ autoIncrement: true }),
   externalId: text('external_id').notNull().unique(),
-  username: text('username').notNull(),
+  username: text('username'),
   // password is optional because of oauth
   password: text("password"),
-  email: text("email")
+  email: text("email").notNull().unique()
 });
 
 export type User = typeof user.$inferSelect;

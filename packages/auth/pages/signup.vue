@@ -23,8 +23,8 @@ async function signup(e: Event) {
 <template>
 	<h1>Create an account</h1>
 	<form method="post" action="/api/signup" @submit.prevent="signup">
-		<label for="username">Username</label>
-		<input name="username" id="username" />
+		<label for="email">Email</label>
+		<input name="email" id="email" />
 		<br />
 		<label for="password">Password</label>
 		<input type="password" name="password" id="password" />

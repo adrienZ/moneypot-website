@@ -47,9 +47,9 @@ export const lucia = new Lucia(isDev ? adapterBetterSql : adapterLibSql, {
 	},
 	getUserAttributes: (attributes) => {
 		return {
-			username: attributes.username,
+			email: attributes.email,
 			// @ts-expect-error
-			externalId: attributes.external_id
+			externalId: attributes.external_id,
 		}
 	}
 });
@@ -58,5 +58,5 @@ declare module "lucia" {
 	interface Register {
 		Lucia: typeof lucia;
 	}
-	interface DatabaseUserAttributes extends Pick<import("../database/schema").User, "id" | "externalId" | "username"> {}
+	interface DatabaseUserAttributes extends Pick<import("../database/schema").User, "id" | "externalId" | "email"> {}
 }

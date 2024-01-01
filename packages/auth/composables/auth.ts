@@ -16,7 +16,7 @@ export const useAuthenticatedUser = () => {
 		}
 
 		// remove real id from db
-		delete userValue.id;
+		// delete userValue.id;
 		return userValue;
 	});
 };

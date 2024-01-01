@@ -1,19 +1,9 @@
 import { Argon2id } from "oslo/password";
+// import { LegacyScrypt } from "lucia"
 
 export default eventHandler(async (event) => {
 	const formData = await readFormData(event);
-	const username = formData.get("username");
-	if (
-		typeof username !== "string" ||
-		username.length < 3 ||
-		username.length > 31 ||
-		!/^[a-z0-9_-]+$/.test(username)
-	) {
-		throw createError({
-			message: "Invalid username",
-			statusCode: 400
-		});
-	}
+
 	const password = formData.get("password");
 	if (typeof password !== "string" || password.length < 6 || password.length > 255) {
 		throw createError({
@@ -22,25 +12,42 @@ export default eventHandler(async (event) => {
 		});
 	}
 
-	const existingUser = await useDatabaseQueries(event).getUser(username)
-
-
-	if (!existingUser) {
+	const email = formData.get("email");
+	if (!email || typeof email !== "string") {
 		throw createError({
-			message: " username nor found",
+			message: "Invalid email",
 			statusCode: 400
 		});
 	}
 
+	const existingUser = await useDatabaseQueries(event).getUser(email)
+	
+
+	if (!existingUser) {
+		throw createError({
+			message: "email not found",
+			statusCode: 400
+		});
+	}
+
+	if (!existingUser.password) {
+		throw createError({
+			message: "missing data in user",
+			statusCode: 500,
+		})
+	}
+
 	const validPassword = await new Argon2id().verify(existingUser.password, password);
+	console.log(existingUser.password, password, { validPassword });
+	
 	if (!validPassword) {
 		throw createError({
-			message: "Incorrect username or password",
+			message: "Incorrect email or password",
 			statusCode: 400
 		});
 	}
 
 	const lucia = useLuciaAuth(event);
-	const session = await lucia.createSession(existingUser.id, {});
+	const session = await lucia.createSession(String(existingUser.id), {});
 	appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 });

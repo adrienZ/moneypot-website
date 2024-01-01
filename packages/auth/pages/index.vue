@@ -16,7 +16,7 @@ async function logout() {
 
 <template>
 	<p>User id: {{ user.id }}</p>
-	<p>username: {{ user.username }}</p>
+	<p>email: {{ user.email }}</p>
 	<form method="post" action="/api/logout" @submit.prevent="logout">
 		<input type="submit" value="Sign out" />
 	</form>

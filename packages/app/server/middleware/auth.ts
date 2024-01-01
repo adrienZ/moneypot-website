@@ -13,13 +13,15 @@ export default defineEventHandler(async (event) => {
 
         return inserted;
       },
-      async getUser(userId, providerData) {
+      async getUser(email, providerData) {
+        console.log(email, providerData);
         
-        if (userId) {
+
+        if (email) {
           const [ existingUser ] = await db
           .select()
           .from(user)
-          .where(eq(user.username, userId))
+          .where(eq(user.email, email))
           .limit(1)
           .execute();
 

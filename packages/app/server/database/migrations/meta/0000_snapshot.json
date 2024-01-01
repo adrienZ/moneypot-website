@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "edb823c9-fb9a-4f9d-b5cf-96ff091d966e",
+  "id": "88cfe4d1-4ded-4a4c-9db6-1998ac61439d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "auth_layer_oauth_account": {
@@ -76,7 +76,7 @@
           "name": "username",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "password": {
@@ -85,6 +85,13 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {
@@ -92,6 +99,13 @@
           "name": "auth_layer_user_external_id_unique",
           "columns": [
             "external_id"
+          ],
+          "isUnique": true
+        },
+        "auth_layer_user_email_unique": {
+          "name": "auth_layer_user_email_unique",
+          "columns": [
+            "email"
           ],
           "isUnique": true
         }

@@ -22,6 +22,8 @@ export default defineNuxtConfig({
     typedPages: true
   },
   vueEmail: {
+    // seems to be needed in prod
+    autoImport: true,
     baseUrl: 'http://localhost:3000',
   }
 })

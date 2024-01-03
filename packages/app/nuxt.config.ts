@@ -22,7 +22,15 @@ export default defineNuxtConfig({
     typedPages: true
   },
   vueEmail: {
-    baseUrl: 'htpp://localhost:3000',
-    autoImport: true,
+    baseUrl: 'http://localhost:3000',
   }
 })
+
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      RESEND_API_KEY?: string;
+    }
+  }
+}

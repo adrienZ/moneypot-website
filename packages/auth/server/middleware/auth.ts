@@ -1,6 +1,7 @@
 import { verifyRequestOrigin } from "lucia";
 import type { User, Session } from "lucia";
 import { ILuciaAuthNuxtAdaptater } from "~/lib/ILuciaAuthNuxtAdaptater";
+import { IEmailService } from "~/lib/interfaces/IEmailService";
 
 export default defineEventHandler(async (event) => {
 	const lucia = useLuciaAuth(event);
@@ -39,5 +40,6 @@ declare module "h3" {
 		session: Session | null;
 		// implemented by consumer
 		auth?: ILuciaAuthNuxtAdaptater
+		email: IEmailService
 	}
 }

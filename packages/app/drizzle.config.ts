@@ -6,8 +6,8 @@ const isDev = driver === "better-sqlite"
 const dbCredentials = isDev ? {
   url: join(__dirname, './db.sqlite')
 } : {
-  url: "libsql://moneypot-website-adrienz.turso.io",
-	authToken: "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJpYXQiOiIyMDIzLTEyLTI4VDAyOjA0OjAwLjE5MDgxNTMwNFoiLCJpZCI6IjkyZDAxYzQ5LWE1MjMtMTFlZS1iMWVkLTVlODdjMGQ1OTFkMCJ9.qG30_hunWI7uLhhsGQTkAtxvUpe2Yh0EOmNBzYrVupEVDx9b16JRgXv1EzvziOd6y8uF0_7_B-dbDPtAR_MHBQ",
+    url: process.env.TURSO_DB_URL,
+    authToken:process.env.TURSO_DB_TOKEN,
   }
 
 export default defineConfig({

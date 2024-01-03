@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default defineAuthEmailService({
   async welcomeEmail(params) {
-    const emailContent = await useCompiler('signup.email.vue', {
+    const emailContent = await useCompiler('signup.vue', {
       props: {
         username: 'John Doe',
       }

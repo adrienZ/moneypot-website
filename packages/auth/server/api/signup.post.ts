@@ -32,6 +32,8 @@ export default eventHandler(async (event) => {
 			email,
 		});
 
+		useEmailService(event).welcomeEmail({ targetEmail: email });
+
 		const session = await lucia.createSession(String(createdUser.id), {});
 		appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 	} catch (e) {

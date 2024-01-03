@@ -31,6 +31,8 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       RESEND_API_KEY?: string;
+      TURSO_DB_URL?: string;
+      TURSO_DB_TOKEN?: string
     }
   }
 }

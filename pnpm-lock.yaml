@@ -25,6 +25,9 @@ importers:
       resend:
         specifier: ^2.1.0
         version: 2.1.0
+      vue-email:
+        specifier: ^0.8.5
+        version: 0.8.5(typescript@5.3.3)(vue@3.3.13)
     devDependencies:
       '@lucia-auth/adapter-sqlite':
         specifier: 3.0.0-beta.11

@@ -27,6 +27,7 @@
     "@vue-email/nuxt": "^0.8.7",
     "drizzle-orm": "^0.29.1",
     "lucia": "3.0.0-beta.13",
-    "resend": "^2.1.0"
+    "resend": "^2.1.0",
+    "vue-email": "^0.8.5"
   }
 }

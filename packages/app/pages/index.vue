@@ -18,8 +18,7 @@ const { data: allUsers } = await useAsyncData(() => $fetch('/api/users'));
 
 <template>
 	<h1>Profile</h1>
-	<p>User id: {{ user.id }}</p>
-	<p>Email: {{ user.email }}</p>
+  <pre>{{ user  }}</pre>
 	<form method="post" action="/api/logout" @submit.prevent="handleLogout">
 		<input type="submit" value="Sign out" />
 	</form>
@@ -28,12 +27,14 @@ const { data: allUsers } = await useAsyncData(() => $fetch('/api/users'));
         <tr>
           <th>ID</th>
           <th>Email</th>
+          <th>Email Verified</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="user in allUsers" :key="user.id">
           <td>{{ user.externalId }}</td>
           <td>{{ user.email }}</td>
+          <td>{{ user.emailVerified }}</td>
         </tr>
       </tbody>
     </table>

@@ -1,6 +1,7 @@
 import { DiscordTokens, OAuth2RequestError } from "arctic";
 import { DatabaseSessionAttributes, generateId } from "lucia";
 import { discord } from "../../../../lib/providers/discord";
+import { onUserCreation, onUserLogin } from "../../../../lib/onUserCreation"
 
 export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
@@ -30,12 +31,12 @@ export default defineEventHandler(async (event) => {
 			providerID: "discord",
 			providerUserID: discordUser.id,
 		})
-		const lucia = useLuciaAuth(event);
 
 		if (existingUser) {
-			const session = await lucia.createSession(existingUser.id, {});
-			appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
-			return sendRedirect(event, "/");
+			onUserLogin(event, {
+				email: existingUser.email,
+				id: existingUser.id
+			})
 		}
 
 		const userId = generateId(15);
@@ -43,7 +44,8 @@ export default defineEventHandler(async (event) => {
 		const createdUser = await db.insertUser({
 			externalId: userId,
 			username: discordUser.global_name,
-			email: discordUser.email
+			email: discordUser.email,
+			emailVerified: discordUser.verified
 		})
 
 		db.insertOauthAccount({
@@ -53,9 +55,10 @@ export default defineEventHandler(async (event) => {
 		})
 
 
-		const session = await lucia.createSession(String(createdUser.id), {});
-		appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
-		return sendRedirect(event, "/");
+		await onUserCreation(event, {
+			email: createdUser.email,
+			id: createdUser.id
+		})
   } catch (e) {
 		if (e instanceof OAuth2RequestError && e.message === "bad_verification_code") {
 			// invalid code
@@ -82,4 +85,5 @@ interface DiscordUser {
 	id: string;
 	global_name: string;
 	email: string;
+	verified: boolean,
 }

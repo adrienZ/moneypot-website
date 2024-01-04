@@ -1,5 +1,6 @@
 import { OAuth2RequestError } from "arctic";
 import { generateId } from "lucia";
+import { onUserCreation, onUserLogin } from "../../../../lib/onUserCreation"
 
 export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
@@ -43,9 +44,10 @@ export default defineEventHandler(async (event) => {
 		const lucia = useLuciaAuth(event);
 
 		if (existingUser) {
-			const session = await lucia.createSession(String(existingUser.id), {});
-			appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
-			return sendRedirect(event, "/");
+			onUserLogin(event, {
+				email: existingUser.email,
+				id: existingUser.id
+			})
 		}
 
 		const userId = generateId(15);
@@ -53,7 +55,9 @@ export default defineEventHandler(async (event) => {
 		const createdUser = await db.insertUser({
 			externalId: userId,
 			username: githubUser.login,
-			email
+			email,
+			// as we verify it with primaryEmail const
+			emailVerified: true
 		})
 
 		db.insertOauthAccount({
@@ -62,9 +66,10 @@ export default defineEventHandler(async (event) => {
 			userId: createdUser.externalId,
 		})
 
-		const session = await lucia.createSession(String(createdUser.id), {});
-		appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
-		return sendRedirect(event, "/");
+		await onUserCreation(event, {
+			email: createdUser.email,
+			id: createdUser.id
+		})
 	} catch (e) {
 		if (e instanceof OAuth2RequestError && e.message === "bad_verification_code") {
 			// invalid code

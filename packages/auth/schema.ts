@@ -11,6 +11,7 @@ export const user = sqliteTable('user', {
   username: text('username'),
   // password is optional because of oauth
   password: text("password"),
+  emailVerified: integer("email_verified", {mode: "boolean"}).notNull().default(false),
   email: text("email").notNull().unique()
 });
 
@@ -33,6 +34,15 @@ export const oauthAccount = sqliteTable("oauth_account", {
   providerUserID: text("provider_user_id").notNull(),
   userId: text('user_id').notNull().references(() => user.externalId),
 })
+
+export const emailVerificationCode = sqliteTable("email_verification_code", {
+  id: integer("id").notNull().primaryKey({ autoIncrement: true }),
+  code: text("code").notNull(),
+  userId: text("user_id").notNull().unique(),
+  email: text("email").notNull(),
+  // date
+  expiresAt: integer("expires_at", { mode: "timestamp"}).notNull()
+});
 
 export { TABLE_PREFIX }
 export type { ILuciaAuthNuxtAdaptater } from "./lib/ILuciaAuthNuxtAdaptater"

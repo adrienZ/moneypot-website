@@ -3,7 +3,7 @@
 import type { Lucia } from "lucia";
 
 // TODO: find a way to externalise those imports
-import { user, oauthAccount } from "../schema";
+import { user, oauthAccount , emailVerificationCode} from "../schema";
 
 type UserInsert = typeof user.$inferInsert
 type UserSelect= typeof user.$inferSelect
@@ -11,12 +11,18 @@ type UserSelect= typeof user.$inferSelect
 type OauthAccountInsert = typeof oauthAccount.$inferInsert
 type OauthAccountSelect = typeof oauthAccount.$inferSelect
 
+type EmailVerificationCodeInsert = typeof emailVerificationCode.$inferInsert
+type EmailVerificationCodeSelect = typeof emailVerificationCode.$inferSelect
+
 
 // TODO: create a "defineFunction" instead of interface
-interface IDatabaseQueries {
+export interface IDatabaseQueries {
   insertUser(user: UserInsert): Promise<UserSelect>
   insertOauthAccount(account: OauthAccountInsert): Promise<OauthAccountSelect>
-  getUser(id?: string, providerData?: Pick<OauthAccountInsert, "providerID" | "providerUserID">): Promise<UserSelect | null>}
+  getUser(id?: string, providerData?: { providedEmail?: string | null } & Pick<OauthAccountInsert, "providerID" | "providerUserID">): Promise<UserSelect | null>
+  deleteEmailVerficationCode(userId: string): Promise<void>
+  insertEmailVerficationCode(data: EmailVerificationCodeInsert): Promise<EmailVerificationCodeSelect>
+}
 
 
 type UserWithoutId = Omit<UserSelect, "id">

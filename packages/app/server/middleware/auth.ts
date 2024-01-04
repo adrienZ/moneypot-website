@@ -1,4 +1,4 @@
-import { ILuciaAuthNuxtAdaptater, oauthAccount, user } from "@moneypot/auth/schema";
+import { ILuciaAuthNuxtAdaptater, oauthAccount, user, emailVerificationCode } from "@moneypot/auth/schema";
 import { and, eq } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
@@ -14,9 +14,6 @@ export default defineEventHandler(async (event) => {
         return inserted;
       },
       async getUser(email, providerData) {
-        console.log(email, providerData);
-        
-
         if (email) {
           const [ existingUser ] = await db
           .select()
@@ -34,13 +31,14 @@ export default defineEventHandler(async (event) => {
           .from(oauthAccount)
           .where(
             and(
+              // TODO: implement a second check if the oauthAccount email is already in user DB
               eq(oauthAccount.providerID, providerData.providerID),
-              eq(oauthAccount.providerUserID, providerData.providerUserID)
+              eq(oauthAccount.providerUserID, providerData.providerUserID),
             )
           )
           .limit(1)
           .execute();
-          
+
           return existingUser
         }
 
@@ -53,7 +51,20 @@ export default defineEventHandler(async (event) => {
           .returning()
 
         return inserted
-      }
+      },
+      async deleteEmailVerficationCode(userId) {
+        await db
+        .delete(emailVerificationCode)
+        .where(eq(emailVerificationCode.userId, userId))
+      },
+      async insertEmailVerficationCode(data) {
+        const [inserted] = await db
+        .insert(emailVerificationCode)
+        .values(data)
+        .returning()
+
+      return inserted;
+      },
     }
   }
 

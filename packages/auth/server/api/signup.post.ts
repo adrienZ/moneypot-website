@@ -2,6 +2,7 @@ import { Argon2id  } from "oslo/password";
 import { generateId } from "lucia";
 import { SqliteError } from "better-sqlite3";
 import { isValidEmail } from "../../lib/helpers/email";
+import { onUserCreation } from "../../lib/onUserCreation";
 
 export default eventHandler(async (event) => {
 	const formData = await readFormData(event);
@@ -24,18 +25,16 @@ export default eventHandler(async (event) => {
 	const userId = generateId(15);
 
 	try {
-		const lucia = useLuciaAuth(event);
-
 		const createdUser = await useDatabaseQueries(event).insertUser({
 			externalId: userId,
 			password: hashedPassword,
 			email,
 		});
 
-		useEmailService(event).welcomeEmail({ targetEmail: email });
-
-		const session = await lucia.createSession(String(createdUser.id), {});
-		appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
+		await onUserCreation(event, {
+			email: createdUser.email,
+			id: createdUser.id
+		})
 	} catch (e) {
 		if (e instanceof SqliteError && e.code === "SQLITE_CONSTRAINT_UNIQUE") {
 			throw createError({

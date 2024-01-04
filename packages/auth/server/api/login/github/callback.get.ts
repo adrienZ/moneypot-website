@@ -41,12 +41,18 @@ export default defineEventHandler(async (event) => {
 			providerID: "github",
 			providerUserID: githubUser.id,
 		})
-		const lucia = useLuciaAuth(event);
 
 		if (existingUser) {
 			onUserLogin(event, {
 				email: existingUser.email,
 				id: existingUser.id
+			})
+		}
+
+		if (!email) {
+			return createError({
+				status: 400,
+				message: "user not verified"
 			})
 		}
 

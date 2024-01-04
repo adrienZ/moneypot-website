@@ -65,7 +65,35 @@ export default defineEventHandler(async (event) => {
 
       return inserted;
       },
-    }
+      async getEmailVerficationCodeByUserId(userId) {
+        const [inserted] = await db
+          .select()
+          .from(emailVerificationCode)
+          .where(eq(emailVerificationCode.userId, userId))
+          .limit(1)
+          .execute();
+
+        return inserted;
+      },
+      async deleteEmailVerificationCodeById(code) {
+        await db
+          .delete(emailVerificationCode)
+          .where(eq(emailVerificationCode.id, code))
+          .execute();
+      },
+      async updateUserEmailVerificationById(id) {
+          const [inserted] = await db
+            .update(user)
+            .set({
+              emailVerified: true,
+            })
+            .where(eq(user.id, id))
+            .returning();
+          
+            return inserted;
+
+      },
+    },
   }
 
   event.context.auth = auth;

@@ -38,8 +38,7 @@ export default eventHandler(async (event) => {
 	}
 
 	const validPassword = await new Argon2id().verify(existingUser.password, password);
-	console.log(existingUser.password, password, { validPassword });
-	
+
 	if (!validPassword) {
 		throw createError({
 			message: "Incorrect email or password",

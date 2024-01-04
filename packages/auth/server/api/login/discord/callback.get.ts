@@ -27,6 +27,13 @@ export default defineEventHandler(async (event) => {
 
     const discordUser: DiscordUser = await discordUserResponse.json();
 
+		if (!discordUser.verified) {
+			return createError({
+				status: 400,
+				message: "user not verified"
+			})
+		}
+
     const existingUser = await db.getUser(undefined, {
 			providerID: "discord",
 			providerUserID: discordUser.id,

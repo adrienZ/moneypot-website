@@ -8,10 +8,10 @@ interface IUserData {
 }
 
 export async function onUserCreation(event: H3Event, userData: IUserData) {
-  const emailService = useEmailService(event)
+  const emailService = useEmailService(event);
   emailService.welcomeEmail({ targetEmail: userData.email });
   await onUserLogin(event, userData);
-  const code = await generateEmailVerificationCode(event, String(userData.id), userData.email);
+  const code = await generateEmailVerificationCode(event, userData.id, userData.email);
   emailService.sendEmailVerification({
     targetEmail: userData.email,
     code

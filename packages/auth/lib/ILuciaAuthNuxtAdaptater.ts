@@ -3,7 +3,7 @@
 import type { Lucia } from "lucia";
 
 // TODO: find a way to externalise those imports
-import { user, oauthAccount , emailVerificationCode} from "../schema";
+import { user, oauthAccount , emailVerificationCode } from "../schema";
 
 type UserInsert = typeof user.$inferInsert
 type UserSelect= typeof user.$inferSelect
@@ -20,8 +20,11 @@ export interface IDatabaseQueries {
   insertUser(user: UserInsert): Promise<UserSelect>
   insertOauthAccount(account: OauthAccountInsert): Promise<OauthAccountSelect>
   getUser(id?: string, providerData?: { providedEmail?: string | null } & Pick<OauthAccountInsert, "providerID" | "providerUserID">): Promise<UserSelect | null>
-  deleteEmailVerficationCode(userId: string): Promise<void>
+  deleteEmailVerficationCode(userId: number): Promise<void>
   insertEmailVerficationCode(data: EmailVerificationCodeInsert): Promise<EmailVerificationCodeSelect>
+  getEmailVerficationCodeByUserId(userId: string): Promise<EmailVerificationCodeSelect>
+  deleteEmailVerificationCodeById(id: number): Promise<void>
+  updateUserEmailVerificationById(id: number): Promise<UserSelect>
 }
 
 

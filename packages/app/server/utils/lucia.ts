@@ -42,7 +42,8 @@ const adapterBetterSql = new BetterSqlite3Adapter(sqliteDatabase, {
 export const lucia = new Lucia(isDev ? adapterBetterSql : adapterLibSql, {
 	sessionCookie: {
 		attributes: {
-			secure: !isDev
+			secure: !isDev,
+			sameSite: "strict",
 		}
 	},
 	getUserAttributes: (attributes) => {
@@ -60,5 +61,5 @@ declare module "lucia" {
 	interface Register {
 		Lucia: typeof lucia;
 	}
-	interface DatabaseUserAttributes extends Pick<import("../database/schema").User, "externalId" | "emailVerified"> {}
+	interface DatabaseUserAttributes extends Pick<import("../database/schema").User, "id" | "externalId" | "emailVerified"> {}
 }

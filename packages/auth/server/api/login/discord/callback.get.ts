@@ -80,12 +80,6 @@ export default defineEventHandler(async (event) => {
 			message: String(e)
 		});
 	}
-
-    // const tokens: DiscordTokens = await discord.validateAuthorizationCode(code);
-  // const tokens: DiscordTokens = await discord.refreshAccessToken(refreshToken);
-
-
-  return "yo"
 });
 
 interface DiscordUser {

@@ -20,7 +20,6 @@ export type User = typeof user.$inferSelect;
 // user_session table
 export const userSession = sqliteTable('user_session', {
   id: text('id').notNull().primaryKey(),
-  // TODO: looks i have no choice but use the column "id" in lucia
   userId: integer('user_id').notNull().references(() => user.id),
   expiresAt: integer("expires_at", { mode: "timestamp"}).notNull()
 });
@@ -32,6 +31,7 @@ export const oauthAccount = sqliteTable("oauth_account", {
     enum: oauthProviders
   }).notNull(),
   providerUserID: text("provider_user_id").notNull(),
+  // TODO: use `id` instead of `externalId`
   userId: text('user_id').notNull().references(() => user.externalId),
 })
 
@@ -43,6 +43,14 @@ export const emailVerificationCode = sqliteTable("email_verification_code", {
   // date
   expiresAt: integer("expires_at", { mode: "timestamp"}).notNull()
 });
+
+export const passwordResetToken = sqliteTable("password_reset_token", {
+  id: integer("id").notNull().primaryKey({ autoIncrement: true }),
+  token: text("token").notNull(),
+  userId: integer('user_id').notNull().references(() => user.id),
+  // date
+  expiresAt: integer("expires_at", { mode: "timestamp"}).notNull()
+})
 
 export { TABLE_PREFIX }
 export type { ILuciaAuthNuxtAdaptater } from "./lib/ILuciaAuthNuxtAdaptater"

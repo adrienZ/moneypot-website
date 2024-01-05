@@ -1,100 +1,38 @@
-import { ILuciaAuthNuxtAdaptater, oauthAccount, user, emailVerificationCode } from "@moneypot/auth/schema";
-import { and, eq } from "drizzle-orm";
+import { verifyRequestOrigin } from "lucia";
+import type { User, Session } from "lucia";
 
 export default defineEventHandler(async (event) => {
-  const auth: ILuciaAuthNuxtAdaptater = {
-    lucia,
-    databaseQueries: {
-      async insertUser(data) {
-        const [inserted] = await db
-          .insert(user)
-          .values(data)
-          .returning()
+	if (event.node.req.method !== "GET") {
+		const originHeader = getHeader(event, "Origin") ?? null;
+		const hostHeader = getHeader(event, "Host") ?? null;
 
-        return inserted;
-      },
-      async getUser(email, providerData) {
-        if (email) {
-          const [ existingUser ] = await db
-          .select()
-          .from(user)
-          .where(eq(user.email, email))
-          .limit(1)
-          .execute();
+		if (!originHeader || !hostHeader || !verifyRequestOrigin(originHeader, [hostHeader])) {
+			return event.node.res.writeHead(403).end();
+		}
+	}
 
-          return existingUser
-        }
+	const sessionId = getCookie(event, lucia.sessionCookieName) ?? null;
+	if (!sessionId) {
+		event.context.session = null;
+		event.context.user = null;
+		return;
+	}
 
-        if (providerData) {
-          const [ existingUser ] = await db
-          .select()
-          .from(oauthAccount)
-          .where(
-            and(
-              // TODO: implement a second check if the oauthAccount email is already in user DB
-              eq(oauthAccount.providerID, providerData.providerID),
-              eq(oauthAccount.providerUserID, providerData.providerUserID),
-            )
-          )
-          .limit(1)
-          .execute();
-
-          return existingUser
-        }
-
-        return null
-      },
-      async insertOauthAccount(account) {
-        const [inserted] = await db
-          .insert(oauthAccount)
-          .values(account)
-          .returning()
-
-        return inserted
-      },
-      async deleteEmailVerficationCode(userId) {
-        await db
-        .delete(emailVerificationCode)
-        .where(eq(emailVerificationCode.userId, userId))
-      },
-      async insertEmailVerficationCode(data) {
-        const [inserted] = await db
-        .insert(emailVerificationCode)
-        .values(data)
-        .returning()
-
-      return inserted;
-      },
-      async getEmailVerficationCodeByUserId(userId) {
-        const [inserted] = await db
-          .select()
-          .from(emailVerificationCode)
-          .where(eq(emailVerificationCode.userId, userId))
-          .limit(1)
-          .execute();
-
-        return inserted;
-      },
-      async deleteEmailVerificationCodeById(code) {
-        await db
-          .delete(emailVerificationCode)
-          .where(eq(emailVerificationCode.id, code))
-          .execute();
-      },
-      async updateUserEmailVerificationById(id) {
-          const [inserted] = await db
-            .update(user)
-            .set({
-              emailVerified: true,
-            })
-            .where(eq(user.id, id))
-            .returning();
-          
-            return inserted;
-
-      },
-    },
-  }
-
-  event.context.auth = auth;
+	const { session, user } = await lucia.validateSession(sessionId);
+	if (session && session.fresh) {
+		appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
+	}
+	if (!session) {
+		appendHeader(event, "Set-Cookie", lucia.createBlankSessionCookie().serialize());
+	}
+	
+	event.context.session = session;
+	event.context.user = user;
 });
+
+declare module "h3" {
+	interface H3EventContext {
+		user: User | null;
+		session: Session | null;
+	}
+}

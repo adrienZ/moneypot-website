@@ -1,0 +1,1 @@
+ALTER TABLE auth_layer_password_reset_token ADD `token` text NOT NULL;

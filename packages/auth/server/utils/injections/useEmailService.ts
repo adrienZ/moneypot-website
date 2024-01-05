@@ -9,6 +9,9 @@ const defaultEmailService:IEmailService  = {
   sendEmailVerification(params) {
     console.log("SEND VERIFICATION CODE " + JSON.stringify(params, null, 2));
   },
+  sendResetPasswordRequest(params) {
+      console.log(params.url, "SENDED TO", params.targetEmail);
+  },
 }
 export function useEmailService(h3Event: H3Event): IEmailService {
 	return h3Event.context.email || defaultEmailService;

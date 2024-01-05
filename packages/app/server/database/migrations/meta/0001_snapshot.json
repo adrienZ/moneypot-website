@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "6969ef5c-e702-4142-81ba-32bba364b3c5",
-  "prevId": "88cfe4d1-4ded-4a4c-9db6-1998ac61439d",
+  "id": "397037c7-de9c-4089-90ca-bbb20ef503b7",
+  "prevId": "7a9a692f-6bcd-4a08-b914-a0ec9e902cb8",
   "tables": {
     "auth_layer_email_verification_code": {
       "name": "auth_layer_email_verification_code",
@@ -99,6 +99,57 @@
           ],
           "columnsTo": [
             "external_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "auth_layer_password_reset_token": {
+      "name": "auth_layer_password_reset_token",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "auth_layer_password_reset_token_user_id_auth_layer_user_id_fk": {
+          "name": "auth_layer_password_reset_token_user_id_auth_layer_user_id_fk",
+          "tableFrom": "auth_layer_password_reset_token",
+          "tableTo": "auth_layer_user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"

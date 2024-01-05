@@ -18,7 +18,6 @@ async function login(e: Event) {
 		await navigateTo("/");
 	}
 }
-const { data: allUsers } = await useAsyncData(() => $fetch('/api/users'));
 </script>
 
 <template>
@@ -46,21 +45,7 @@ const { data: allUsers } = await useAsyncData(() => $fetch('/api/users'));
 		<NuxtLink to="/signup">Create an account</NuxtLink>
 	</div>
 
-	<table v-if="allUsers?.length">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>email</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in allUsers" :key="user.id">
-          <td>{{ user.externalId }}</td>
-          <td>{{ user.email }}</td>
-        </tr>
-      </tbody>
-    </table>
-	<div v-else>
-		<code>no user created yet !</code>
+	<div>
+		<NuxtLink to="/reset-password">forgotten password ?</NuxtLink>
 	</div>
 </template>

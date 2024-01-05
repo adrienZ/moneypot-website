@@ -2,9 +2,24 @@
   <div>
     <header>
       The header
+
+      <nav>
+        <ul>
+          <li v-if="user">
+            <form method="post" action="/api/logout" @submit.prevent="handleLogout">
+              <input type="submit" value="Sign out" />
+            </form>
+          </li>
+          <li v-if="user && $route.path !== '/profile'">
+            <NuxtLink to="/profile">Profile</NuxtLink>
+          </li>
+          <li v-if="user && $route.path === '/profile'">
+            <NuxtLink to="/">Home</NuxtLink>
+          </li>
+        </ul>
+      </nav>
     </header>
     <hr />
-
     <br />
 
     <slot />
@@ -44,4 +59,12 @@
 <script setup lang="ts">
 const user = useUser();
 const { data: allUsers } = await useAsyncData(() => $fetch('/api/users'));
+
+const handleLogout = async () => {
+	await $fetch("/api/logout", {
+		method: "POST",
+		redirect: "manual"
+	});
+	await navigateTo("/login");
+};
 </script>

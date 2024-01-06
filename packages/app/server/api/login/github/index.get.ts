@@ -1,9 +1,8 @@
 import { generateState } from "arctic";
-import { github } from "../../../../lib/providers/github"
 
 export default defineEventHandler(async (event) => {
 	const state = generateState();
-	const url = await github.createAuthorizationURL(state, {
+	const url = await myAuth.github.createAuthorizationURL(state, {
 		scopes: ["read:user", "user:email"]
 	});
 

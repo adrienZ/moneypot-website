@@ -1,7 +1,5 @@
 import { OAuth2RequestError } from "arctic";
 import { generateId } from "lucia";
-import { onUserCreation, onUserLogin } from "../../../../lib/onUserCreation"
-import { github } from "../../../../lib/providers/github"
 
 export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
@@ -16,8 +14,9 @@ export default defineEventHandler(async (event) => {
 	}
 
 	try {
-		const tokens = await github.validateAuthorizationCode(code);
+		const tokens = await myAuth.github.validateAuthorizationCode(code);
 		const db = useDatabaseQueries(event);
+
 		const githubUserResponse = await fetch("https://api.github.com/user", {
 			headers: {
 				Authorization: `Bearer ${tokens.accessToken}`
@@ -45,12 +44,12 @@ export default defineEventHandler(async (event) => {
 			})
 		}
 
-		const existingUserByProvider = await db.getUser(undefined, {
+		const existingUserByProvider = await myAuth.oauthAccountTable.getByProviderData({
 			providerID: "github",
 			providerUserID: githubUser.id,
 		})
 
-		const existingUserByEmail = await db.getUser(email)
+		const existingUserByEmail =  await myAuth.userTable.getUserByEmail(email)
 
 		if (existingUserByEmail && !existingUserByEmail.emailVerified && !existingUserByProvider) {
 			return createError({
@@ -61,7 +60,7 @@ export default defineEventHandler(async (event) => {
 
 		const existingUser = existingUserByProvider ?? existingUserByEmail
 		if (existingUser) {
-			onUserLogin(event, {
+			myAuth.hooks.onUserLogin(event, {
 				email: existingUser.email,
 				id: existingUser.id
 			})
@@ -83,7 +82,7 @@ export default defineEventHandler(async (event) => {
 			userId: createdUser.externalId,
 		})
 
-		await onUserCreation(event, {
+		await myAuth.hooks.onUserCreation(event, {
 			email: createdUser.email,
 			id: createdUser.id
 		})
@@ -95,7 +94,6 @@ export default defineEventHandler(async (event) => {
 				message: String(e.description || e.message)
 			});
 		}
-		
 
 		throw createError({
 			status: 500,

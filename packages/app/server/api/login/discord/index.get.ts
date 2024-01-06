@@ -1,9 +1,8 @@
 import { generateState } from "arctic";
-import { discord } from "../../../../lib/providers/discord"
 
 export default defineEventHandler(async (event) => {
 	const state = generateState();
-  const url: URL = await discord.createAuthorizationURL(state, {
+  const url: URL = await myAuth.discord.createAuthorizationURL(state, {
     scopes: ["email", "identify"]
   });
 

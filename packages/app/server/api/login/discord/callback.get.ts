@@ -1,7 +1,5 @@
 import { DiscordTokens, OAuth2RequestError } from "arctic";
 import { DatabaseSessionAttributes, generateId } from "lucia";
-import { discord } from "../../../../lib/providers/discord";
-import { onUserCreation, onUserLogin } from "../../../../lib/onUserCreation"
 
 export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
@@ -16,7 +14,7 @@ export default defineEventHandler(async (event) => {
 	}
 
   try {
-    const tokens: DiscordTokens = await discord.validateAuthorizationCode(code);
+    const tokens: DiscordTokens = await myAuth.discord.validateAuthorizationCode(code);
 		const db = useDatabaseQueries(event);
 
 		const discordUserResponse = await fetch("https://discord.com/api/users/@me", {
@@ -34,12 +32,13 @@ export default defineEventHandler(async (event) => {
 			})
 		}
 
-		const existingUserByProvider = await db.getUser(undefined, {
+		const existingUserByProvider = await myAuth.oauthAccountTable.getByProviderData({
 			providerID: "discord",
 			providerUserID: discordUser.id,
 		})
 
-		const existingUserByEmail = await db.getUser(discordUser.email)
+		const existingUserByEmail =  await myAuth.userTable.getUserByEmail(discordUser.email)
+
 
 		if (existingUserByEmail && !existingUserByEmail.emailVerified && !existingUserByProvider) {
 			return createError({
@@ -50,15 +49,7 @@ export default defineEventHandler(async (event) => {
 
 		const existingUser = existingUserByProvider ?? existingUserByEmail
 		if (existingUser) {
-			onUserLogin(event, {
-				email: existingUser.email,
-				id: existingUser.id
-			})
-		}
-
-
-		if (existingUser) {
-			onUserLogin(event, {
+			myAuth.hooks.onUserLogin(event, {
 				email: existingUser.email,
 				id: existingUser.id
 			})
@@ -80,7 +71,7 @@ export default defineEventHandler(async (event) => {
 		})
 
 
-		await onUserCreation(event, {
+		await myAuth.hooks.onUserCreation(event, {
 			email: createdUser.email,
 			id: createdUser.id
 		})

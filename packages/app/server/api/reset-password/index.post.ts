@@ -1,7 +1,7 @@
-import { isValidEmail } from "~/server/lib/helpers/email";
+import { isValidEmail } from "#myauth/helpers/email";
+import { createPasswordResetToken } from "#myauth/reset-password"
 import { user } from "@moneypot/auth/schema";
 import { eq } from "drizzle-orm";
-import { createPasswordResetToken } from "~/server/lib/reset-password"
 
 // TODO: Make sure to implement rate limiting based on IP addresses.
 export default defineEventHandler(async (event) => {

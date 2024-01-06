@@ -1,4 +1,5 @@
 import { generateState } from "arctic";
+import { github } from "../../../../lib/providers/github"
 
 export default defineEventHandler(async (event) => {
 	const state = generateState();

@@ -4,6 +4,7 @@ export default eventHandler(async (event) => {
 			statusCode: 403
 		});
 	}
+
 	const lucia = useLuciaAuth(event);
 	await lucia.invalidateSession(event.context.session.id);
 	appendHeader(event, "Set-Cookie", lucia.createBlankSessionCookie().serialize());

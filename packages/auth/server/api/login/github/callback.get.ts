@@ -1,6 +1,7 @@
 import { OAuth2RequestError } from "arctic";
 import { generateId } from "lucia";
 import { onUserCreation, onUserLogin } from "../../../../lib/onUserCreation"
+import { github } from "../../../../lib/providers/github"
 
 export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
@@ -37,22 +38,32 @@ export default defineEventHandler(async (event) => {
 			email = primaryEmail
 		}
 
-		const existingUser = await db.getUser(undefined, {
+		if (!email) {
+			return createError({
+				status: 400,
+				message: "github user not verified"
+			})
+		}
+
+		const existingUserByProvider = await db.getUser(undefined, {
 			providerID: "github",
 			providerUserID: githubUser.id,
 		})
 
+		const existingUserByEmail = await db.getUser(email)
+
+		if (existingUserByEmail && !existingUserByEmail.emailVerified && !existingUserByProvider) {
+			return createError({
+				status: 400,
+				message: "user email not verified"
+			})
+		}
+
+		const existingUser = existingUserByProvider ?? existingUserByEmail
 		if (existingUser) {
 			onUserLogin(event, {
 				email: existingUser.email,
 				id: existingUser.id
-			})
-		}
-
-		if (!email) {
-			return createError({
-				status: 400,
-				message: "user not verified"
 			})
 		}
 
@@ -62,7 +73,7 @@ export default defineEventHandler(async (event) => {
 			externalId: userId,
 			username: githubUser.login,
 			email,
-			// as we verify it with primaryEmail const
+			// as we verified it with primaryEmail const
 			emailVerified: true
 		})
 

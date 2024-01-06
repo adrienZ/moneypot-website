@@ -30,14 +30,32 @@ export default defineEventHandler(async (event) => {
 		if (!discordUser.verified) {
 			return createError({
 				status: 400,
-				message: "user not verified"
+				message: "discord user not verified"
 			})
 		}
 
-    const existingUser = await db.getUser(undefined, {
+		const existingUserByProvider = await db.getUser(undefined, {
 			providerID: "discord",
 			providerUserID: discordUser.id,
 		})
+
+		const existingUserByEmail = await db.getUser(discordUser.email)
+
+		if (existingUserByEmail && !existingUserByEmail.emailVerified && !existingUserByProvider) {
+			return createError({
+				status: 400,
+				message: "user email not verified"
+			})
+		}
+
+		const existingUser = existingUserByProvider ?? existingUserByEmail
+		if (existingUser) {
+			onUserLogin(event, {
+				email: existingUser.email,
+				id: existingUser.id
+			})
+		}
+
 
 		if (existingUser) {
 			onUserLogin(event, {

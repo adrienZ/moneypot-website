@@ -19,7 +19,7 @@ type EmailVerificationCodeSelect = typeof emailVerificationCode.$inferSelect
 export interface IDatabaseQueries {
   insertUser(user: UserInsert): Promise<UserSelect>
   insertOauthAccount(account: OauthAccountInsert): Promise<OauthAccountSelect>
-  getUser(id?: string, providerData?: { providedEmail?: string | null } & Pick<OauthAccountInsert, "providerID" | "providerUserID">): Promise<UserSelect | null>
+  getUser(email?: string | null | undefined, providerData?: { providedEmail?: string | null } & Pick<OauthAccountInsert, "providerID" | "providerUserID">): Promise<UserSelect | null>
   deleteEmailVerficationCode(userId: number): Promise<void>
   insertEmailVerficationCode(data: EmailVerificationCodeInsert): Promise<EmailVerificationCodeSelect>
   getEmailVerficationCodeByUserId(userId: string): Promise<EmailVerificationCodeSelect>

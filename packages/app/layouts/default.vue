@@ -65,6 +65,7 @@ const handleLogout = async () => {
 		method: "POST",
 		redirect: "manual"
 	});
+  await nextTick();
 	await navigateTo("/login");
 };
 </script>

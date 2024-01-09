@@ -1,4 +1,5 @@
 import { Argon2id } from "oslo/password";
+import { LoginThrottlingService } from "#myauth/services/loginThrottlingService";
 // import { LegacyScrypt } from "lucia"
 
 export default eventHandler(async (event) => {
@@ -20,12 +21,13 @@ export default eventHandler(async (event) => {
 		});
 	}
 
-	const existingUser = await myAuth.userTable.getUserByEmail(email)
+	const throttleCheck = await LoginThrottlingService.getInstance().run(event, email);
 	
+	const existingUser = await myAuth.userTable.getUserByEmail(email)
 
 	if (!existingUser) {
 		throw createError({
-			message: "email not found",
+			message: "email not found in db ",
 			statusCode: 400
 		});
 	}
@@ -46,6 +48,8 @@ export default eventHandler(async (event) => {
 		});
 	}
 
-	const session = await lucia.createSession(String(existingUser.id), {});
-	appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
+	await myAuth.hooks.onUserLogin(event, {
+		email: existingUser.email,
+		id: existingUser.id
+	})
 });

@@ -1,4 +1,5 @@
 import { generateEmailVerificationCode } from "./helpers/verificationCode";
+import { LoginThrottlingService } from "./services/loginThrottlingService";
 
 type H3Event = Parameters<Parameters<typeof defineEventHandler>[0]>[0]
 
@@ -9,6 +10,7 @@ interface IUserData {
 
 export class AuthHooks {
   async onUserLogin(event: H3Event, userData: IUserData) {
+    LoginThrottlingService.getInstance().onValidate(userData.email);
     const session = await lucia.createSession(String(userData.id), {});
     appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
     return sendRedirect(event, "/");

@@ -1,8 +1,6 @@
 import { isWithinExpirationDate } from "oslo";
-import { onUserLogin } from "../../../lib/onUserCreation";
 
 export default defineEventHandler(async (event) => {
-  const lucia = useLuciaAuth(event);
   const sessionId = getCookie(event, lucia.sessionCookieName) ?? null;
 	// const formData = await readFormData(event);
 	const formData = await getRouterParams(event);
@@ -32,11 +30,10 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-  const db = useDatabaseQueries(event);
-  const databaseCode = await db.getEmailVerficationCodeByUserId(user.id);
+  const databaseCode = await myAuth.emailVerificationCodeTable.getEmailVerficationCodeByUserId(user.id);
 
 	if (databaseCode) {
-    await db.deleteEmailVerficationCode(databaseCode.id)
+    await myAuth.emailVerificationCodeTable.deleteEmailVerficationCode(String(databaseCode.id))
 	}
 
 
@@ -62,9 +59,9 @@ export default defineEventHandler(async (event) => {
 
 	await lucia.invalidateUserSessions(user.id);
 
-	const updatedUser = await db.updateUserEmailVerificationById(user.id)
+	const updatedUser = await myAuth.userTable.updateUserEmailVerificationById(user.id)
 
-  onUserLogin(event, {
+  myAuth.hooks.onUserLogin(event, {
     email: updatedUser.email,
     id: updatedUser.id
   })

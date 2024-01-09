@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-	middleware: ["protected"]
+	middleware: ["protected-middleware"]
 });
 
 const user = useUser();

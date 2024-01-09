@@ -7,8 +7,7 @@ export default defineNuxtConfig({
     enabled: true
   },
   extends: [
-    "@moneypot/ui",
-    "@moneypot/auth",
+    "@moneypot/ui"
   ],
   modules: [
     '@nuxt/devtools',
@@ -30,9 +29,9 @@ export default defineNuxtConfig({
   vueEmail: {
     // seems to be needed in prod
     autoImport: true,
-    baseUrl: 'http://localhost:3000',
+    baseUrl: process.env.BASE_URL,
   },
-  // debugging
+  // vscode debugging
   sourcemap: isDev
 })
 
@@ -45,6 +44,7 @@ declare global {
       TURSO_DB_TOKEN?: string
       GITHUB_CLIENT_ID?: string
       GITHUB_CLIENT_SECRET?: string
+      BASE_URL?: string
     }
   }
 }

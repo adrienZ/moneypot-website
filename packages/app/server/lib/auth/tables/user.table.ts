@@ -1,4 +1,4 @@
-import { user } from "@moneypot/auth/schema"
+import { user } from "../../../database/schema";
 import { eq } from "drizzle-orm";
 import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 import type { LibSQLDatabase } from "drizzle-orm/libsql";
@@ -29,5 +29,26 @@ export class UserTable {
       .execute();
 
     return users.at(0) ?? null;
+  }
+
+  async insertUser(data: typeof user.$inferInsert) {
+    const [inserted] = await this.db
+      .insert(this.table)
+      .values(data)
+      .returning()
+
+    return inserted;
+  }
+
+  async updateUserEmailVerificationById(id: number) {
+    const [inserted] = await this.db
+      .update(this.table)
+      .set({
+        emailVerified: true,
+      })
+      .where(eq(this.table.id, id))
+      .returning();
+    
+      return inserted;
   }
 }

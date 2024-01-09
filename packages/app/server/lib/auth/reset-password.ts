@@ -1,4 +1,4 @@
-import { passwordResetToken } from "@moneypot/auth/schema";
+import { passwordResetToken } from "../../database/schema";
 import { TimeSpan, createDate } from "oslo";
 import { eq } from "drizzle-orm";
 import { generateId } from "lucia";

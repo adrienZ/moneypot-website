@@ -20,7 +20,7 @@ export default eventHandler(async (event) => {
 		});
 	}
 
-	const existingUser = await useDatabaseQueries(event).getUser(email)
+	const existingUser = await myAuth.userTable.getUserByEmail(email)
 	
 
 	if (!existingUser) {
@@ -46,7 +46,6 @@ export default eventHandler(async (event) => {
 		});
 	}
 
-	const lucia = useLuciaAuth(event);
 	const session = await lucia.createSession(String(existingUser.id), {});
 	appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
 });

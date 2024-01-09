@@ -1,6 +1,6 @@
 
 
-import { oauthAccount } from "@moneypot/auth/schema"
+import { oauthAccount } from "../../../database/schema";
 import { eq, and } from "drizzle-orm";
 import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 import type { LibSQLDatabase } from "drizzle-orm/libsql";
@@ -38,5 +38,14 @@ export class OauthAccountTable {
       .execute();
 
     return users.at(0) ?? null;
+  }
+
+  async insertOauthAccount(account: typeof oauthAccount.$inferInsert) {
+    const [inserted] = await this.db
+      .insert(this.table)
+      .values(account)
+      .returning()
+
+    return inserted
   }
 }

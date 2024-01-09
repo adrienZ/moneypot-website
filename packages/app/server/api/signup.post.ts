@@ -1,8 +1,7 @@
 import { Argon2id  } from "oslo/password";
 import { generateId } from "lucia";
 import { SqliteError } from "better-sqlite3";
-import { isValidEmail } from "../../lib/helpers/email";
-import { onUserCreation } from "../../lib/onUserCreation";
+import { isValidEmail } from "#myauth/helpers/email"
 
 export default eventHandler(async (event) => {
 	const formData = await readFormData(event);
@@ -25,13 +24,13 @@ export default eventHandler(async (event) => {
 	const userId = generateId(15);
 
 	try {
-		const createdUser = await useDatabaseQueries(event).insertUser({
+		const createdUser = await myAuth.userTable.insertUser({
 			externalId: userId,
 			password: hashedPassword,
 			email,
 		});
 
-		await onUserCreation(event, {
+		await myAuth.hooks.onUserCreation(event, {
 			email: createdUser.email,
 			id: createdUser.id
 		})

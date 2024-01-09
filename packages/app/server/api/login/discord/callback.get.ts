@@ -15,7 +15,6 @@ export default defineEventHandler(async (event) => {
 
   try {
     const tokens: DiscordTokens = await myAuth.discord.validateAuthorizationCode(code);
-		const db = useDatabaseQueries(event);
 
 		const discordUserResponse = await fetch("https://discord.com/api/users/@me", {
 			headers: {
@@ -57,14 +56,14 @@ export default defineEventHandler(async (event) => {
 
 		const userId = generateId(15);
 
-		const createdUser = await db.insertUser({
+		const createdUser = await myAuth.userTable.insertUser({
 			externalId: userId,
 			username: discordUser.global_name,
 			email: discordUser.email,
 			emailVerified: discordUser.verified
 		})
 
-		db.insertOauthAccount({
+		myAuth.oauthAccountTable.insertOauthAccount({
 			providerID: "github",
 			providerUserID: discordUser.id,
 			userId: createdUser.externalId,

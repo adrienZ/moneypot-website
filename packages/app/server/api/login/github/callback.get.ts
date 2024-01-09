@@ -15,7 +15,6 @@ export default defineEventHandler(async (event) => {
 
 	try {
 		const tokens = await myAuth.github.validateAuthorizationCode(code);
-		const db = useDatabaseQueries(event);
 
 		const githubUserResponse = await fetch("https://api.github.com/user", {
 			headers: {
@@ -68,15 +67,15 @@ export default defineEventHandler(async (event) => {
 
 		const userId = generateId(15);
 
-		const createdUser = await db.insertUser({
+		const createdUser = await myAuth.userTable.insertUser({
 			externalId: userId,
 			username: githubUser.login,
 			email,
-			// as we verified it with primaryEmail const
+			// TRUE as we verified it with primaryEmail const
 			emailVerified: true
 		})
 
-		db.insertOauthAccount({
+		myAuth.oauthAccountTable.insertOauthAccount({
 			providerID: "github",
 			providerUserID: githubUser.id,
 			userId: createdUser.externalId,

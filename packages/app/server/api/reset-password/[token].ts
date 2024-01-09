@@ -1,4 +1,4 @@
-import { passwordResetToken, user } from "@moneypot/auth/schema";
+import { passwordResetToken, user } from "../../database/schema";
 import { isWithinExpirationDate } from "oslo";
 import { eq } from 'drizzle-orm'
 import { Argon2id  } from "oslo/password";

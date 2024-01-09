@@ -4,7 +4,7 @@ import { drizzle, BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 import { join, dirname, resolve } from 'pathe'
 import sqlite from "better-sqlite3";
 import url from 'node:url'
-import { TABLE_PREFIX, user } from "@moneypot/auth/schema";
+import { TABLE_PREFIX } from "../database/schema";
 import { drizzle as drizzleLibSQL, LibSQLDatabase } from 'drizzle-orm/libsql'
 import { createClient as createLibSQLClient } from '@libsql/client';
 // import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle";
@@ -19,7 +19,7 @@ const sqliteDatabase = sqlite(":memory:");
 // const sqliteDatabase = sqlite(join(dbFolder, './db.sqlite'));
 // export const db: BetterSQLite3Database = drizzle(sqliteDatabase, { logger: true });
 const tursoDatabase = createLibSQLClient({
-	url: process.env.TURSO_DB_URL,
+	url: process.env.TURSO_DB_URL as string,
 	authToken: process.env.TURSO_DB_TOKEN,
 });
 

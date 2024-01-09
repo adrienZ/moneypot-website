@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-const user = useUser();
-if (user.value) {
-	await navigateTo("/"); // redirect to profile page
-}
+definePageMeta({
+	middleware: ['unlogged-middleware']
+})
 
 
 const error = ref<string | null>(null);

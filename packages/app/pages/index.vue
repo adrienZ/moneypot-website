@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 definePageMeta({
-	middleware: ["protected"]
+	middleware: ["protected-middleware"]
 });
 </script>
 

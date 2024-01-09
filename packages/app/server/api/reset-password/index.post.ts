@@ -1,6 +1,6 @@
 import { isValidEmail } from "#myauth/helpers/email";
 import { createPasswordResetToken } from "#myauth/reset-password"
-import { user } from "@moneypot/auth/schema";
+import { user } from "../../database/schema";
 import { eq } from "drizzle-orm";
 
 // TODO: Make sure to implement rate limiting based on IP addresses.
@@ -27,9 +27,9 @@ export default defineEventHandler(async (event) => {
 		}
 
     const verificationToken = await createPasswordResetToken(storedUser.id);
-    const verificationLink = "http://localhost:3000/reset-password/" + verificationToken;
+    const verificationLink = process.env.BASE_URL + "/reset-password/" + verificationToken;
 
-    useEmailService(event).sendEmailVerification({
+    myAuth.emailService.sendResetPasswordRequest({
       targetEmail: storedUser.email,
       url: verificationLink
     })

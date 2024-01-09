@@ -10,12 +10,13 @@ CREATE TABLE `auth_layer_oauth_account` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`provider_id` text NOT NULL,
 	`provider_user_id` text NOT NULL,
-	`user_id` text NOT NULL,
+	`user_id` integer NOT NULL,
 	FOREIGN KEY (`user_id`) REFERENCES `auth_layer_user`(`external_id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `auth_layer_password_reset_token` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`token` text NOT NULL,
 	`user_id` integer NOT NULL,
 	`expires_at` integer NOT NULL,
 	FOREIGN KEY (`user_id`) REFERENCES `auth_layer_user`(`id`) ON UPDATE no action ON DELETE no action

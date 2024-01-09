@@ -1,11 +1,8 @@
 import { verifyRequestOrigin } from "lucia";
 import type { User, Session } from "lucia";
-import { ILuciaAuthNuxtAdaptater } from "~/lib/ILuciaAuthNuxtAdaptater";
 import { IEmailService } from "~/lib/interfaces/IEmailService";
 
 export default defineEventHandler(async (event) => {
-	const lucia = useLuciaAuth(event);
-
 	if (event.node.req.method !== "GET") {
 		const originHeader = getHeader(event, "Origin") ?? null;
 		const hostHeader = getHeader(event, "Host") ?? null;
@@ -39,7 +36,6 @@ declare module "h3" {
 		user: User | null;
 		session: Session | null;
 		// implemented by consumer
-		auth?: ILuciaAuthNuxtAdaptater
 		email: IEmailService
 	}
 }

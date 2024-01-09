@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-const user = useUser();
+definePageMeta({
+	middleware: ['unlogged-middleware']
+})
 
-// TODO: use middleware
-if (user.value) {
-	await navigateTo("/"); // redirect to profile page
-}
 const error = ref<string | null>(null);
 
 async function signup(e: Event) {

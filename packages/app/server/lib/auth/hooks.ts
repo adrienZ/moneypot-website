@@ -15,11 +15,10 @@ export class AuthHooks {
   }
 
   async onUserCreation(event: H3Event, userData: IUserData) {
-    const emailService = useEmailService(event);
-    emailService.welcomeEmail({ targetEmail: userData.email });
+    myAuth.emailService.welcomeEmail({ targetEmail: userData.email });
     await this.onUserLogin(event, userData);
-    const code = await generateEmailVerificationCode(event, userData.id, userData.email);
-    emailService.sendEmailVerification({
+    const code = await generateEmailVerificationCode( String(userData.id), userData.email);
+    myAuth.emailService.sendEmailVerification({
       targetEmail: userData.email,
       code
     })

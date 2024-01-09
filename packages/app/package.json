@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "BASE_URL=http://localhost:3000 nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "BASE_URL=https://moneypot-website.onrender.com nuxt preview",
     "postinstall": "nuxt prepare",
     "db:generate": "pnpm exec drizzle-kit generate:sqlite",
     "db:push": "pnpm exec drizzle-kit push:sqlite",
@@ -14,7 +14,6 @@
   },
   "devDependencies": {
     "@lucia-auth/adapter-sqlite": "3.0.0-beta.11",
-    "@moneypot/auth": "workspace:^",
     "@moneypot/ui": "workspace:^",
     "@nuxt/devtools": "^1.0.6",
     "drizzle-kit": "^0.20.7",
@@ -25,6 +24,8 @@
   "dependencies": {
     "@libsql/client": "0.4.0-pre.5",
     "@vue-email/nuxt": "^0.8.7",
+    "arctic": "^0.10.3",
+    "better-sqlite3": "^9.2.2",
     "drizzle-orm": "^0.29.1",
     "lucia": "3.0.0-beta.13",
     "resend": "^2.1.0",

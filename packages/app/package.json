@@ -15,9 +15,6 @@
     "lint": "eslint .",
     "typecheck": "nuxt prepare && nuxt typecheck"
   },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
-  },
   "devDependencies": {
     "@lucia-auth/adapter-sqlite": "3.0.0-beta.11",
     "@moneypot/ui": "workspace:^",
@@ -26,9 +23,6 @@
     "@vue-email/nuxt": "^0.8.8",
     "@vue/eslint-config-prettier": "^9.0.0",
     "drizzle-kit": "^0.20.7",
-    "eslint": "^8.56.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0",
     "nuxt": "^3.9.0",
     "vue": "^3.3.12",
     "vue-router": "^4.2.5"

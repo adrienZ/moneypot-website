@@ -2,5 +2,9 @@
   "name": "moneypot-website",
   "scripts": {
     "dev": "pnpm --filter app dev"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1"
   }
 }

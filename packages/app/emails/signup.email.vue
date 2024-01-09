@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { EBody, EColumn, EContainer, EHead, EHeading, EHtml, EImg, EPreview, ERow, ESection, EText } from 'vue-email'
-
 const props = defineProps({
   userFirstName: {
     type: String,

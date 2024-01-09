@@ -16,6 +16,7 @@
     "@lucia-auth/adapter-sqlite": "3.0.0-beta.11",
     "@moneypot/ui": "workspace:^",
     "@nuxt/devtools": "^1.0.6",
+    "@vue-email/nuxt": "^0.8.8",
     "drizzle-kit": "^0.20.7",
     "nuxt": "^3.9.0",
     "vue": "^3.3.12",
@@ -23,7 +24,6 @@
   },
   "dependencies": {
     "@libsql/client": "0.4.0-pre.5",
-    "@vue-email/nuxt": "^0.8.7",
     "arctic": "^0.10.3",
     "better-sqlite3": "^9.2.2",
     "drizzle-orm": "^0.29.1",

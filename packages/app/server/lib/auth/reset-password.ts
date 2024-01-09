@@ -3,17 +3,18 @@ import { TimeSpan, createDate } from "oslo";
 import { eq } from "drizzle-orm";
 import { generateId } from "lucia";
 
-export async function createPasswordResetToken(userId: number): Promise<string> {
-	// optionally invalidate all existing tokens
+export async function createPasswordResetToken(
+  userId: number
+): Promise<string> {
+  // optionally invalidate all existing tokens
   await db
     .delete(passwordResetToken)
     .where(eq(passwordResetToken.userId, userId))
-    .execute()
+    .execute();
 
   const token = generateId(40);
 
-
-	const [inserted] = await db
+  const [inserted] = await db
     .insert(passwordResetToken)
     .values({
       token,
@@ -22,5 +23,5 @@ export async function createPasswordResetToken(userId: number): Promise<string> 
     })
     .returning();
 
-	return inserted.token;
+  return inserted.token;
 }

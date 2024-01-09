@@ -3,32 +3,29 @@ import { eq } from "drizzle-orm";
 import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 import type { LibSQLDatabase } from "drizzle-orm/libsql";
 
-type DbType = BetterSQLite3Database | LibSQLDatabase
+type DbType = BetterSQLite3Database | LibSQLDatabase;
 
-type EmailVerificationCodeTableType = typeof emailVerificationCode
+type EmailVerificationCodeTableType = typeof emailVerificationCode;
 
 export class EmailVerificationCodeTable {
-  private table: EmailVerificationCodeTableType
-  private db: DbType
+  private table: EmailVerificationCodeTableType;
+  private db: DbType;
 
   constructor(db: DbType, table: EmailVerificationCodeTableType) {
-    this.table = table
-    this.db = db
+    this.table = table;
+    this.db = db;
   }
 
   async deleteEmailVerficationCode(userId: string) {
-    await this.db
-    .delete(this.table)
-    .where(eq(this.table.userId, userId))
+    await this.db.delete(this.table).where(eq(this.table.userId, userId));
   }
 
-  async insertEmailVerficationCode(data: typeof emailVerificationCode.$inferInsert) {
-    const [inserted] = await db
-    .insert(this.table)
-    .values(data)
-    .returning()
+  async insertEmailVerficationCode(
+    data: typeof emailVerificationCode.$inferInsert
+  ) {
+    const [inserted] = await db.insert(this.table).values(data).returning();
 
-  return inserted;
+    return inserted;
   }
 
   async getEmailVerficationCodeByUserId(userId: string) {
@@ -43,9 +40,6 @@ export class EmailVerificationCodeTable {
   }
 
   async deleteEmailVerificationCodeById(code: number) {
-    await db
-      .delete(this.table)
-      .where(eq(this.table.id, code))
-      .execute();
+    await db.delete(this.table).where(eq(this.table.id, code)).execute();
   }
 }

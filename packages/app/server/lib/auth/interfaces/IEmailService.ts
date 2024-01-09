@@ -1,17 +1,17 @@
 interface IBase {
-  targetEmail: string
+  targetEmail: string;
 }
 
 interface ISendVerificationVerificationParams extends IBase {
-  code: string
+  code: string;
 }
 
 interface ISendResetPasswordRequestParams extends IBase {
-  url: string
+  url: string;
 }
 
 export interface IEmailService {
-  welcomeEmail(params: IBase): void
-  sendEmailVerification(params: ISendVerificationVerificationParams): void
-  sendResetPasswordRequest(params: ISendResetPasswordRequestParams): void
+  welcomeEmail(params: IBase): void;
+  sendEmailVerification(params: ISendVerificationVerificationParams): void;
+  sendResetPasswordRequest(params: ISendResetPasswordRequestParams): void;
 }

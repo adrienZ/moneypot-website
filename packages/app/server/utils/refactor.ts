@@ -1,5 +1,5 @@
 import { Auth } from "../lib/auth";
-import { emailVerificationCode, oauthAccount, user } from "../database/schema"
+import { emailVerificationCode, oauthAccount, user } from "../database/schema";
 
 export const myAuth = new Auth({
   db,

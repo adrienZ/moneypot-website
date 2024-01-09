@@ -1,10 +1,10 @@
-import { migrate } from 'drizzle-orm/better-sqlite3/migrator'
-import { db } from "../utils/lucia"
+import { migrate } from "drizzle-orm/better-sqlite3/migrator";
+import { db } from "../utils/lucia";
 
 async function main() {
   try {
     await migrate(db, {
-      migrationsFolder: __dirname + "/migrations",
+      migrationsFolder: __dirname + "/migrations"
     });
     console.log("Tables migrated!");
     process.exit(0);

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <form novalidate v-if="profile">
+    <form v-if="profile" novalidate>
       <div>
         <label>Username</label>
         <input readonly :value="profile.username" />
@@ -11,9 +11,17 @@
       </div>
 
       <div>
-        <button type="button" :disabled="status === 'pending' || status === 'success'" @click="resetPassword()">reset password </button>
-        <p v-if="status === 'success'">Your password reset link was sent to your inbox</p>
-        <p v-if="status === 'error'">{{error}}</p>
+        <button
+          type="button"
+          :disabled="status === 'pending' || status === 'success'"
+          @click="resetPassword()"
+        >
+          reset password
+        </button>
+        <p v-if="status === 'success'">
+          Your password reset link was sent to your inbox
+        </p>
+        <p v-if="status === 'error'">{{ error }}</p>
       </div>
     </form>
   </main>
@@ -21,14 +29,20 @@
 
 <script setup lang="ts">
 definePageMeta({
-	middleware: ["protected-middleware"]
+  middleware: ["protected-middleware"]
 });
 
 const user = useUser();
-const { data: profile } = await useAsyncData(`${user.value?.externalId}-profile`, () => $fetch("/api/me"));
+const { data: profile } = await useAsyncData(
+  `${user.value?.externalId}-profile`,
+  () => $fetch("/api/me")
+);
 
-
-const { status, refresh: resetPassword, error } = useLazyFetch('/api/reset-password', { 
+const {
+  status,
+  refresh: resetPassword,
+  error
+} = useLazyFetch("/api/reset-password", {
   immediate: false,
   method: "POST",
   body: {

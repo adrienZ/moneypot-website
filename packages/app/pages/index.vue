@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 definePageMeta({
-	middleware: ["protected-middleware"]
+  middleware: ["protected-middleware"]
 });
 </script>
 
 <template>
-	<h1>HOMEPAGE</h1>
+  <h1>HOMEPAGE</h1>
 </template>

@@ -1,76 +1,75 @@
 <script setup lang="ts">
-import { EBody, EColumn, EContainer, EHead, EHeading, EHtml, EImg, EPreview, ERow, ESection, EText } from 'vue-email'
-
 const props = defineProps({
   userFirstName: {
     type: String,
-    default: 'John',
+    default: "John"
   },
   loginDevice: {
     type: String,
-    default: 'Chrome on Mac OS X',
+    default: "Chrome on Mac OS X"
   },
   loginLocation: {
     type: String,
-    default: 'Upland, California, United States',
+    default: "Upland, California, United States"
   },
   loginIp: {
     type: String,
-    default: '47.149.53.167',
+    default: "47.149.53.167"
   },
   loginDate: {
     type: Date,
-    default: new Date('September 7, 2022, 10:58 am'),
-  },
-})
+    default: new Date("September 7, 2022, 10:58 am")
+  }
+});
 
-const formattedDate = new Intl.DateTimeFormat('en', {
-  dateStyle: 'long',
-  timeStyle: 'short',
-}).format(props.loginDate)
+const formattedDate = new Intl.DateTimeFormat("en", {
+  dateStyle: "long",
+  timeStyle: "short"
+}).format(props.loginDate);
 
 const main = {
-  backgroundColor: '#fff',
-  fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-}
+  backgroundColor: "#fff",
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
+};
 
 const paragraph = {
-  fontSize: '16px',
-}
+  fontSize: "16px"
+};
 
 const logo = {
-  padding: '30px 20px',
-}
+  padding: "30px 20px"
+};
 
 const containerButton = {
-  display: 'flex',
-  justifyContent: 'center',
-  width: '100%',
-}
+  display: "flex",
+  justifyContent: "center",
+  width: "100%"
+};
 
 const button = {
-  backgroundColor: '#e00707',
-  padding: '12px 30px',
+  backgroundColor: "#e00707",
+  padding: "12px 30px",
   borderRadius: 3,
-  color: '#FFF',
-  fontWeight: 'bold',
-  border: '1px solid rgb(0,0,0, 0.1)',
-  cursor: 'pointer',
-}
+  color: "#FFF",
+  fontWeight: "bold",
+  border: "1px solid rgb(0,0,0, 0.1)",
+  cursor: "pointer"
+};
 
 const content = {
-  border: '1px solid rgb(0,0,0, 0.1)',
-  borderRadius: '3px',
-  overflow: 'hidden',
-}
+  border: "1px solid rgb(0,0,0, 0.1)",
+  borderRadius: "3px",
+  overflow: "hidden"
+};
 
 const boxInfos = {
-  padding: '20px 40px',
-}
+  padding: "20px 40px"
+};
 
 const containerImageFooter = {
-  padding: '45px 0 0 0',
-}
+  padding: "45px 0 0 0"
+};
 </script>
 
 <template>
@@ -84,16 +83,21 @@ const containerImageFooter = {
         </ESection>
 
         <ESection :style="content">
-          <EImg width="620" src="https://vue-email-demo.vercel.app/static/yelp-header.png" />
+          <EImg
+            width="620"
+            src="https://vue-email-demo.vercel.app/static/yelp-header.png"
+          />
 
           <ERow
             :style="{
               ...boxInfos,
-              paddingBottom: 0,
+              paddingBottom: 0
             }"
           >
             <EColumn>
-              <EHeading style="font-size: 32; font-weight: bold; text-align: center">
+              <EHeading
+                style="font-size: 32; font-weight: bold; text-align: center"
+              >
                 Hi {{ userFirstName }},
               </EHeading>
               <EHeading
@@ -101,7 +105,7 @@ const containerImageFooter = {
                 :style="{
                   fontSize: '26px',
                   fontWeight: 'bold',
-                  textAlign: 'center',
+                  textAlign: 'center'
                 }"
               >
                 We noticed a recent login to your Yelp account.
@@ -123,7 +127,7 @@ const containerImageFooter = {
                 :style="{
                   color: 'rgb(0,0,0, 0.5)',
                   fontSize: 14,
-                  marginTop: '-5px',
+                  marginTop: '-5px'
                 }"
               >
                 *Approximate geographic location based on IP address: {loginIp}
@@ -133,31 +137,34 @@ const containerImageFooter = {
                 If this was you, there's nothing else you need to do.
               </EText>
               <EText :style="{ ...paragraph, marginTop: '-5px' }">
-                If this wasn't you or if you have additional questions, please see our support page.
+                If this wasn't you or if you have additional questions, please
+                see our support page.
               </EText>
             </EColumn>
           </ERow>
           <ERow :style="{ ...boxInfos, paddingTop: '0' }">
             <EColumn :style="containerButton" col-span="{2}">
-              <EText :style="button">
-                Learn More
-              </EText>
+              <EText :style="button"> Learn More </EText>
             </EColumn>
           </ERow>
         </ESection>
 
         <ESection :style="containerImageFooter">
-          <EImg width="620" src="https://vue-email-demo.vercel.app/static/yelp-footer.png" />
+          <EImg
+            width="620"
+            src="https://vue-email-demo.vercel.app/static/yelp-footer.png"
+          />
         </ESection>
 
         <EText
           :style="{
             textAlign: 'center',
             fontSize: 12,
-            color: 'rgb(0,0,0, 0.7)',
+            color: 'rgb(0,0,0, 0.7)'
           }"
         >
-          © 2022 | Yelp Inc., 350 Mission Street, San Francisco, CA 94105, U.S.A. | www.yelp.com
+          © 2022 | Yelp Inc., 350 Mission Street, San Francisco, CA 94105,
+          U.S.A. | www.yelp.com
         </EText>
       </EContainer>
     </EBody>

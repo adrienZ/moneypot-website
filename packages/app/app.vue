@@ -1,21 +1,21 @@
 <template>
   <div>
     <NuxtLayout>
-      <NuxtPage/>
+      <NuxtPage />
     </NuxtLayout>
   </div>
 </template>
 
 <style>
 body {
-	padding: 2rem;
-	font-family: sans-serif;
+  padding: 2rem;
+  font-family: sans-serif;
 }
 * {
-	margin-top: 0.5rem;
-	margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .error {
-	color: red;
+  color: red;
 }
 </style>

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "7a9a692f-6bcd-4a08-b914-a0ec9e902cb8",
+  "id": "c2024889-f103-4615-a3cb-236ff895b867",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "auth_layer_email_verification_code": {
@@ -82,7 +82,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -116,6 +116,13 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": true
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         },
         "user_id": {
           "name": "user_id",

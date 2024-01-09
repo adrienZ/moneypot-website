@@ -1,19 +1,19 @@
-import { defineNuxtModule } from 'nuxt/kit'
-import { addCustomTab } from '@nuxt/devtools-kit'
+import { defineNuxtModule } from "nuxt/kit";
+import { addCustomTab } from "@nuxt/devtools-kit";
 
 export default defineNuxtModule({
   meta: {
-    name: 'drizzle-studio'
+    name: "drizzle-studio"
   },
-  setup () {
+  setup() {
     addCustomTab({
-      name: 'dizzle-studio',
-      title: 'Drizzle Studio',
-      icon: 'simple-icons:drizzle',
+      name: "dizzle-studio",
+      title: "Drizzle Studio",
+      icon: "simple-icons:drizzle",
       view: {
-        type: 'iframe',
-        src: 'https://local.drizzle.studio'
+        type: "iframe",
+        src: "https://local.drizzle.studio"
       }
-    })
+    });
   }
-})
+});

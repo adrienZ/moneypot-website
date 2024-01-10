@@ -1,6 +1,6 @@
 import { verifyRequestOrigin } from "lucia";
 import type { User, Session } from "lucia";
-import { IEmailService } from "~/lib/interfaces/IEmailService";
+import { IEmailService } from "#myauth/interfaces/IEmailService";
 
 export default defineEventHandler(async (event) => {
   if (event.node.req.method !== "GET") {

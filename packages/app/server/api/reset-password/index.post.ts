@@ -2,6 +2,7 @@ import { isValidEmail } from "#myauth/helpers/email";
 import { createPasswordResetToken } from "#myauth/reset-password";
 import { user } from "../../database/schema";
 import { eq } from "drizzle-orm";
+import { createError } from "h3";
 
 // TODO: Make sure to implement rate limiting based on IP addresses.
 export default defineEventHandler(async (event) => {

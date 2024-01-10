@@ -19,16 +19,18 @@ async function signup(e: Event) {
 </script>
 
 <template>
-  <h1>Create an account</h1>
-  <form method="post" action="/api/signup" @submit.prevent="signup">
-    <label for="email">Email</label>
-    <input id="email" name="email" />
-    <br />
-    <label for="password">Password</label>
-    <input id="password" type="password" name="password" />
-    <br />
-    <button type="submit">Continue</button>
-  </form>
-  <p>{{ error }}</p>
-  <NuxtLink to="/login">Sign in</NuxtLink>
+  <div>
+    <h1>Create an account</h1>
+    <form method="post" action="/api/signup" @submit.prevent="signup">
+      <label for="email">Email</label>
+      <input id="email" name="email" />
+      <br />
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password" />
+      <br />
+      <button type="submit">Continue</button>
+    </form>
+    <p>{{ error }}</p>
+    <NuxtLink to="/login">Sign in</NuxtLink>
+  </div>
 </template>

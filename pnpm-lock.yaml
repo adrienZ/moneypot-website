@@ -28,7 +28,7 @@ importers:
         version: 9.2.2
       drizzle-orm:
         specifier: ^0.29.1
-        version: 0.29.1(@libsql/client@0.4.0-pre.5)(better-sqlite3@9.2.2)
+        version: 0.29.1(@libsql/client@0.4.0-pre.5)(@types/better-sqlite3@7.6.8)(better-sqlite3@9.2.2)
       lucia:
         specifier: 3.0.0-beta.13
         version: 3.0.0-beta.13
@@ -51,6 +51,9 @@ importers:
       '@nuxt/eslint-config':
         specifier: ^0.2.0
         version: 0.2.0(eslint@8.56.0)
+      '@types/better-sqlite3':
+        specifier: ^7.6.8
+        version: 7.6.8
       '@vue-email/nuxt':
         specifier: ^0.8.8
         version: 0.8.8(typescript@5.3.3)(vue@3.3.13)
@@ -2568,6 +2571,11 @@ packages:
       minimatch: 9.0.3
     dev: true
 
+  /@types/better-sqlite3@7.6.8:
+    resolution: {integrity: sha512-ASndM4rdGrzk7iXXqyNC4fbwt4UEjpK0i3j4q4FyeQrLAthfB6s7EF135ZJE0qQxtKIMFwmyT6x0switET7uIw==}
+    dependencies:
+      '@types/node': 20.10.5
+
   /@types/dompurify@3.0.5:
     resolution: {integrity: sha512-1Wg0g3BtQF7sSb27fJQAKck1HECM6zV1EB66j8JH9i3LCjYabJa0FSdiSgsD5K/RbrsR0SiraKacLB+T8ZVYAg==}
     dependencies:
@@ -4083,7 +4091,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /drizzle-orm@0.29.1(@libsql/client@0.4.0-pre.5)(better-sqlite3@9.2.2):
+  /drizzle-orm@0.29.1(@libsql/client@0.4.0-pre.5)(@types/better-sqlite3@7.6.8)(better-sqlite3@9.2.2):
     resolution: {integrity: sha512-yItc4unfHnk8XkDD3/bdC63vdboTY7e7I03lCF1OJYABXSIfQYU9BFTQJXMMovVeb3T1/OJWwfW/70T1XPnuUA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -4146,6 +4154,7 @@ packages:
         optional: true
     dependencies:
       '@libsql/client': 0.4.0-pre.5
+      '@types/better-sqlite3': 7.6.8
       better-sqlite3: 9.2.2
     dev: false
 

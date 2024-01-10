@@ -1,5 +1,6 @@
 import { OAuth2RequestError } from "arctic";
 import { generateId } from "lucia";
+import { createError } from "h3";
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
@@ -89,7 +90,7 @@ export default defineEventHandler(async (event) => {
     myAuth.oauthAccountTable.insertOauthAccount({
       providerID: "github",
       providerUserID: githubUser.id,
-      userId: createdUser.externalId
+      userId: createdUser.id
     });
 
     await myAuth.hooks.onUserCreation(event, {

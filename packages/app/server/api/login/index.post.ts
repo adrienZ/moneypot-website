@@ -25,10 +25,7 @@ export default eventHandler(async (event) => {
     });
   }
 
-  const throttleCheck = await LoginThrottlingService.getInstance().run(
-    event,
-    email
-  );
+  await LoginThrottlingService.getInstance().run(event, email);
 
   const existingUser = await myAuth.userTable.getUserByEmail(email);
 

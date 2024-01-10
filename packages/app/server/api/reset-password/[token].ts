@@ -2,6 +2,7 @@ import { passwordResetToken, user } from "../../database/schema";
 import { isWithinExpirationDate } from "oslo";
 import { eq } from "drizzle-orm";
 import { Argon2id } from "oslo/password";
+import { createError } from "h3";
 
 export default defineEventHandler(async (event) => {
   const { password } = await readBody<{
@@ -57,8 +58,6 @@ export default defineEventHandler(async (event) => {
 
   await lucia.invalidateUserSessions(String(connectedUser.id));
   const hashedPassword = await new Argon2id().hash(password);
-
-  console.log({ hashedPassword });
 
   await db
     .update(user)

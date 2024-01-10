@@ -20,6 +20,7 @@
     "@moneypot/ui": "workspace:^",
     "@nuxt/devtools": "^1.0.6",
     "@nuxt/eslint-config": "^0.2.0",
+    "@types/better-sqlite3": "^7.6.8",
     "@vue-email/nuxt": "^0.8.8",
     "@vue/eslint-config-prettier": "^9.0.0",
     "drizzle-kit": "^0.20.7",

@@ -12,8 +12,7 @@ const handleSubmit = async (e: Event) => {
       method: "POST",
       body: {
         email: formData.get("email")
-      },
-      redirect: "manual"
+      }
     });
     successMessage.value = "Your password reset link was sent to your inbox";
   } catch (e) {
@@ -28,17 +27,19 @@ const handleSubmit = async (e: Event) => {
 </script>
 
 <template>
-  <h1>Reset password</h1>
-  <form
-    method="post"
-    action="/api/reset-password"
-    @submit.prevent="handleSubmit"
-  >
-    <label for="email">Email</label>
-    <input id="email" name="email" /><br />
-    <input type="submit" />
-  </form>
-  <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-  <p v-if="successMessage">{{ successMessage }}</p>
-  <NuxtLink to="/login">Sign in</NuxtLink>
+  <div>
+    <h1>Reset password</h1>
+    <form
+      method="post"
+      action="/api/reset-password"
+      @submit.prevent="handleSubmit"
+    >
+      <label for="email">Email</label>
+      <input id="email" name="email" /><br />
+      <input type="submit" />
+    </form>
+    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <p v-if="successMessage">{{ successMessage }}</p>
+    <NuxtLink to="/login">Sign in</NuxtLink>
+  </div>
 </template>

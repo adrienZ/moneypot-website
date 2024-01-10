@@ -19,31 +19,33 @@ async function login(e: Event) {
 </script>
 
 <template>
-  <h1>Sign in</h1>
-  <form method="post" action="/api/login" @submit.prevent="login">
-    <label for="email">email</label>
-    <input id="email" name="email" />
-    <br />
-    <label for="password">Password</label>
-    <input id="password" type="password" name="password" />
-    <br />
-    <input type="submit" />
-  </form>
-  <p>{{ error }}</p>
-
-  <div data-oauth>
-    <a href="/api/login/github">Sign in with GitHub</a>
-  </div>
-
-  <div data-oauth>
-    <a href="/api/login/discord">Sign in with Discord</a>
-  </div>
-
   <div>
-    <NuxtLink to="/signup">Create an account</NuxtLink>
-  </div>
+    <h1>Sign in</h1>
+    <form method="post" action="/api/login" @submit.prevent="login">
+      <label for="email">email</label>
+      <input id="email" name="email" />
+      <br />
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password" />
+      <br />
+      <input type="submit" />
+    </form>
+    <p>{{ error }}</p>
 
-  <div>
-    <NuxtLink to="/reset-password">forgotten password ?</NuxtLink>
+    <div data-oauth>
+      <a href="/api/login/github">Sign in with GitHub</a>
+    </div>
+
+    <div data-oauth>
+      <a href="/api/login/discord">Sign in with Discord</a>
+    </div>
+
+    <div>
+      <NuxtLink to="/signup">Create an account</NuxtLink>
+    </div>
+
+    <div>
+      <NuxtLink to="/reset-password">forgotten password ?</NuxtLink>
+    </div>
   </div>
 </template>

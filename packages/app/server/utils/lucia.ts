@@ -1,13 +1,10 @@
 import { Lucia } from "lucia";
 import { BetterSqlite3Adapter } from "@lucia-auth/adapter-sqlite";
-import { drizzle, BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
-import { join, dirname, resolve } from "pathe";
+import { drizzle as drizzleBetterSqlite3 } from "drizzle-orm/better-sqlite3";
 import sqlite from "better-sqlite3";
-import url from "node:url";
 import { TABLE_PREFIX } from "../database/schema";
-import { drizzle as drizzleLibSQL, LibSQLDatabase } from "drizzle-orm/libsql";
+import { drizzle as drizzleLibSQL } from "drizzle-orm/libsql";
 import { createClient as createLibSQLClient } from "@libsql/client";
-// import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle";
 import { LibSQLAdapter } from "@lucia-auth/adapter-sqlite";
 
 // const __filename = url.fileURLToPath(import.meta.url);
@@ -23,7 +20,7 @@ const tursoDatabase = createLibSQLClient({
 });
 
 export const db = isDev
-  ? drizzle(sqliteDatabase, { logger: true })
+  ? drizzleBetterSqlite3(sqliteDatabase, { logger: true })
   : drizzleLibSQL(tursoDatabase, { logger: true });
 
 const adapterLibSql = new LibSQLAdapter(tursoDatabase, {

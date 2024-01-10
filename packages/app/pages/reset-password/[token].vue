@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const errorMessage = ref<string | null>(null);
 
-const route = useRoute();
+const route = useRoute("reset-password-token");
 const apiRoute = `/api/reset-password/${route.params.token}`;
 
 const handleSubmit = async (e: Event) => {
@@ -13,8 +13,7 @@ const handleSubmit = async (e: Event) => {
       method: "POST",
       body: {
         password: formData.get("password")
-      },
-      redirect: "manual"
+      }
     });
     await navigateTo("/");
   } catch (e) {
@@ -29,12 +28,14 @@ const handleSubmit = async (e: Event) => {
 </script>
 
 <template>
-  <h1>Reset password</h1>
-  <form method="post" :action="apiRoute" @submit.prevent="handleSubmit">
-    <label htmlFor="password">New Password</label>
-    <input id="password" name="password" />
-    <br />
-    <input type="submit" />
-  </form>
-  <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+  <div>
+    <h1>Reset password</h1>
+    <form method="post" :action="apiRoute" @submit.prevent="handleSubmit">
+      <label htmlFor="password">New Password</label>
+      <input id="password" name="password" />
+      <br />
+      <input type="submit" />
+    </form>
+    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>
 </template>

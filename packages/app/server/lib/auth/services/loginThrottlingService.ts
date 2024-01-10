@@ -2,6 +2,8 @@ import { createStorage, prefixStorage } from "unstorage";
 import memoryDriver from "unstorage/drivers/memory";
 import { generateId } from "lucia";
 import { generateState } from "arctic";
+import { createError } from "h3";
+
 const isDev = process.env.NODE_ENV === "development";
 
 type StorageMap = {

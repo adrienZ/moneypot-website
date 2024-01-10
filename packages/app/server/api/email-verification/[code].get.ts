@@ -1,4 +1,5 @@
 import { isWithinExpirationDate } from "oslo";
+import { createError } from "h3";
 
 export default defineEventHandler(async (event) => {
   const sessionId = getCookie(event, lucia.sessionCookieName) ?? null;

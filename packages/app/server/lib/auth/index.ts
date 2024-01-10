@@ -13,8 +13,6 @@ import { OauthAccountTable } from "./tables/oauthAccount.table";
 import { EmailVerificationCodeTable } from "./tables/emailVerification.table";
 import { EmailService } from "~/server/lib/auth/emailService";
 
-const isDev = process.env.NODE_ENV === "development";
-
 type DbType = BetterSQLite3Database | LibSQLDatabase;
 type UserTableType = typeof user;
 type OauthAccountTableType = typeof oauthAccount;

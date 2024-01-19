@@ -1,39 +1,10 @@
 {
   "name": "moneypot-website",
-  "private": true,
-  "type": "module",
   "scripts": {
-    "prebuild": "pnpm typecheck && pnpm lint",
-    "build": "nuxt build",
-    "dev": "BASE_URL=http://localhost:3000 nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "BASE_URL=https://moneypot-website.onrender.com nuxt preview",
-    "postinstall": "nuxt prepare",
-    "db:generate": "pnpm exec drizzle-kit generate:sqlite",
-    "db:push": "pnpm exec drizzle-kit push:sqlite",
-    "db:studio": "pnpm exec drizzle-kit studio",
-    "lint": "eslint .",
-    "typecheck": "nuxt prepare && nuxt typecheck"
+    "dev": "pnpm --filter app dev"
   },
   "devDependencies": {
-    "@lucia-auth/adapter-sqlite": "3.0.0-beta.11",
-    "@nuxt/devtools": "^1.0.6",
-    "@nuxt/eslint-config": "^0.2.0",
-    "@types/better-sqlite3": "^7.6.8",
-    "@vue-email/nuxt": "^0.8.8",
-    "@vue/eslint-config-prettier": "^9.0.0",
-    "drizzle-kit": "^0.20.7",
-    "nuxt": "^3.9.0",
-    "vue": "^3.3.12",
-    "vue-router": "^4.2.5"
-  },
-  "dependencies": {
-    "@libsql/client": "0.4.0-pre.5",
-    "arctic": "^0.10.3",
-    "better-sqlite3": "^9.2.2",
-    "drizzle-orm": "^0.29.1",
-    "lucia": "3.0.0-beta.13",
-    "resend": "^2.1.0",
-    "vue-email": "^0.8.5"
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1"
   }
 }

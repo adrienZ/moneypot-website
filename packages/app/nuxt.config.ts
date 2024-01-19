@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true
   },
+  extends: ["@moneypot/ui"],
   modules: ["@nuxt/devtools", "@vue-email/nuxt"],
   alias: {
     "#myauth": fileURLToPath(new URL("./server/lib/auth", import.meta.url))
@@ -38,7 +39,6 @@ declare global {
       GITHUB_CLIENT_ID?: string;
       GITHUB_CLIENT_SECRET?: string;
       BASE_URL?: string;
-      NODE_ENV?: "development" | "production";
     }
   }
 }

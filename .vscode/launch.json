@@ -16,7 +16,7 @@
       "name": "server: nuxt",
       "outputCapture": "std",
       "program": "${workspaceFolder}/node_modules/nuxi/bin/nuxi.mjs",
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/packages/app",
       "args": [
         "dev"
       ],

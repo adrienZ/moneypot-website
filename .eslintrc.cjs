@@ -1,7 +1,20 @@
 /* eslint-env node */
 module.exports = {
-  root: true,
-  'extends': [
-    'eslint:recommended',
+  extends: [
+    "eslint:recommended",
+    "@nuxt/eslint-config",
+    "@vue/eslint-config-prettier"
   ],
-}
+  parserOptions: {
+    ecmaVersion: "latest"
+  },
+  overrides: [
+    {
+      files: [
+        // These pages are not used directly by users so they can have one-word names.
+        "**/emails/**/*.vue"
+      ],
+      rules: { "vue/multi-word-component-names": "off" }
+    }
+  ]
+};

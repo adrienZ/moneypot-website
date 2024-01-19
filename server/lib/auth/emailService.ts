@@ -29,12 +29,16 @@ export class EmailService implements IEmailService {
     );
 
     try {
-      // const data = await this.resend.emails.send({
-      //   from: 'Acme <onboarding@resend.dev>',
-      //   to: [params.targetEmail],
-      //   subject: 'Hello world',
-      //   html: emailContent.html,
-      // });
+      if (process.env.NODE_ENV === "development") {
+        throw new Error("no mail in dev");
+      }
+
+      const data = await this.resend.emails.send({
+        from: "Acme <onboarding@resend.dev>",
+        to: [params.targetEmail],
+        subject: "Hello world",
+        html: emailContent.html
+      });
 
       return data;
     } catch (error) {

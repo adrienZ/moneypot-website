@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "pnpm typecheck && pnpm lint",
     "build": "nuxt build",
-    "dev": "BASE_URL=http://localhost:3000 nuxt dev",
+    "dev": "BASE_URL=http://localhost:3000 pnpm db:studio & nuxt dev",
     "generate": "nuxt generate",
     "preview": "BASE_URL=https://moneypot-website.onrender.com nuxt preview",
     "postinstall": "nuxt prepare",
@@ -17,9 +17,9 @@
   },
   "devDependencies": {
     "@lucia-auth/adapter-sqlite": "3.0.0-beta.11",
-    "@moneypot/ui": "workspace:^",
     "@nuxt/devtools": "^1.0.6",
     "@nuxt/eslint-config": "^0.2.0",
+    "@nuxtjs/tailwindcss": "^6.10.4",
     "@types/better-sqlite3": "^7.6.8",
     "@vue-email/nuxt": "^0.8.8",
     "@vue/eslint-config-prettier": "^9.0.0",
@@ -29,7 +29,9 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@iconify-json/logos": "^1.1.42",
     "@libsql/client": "0.4.0-pre.5",
+    "@nuxt/ui": "^2.12.3",
     "arctic": "^0.10.3",
     "better-sqlite3": "^9.2.2",
     "drizzle-orm": "^0.29.1",

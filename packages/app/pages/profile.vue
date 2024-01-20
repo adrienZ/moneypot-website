@@ -1,14 +1,13 @@
 <template>
   <main>
     <form v-if="profile" novalidate>
-      <div>
-        <label>Username</label>
-        <input readonly :value="profile.username" />
-      </div>
-      <div>
-        <label>Email</label>
-        <input readonly :value="profile.email" />
-      </div>
+      <UFormGroup label="Username">
+        <UInput readonly name="Username" :value="profile.username" />
+      </UFormGroup>
+
+      <UFormGroup label="Email">
+        <UInput readonly name="Email" :value="profile.email" />
+      </UFormGroup>
 
       <div>
         <button

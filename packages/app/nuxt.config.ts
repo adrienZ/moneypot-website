@@ -6,8 +6,12 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true
   },
-  extends: ["@moneypot/ui"],
-  modules: ["@nuxt/devtools", "@vue-email/nuxt"],
+  modules: [
+    "@nuxt/devtools",
+    "@vue-email/nuxt",
+    "@nuxt/ui",
+    "@nuxtjs/tailwindcss"
+  ],
   alias: {
     "#myauth": fileURLToPath(new URL("./server/lib/auth", import.meta.url))
   },
@@ -25,6 +29,11 @@ export default defineNuxtConfig({
     // seems to be needed in prod
     autoImport: true,
     baseUrl: process.env.BASE_URL
+  },
+
+  ui: {
+    global: true,
+    icons: ["heroicons", "logos"]
   },
   // vscode debugging
   sourcemap: isDev

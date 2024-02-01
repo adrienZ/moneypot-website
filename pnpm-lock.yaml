@@ -4,77 +4,78 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-importers:
+dependencies:
+  '@iconify-json/logos':
+    specifier: ^1.1.42
+    version: 1.1.42
+  '@libsql/client':
+    specifier: 0.4.0-pre.5
+    version: 0.4.0-pre.5
+  '@nuxt/ui':
+    specifier: ^2.12.3
+    version: 2.12.3(nuxt@3.9.0)(vite@5.0.10)(vue@3.3.13)
+  arctic:
+    specifier: ^0.10.3
+    version: 0.10.3
+  better-sqlite3:
+    specifier: ^9.2.2
+    version: 9.2.2
+  drizzle-orm:
+    specifier: ^0.29.1
+    version: 0.29.1(@libsql/client@0.4.0-pre.5)(@types/better-sqlite3@7.6.8)(better-sqlite3@9.2.2)
+  lucia:
+    specifier: 3.0.0-beta.13
+    version: 3.0.0-beta.13
+  resend:
+    specifier: ^2.1.0
+    version: 2.1.0
+  vue-email:
+    specifier: ^0.8.5
+    version: 0.8.7(typescript@5.3.3)(vue@3.3.13)
 
-  .:
-    dependencies:
-      '@iconify-json/logos':
-        specifier: ^1.1.42
-        version: 1.1.42
-      '@libsql/client':
-        specifier: 0.4.0-pre.5
-        version: 0.4.0-pre.5
-      '@nuxt/ui':
-        specifier: ^2.12.3
-        version: 2.12.3(nuxt@3.9.0)(vite@5.0.10)(vue@3.3.13)
-      arctic:
-        specifier: ^0.10.3
-        version: 0.10.3
-      better-sqlite3:
-        specifier: ^9.2.2
-        version: 9.2.2
-      drizzle-orm:
-        specifier: ^0.29.1
-        version: 0.29.1(@libsql/client@0.4.0-pre.5)(@types/better-sqlite3@7.6.8)(better-sqlite3@9.2.2)
-      lucia:
-        specifier: 3.0.0-beta.13
-        version: 3.0.0-beta.13
-      resend:
-        specifier: ^2.1.0
-        version: 2.1.0
-      vue-email:
-        specifier: ^0.8.5
-        version: 0.8.7(typescript@5.3.3)(vue@3.3.13)
-    devDependencies:
-      '@lucia-auth/adapter-sqlite':
-        specifier: 3.0.0-beta.11
-        version: 3.0.0-beta.11(@libsql/client@0.4.0-pre.5)(better-sqlite3@9.2.2)(lucia@3.0.0-beta.13)
-      '@nuxt/devtools':
-        specifier: ^1.0.6
-        version: 1.0.6(nuxt@3.9.0)(vite@5.0.10)
-      '@nuxt/eslint-config':
-        specifier: ^0.2.0
-        version: 0.2.0(eslint@8.56.0)
-      '@nuxtjs/tailwindcss':
-        specifier: ^6.10.4
-        version: 6.10.4
-      '@types/better-sqlite3':
-        specifier: ^7.6.8
-        version: 7.6.8
-      '@vue-email/nuxt':
-        specifier: ^0.8.8
-        version: 0.8.8(typescript@5.3.3)(vue@3.3.13)
-      '@vue/eslint-config-prettier':
-        specifier: ^9.0.0
-        version: 9.0.0(eslint@8.56.0)(prettier@3.1.1)
-      drizzle-kit:
-        specifier: ^0.20.7
-        version: 0.20.13
-      eslint:
-        specifier: ^8.56.0
-        version: 8.56.0
-      nuxt:
-        specifier: ^3.9.0
-        version: 3.9.0(eslint@8.56.0)(typescript@5.3.3)(vite@5.0.10)
-      prettier:
-        specifier: ^3.1.1
-        version: 3.1.1
-      vue:
-        specifier: ^3.3.12
-        version: 3.3.13(typescript@5.3.3)
-      vue-router:
-        specifier: ^4.2.5
-        version: 4.2.5(vue@3.3.13)
+devDependencies:
+  '@lucia-auth/adapter-drizzle':
+    specifier: ^1.0.0
+    version: 1.0.0(lucia@3.0.0-beta.13)
+  '@lucia-auth/adapter-sqlite':
+    specifier: 3.0.0-beta.11
+    version: 3.0.0-beta.11(@libsql/client@0.4.0-pre.5)(better-sqlite3@9.2.2)(lucia@3.0.0-beta.13)
+  '@nuxt/devtools':
+    specifier: ^1.0.6
+    version: 1.0.6(nuxt@3.9.0)(vite@5.0.10)
+  '@nuxt/eslint-config':
+    specifier: ^0.2.0
+    version: 0.2.0(eslint@8.56.0)
+  '@nuxtjs/tailwindcss':
+    specifier: ^6.10.4
+    version: 6.10.4
+  '@types/better-sqlite3':
+    specifier: ^7.6.8
+    version: 7.6.8
+  '@vue-email/nuxt':
+    specifier: ^0.8.8
+    version: 0.8.8(typescript@5.3.3)(vue@3.3.13)
+  '@vue/eslint-config-prettier':
+    specifier: ^9.0.0
+    version: 9.0.0(eslint@8.56.0)(prettier@3.1.1)
+  drizzle-kit:
+    specifier: ^0.20.7
+    version: 0.20.13
+  eslint:
+    specifier: ^8.56.0
+    version: 8.56.0
+  nuxt:
+    specifier: ^3.9.0
+    version: 3.9.0(eslint@8.56.0)(typescript@5.3.3)(vite@5.0.10)
+  prettier:
+    specifier: ^3.1.1
+    version: 3.1.1
+  vue:
+    specifier: ^3.3.12
+    version: 3.3.13(typescript@5.3.3)
+  vue-router:
+    specifier: ^4.2.5
+    version: 4.2.5(vue@3.3.13)
 
 packages:
 
@@ -1163,6 +1164,14 @@ packages:
     os: [win32]
     requiresBuild: true
     optional: true
+
+  /@lucia-auth/adapter-drizzle@1.0.0(lucia@3.0.0-beta.13):
+    resolution: {integrity: sha512-3NJbAgEcgFn1bJ+s/XVBdatnQZCtSjKJ880H25SVB9X+V2jhYfsSu/mcW3PSis5bLial188Pd4oNTTHonh+6vg==}
+    peerDependencies:
+      lucia: 3.x
+    dependencies:
+      lucia: 3.0.0-beta.13
+    dev: true
 
   /@lucia-auth/adapter-sqlite@3.0.0-beta.11(@libsql/client@0.4.0-pre.5)(better-sqlite3@9.2.2)(lucia@3.0.0-beta.13):
     resolution: {integrity: sha512-Yvnu6p3hP81ldeoaKC66svzc0Kyfxtc54pYukxAMQKFdc+puCcMzCAk71/s5BJwFeyzepA+F1WdV/7jvduKw+g==}

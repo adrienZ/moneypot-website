@@ -16,6 +16,7 @@
     "typecheck": "nuxt prepare && nuxt typecheck"
   },
   "devDependencies": {
+    "@lucia-auth/adapter-drizzle": "^1.0.0",
     "@lucia-auth/adapter-sqlite": "3.0.0-beta.11",
     "@nuxt/devtools": "^1.0.6",
     "@nuxt/eslint-config": "^0.2.0",

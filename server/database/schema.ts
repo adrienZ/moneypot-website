@@ -1,5 +1,4 @@
 import { text, integer, sqliteTableCreator } from "drizzle-orm/sqlite-core";
-export const TABLE_PREFIX = "auth_layer_";
 const sqliteTable = sqliteTableCreator((name) => `${TABLE_PREFIX}${name}`);
 
 // user table

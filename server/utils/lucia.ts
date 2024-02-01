@@ -1,11 +1,14 @@
+// my db
+import { user, userSession } from "../database/schema";
+// lucia
 import { Lucia } from "lucia";
-import { BetterSqlite3Adapter } from "@lucia-auth/adapter-sqlite";
+import { DrizzleMySQLAdapter } from "@lucia-auth/adapter-drizzle";
+// drizzle
 import { drizzle as drizzleBetterSqlite3 } from "drizzle-orm/better-sqlite3";
-import sqlite from "better-sqlite3";
-import { TABLE_PREFIX } from "../database/schema";
 import { drizzle as drizzleLibSQL } from "drizzle-orm/libsql";
+// db clients
 import { createClient as createLibSQLClient } from "@libsql/client";
-import { LibSQLAdapter } from "@lucia-auth/adapter-sqlite";
+import sqlite from "better-sqlite3";
 
 // const __filename = url.fileURLToPath(import.meta.url);
 // const dbFolder = resolve(dirname(__filename), "../../");
@@ -23,19 +26,11 @@ export const db = isDev
   ? drizzleBetterSqlite3(sqliteDatabase, { logger: true })
   : drizzleLibSQL(tursoDatabase, { logger: true });
 
-const adapterLibSql = new LibSQLAdapter(tursoDatabase, {
-  user: `${TABLE_PREFIX}user`,
-  session: `${TABLE_PREFIX}user_session`
-});
-
 // supabase postgres: https://supabase.com/docs/guides/auth/social-login
 
-const adapterBetterSql = new BetterSqlite3Adapter(sqliteDatabase, {
-  user: `${TABLE_PREFIX}user`,
-  session: `${TABLE_PREFIX}user_session`
-});
+const adapter = new DrizzleMySQLAdapter(db, userSession, user);
 
-export const lucia = new Lucia(isDev ? adapterBetterSql : adapterLibSql, {
+export const lucia = new Lucia(adapter, {
   sessionCookie: {
     attributes: {
       secure: !isDev,

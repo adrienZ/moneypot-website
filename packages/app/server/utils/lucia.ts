@@ -28,6 +28,8 @@ const adapterLibSql = new LibSQLAdapter(tursoDatabase, {
   session: `${TABLE_PREFIX}user_session`
 });
 
+// supabase postgres: https://supabase.com/docs/guides/auth/social-login
+
 const adapterBetterSql = new BetterSqlite3Adapter(sqliteDatabase, {
   user: `${TABLE_PREFIX}user`,
   session: `${TABLE_PREFIX}user_session`

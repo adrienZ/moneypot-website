@@ -2,33 +2,20 @@
 import { user, userSession } from "../database/schema";
 // lucia
 import { Lucia } from "lucia";
-import { DrizzleMySQLAdapter } from "@lucia-auth/adapter-drizzle";
 // drizzle
-import { drizzle as drizzleBetterSqlite3 } from "drizzle-orm/better-sqlite3";
-import { drizzle as drizzleLibSQL } from "drizzle-orm/libsql";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 // db clients
-import { createClient as createLibSQLClient } from "@libsql/client";
-import sqlite from "better-sqlite3";
+import { Pool } from "pg";
 
-// const __filename = url.fileURLToPath(import.meta.url);
-// const dbFolder = resolve(dirname(__filename), "../../");
 const isDev = process.env.NODE_ENV === "development";
-
-const sqliteDatabase = sqlite(":memory:");
-// const sqliteDatabase = sqlite(join(dbFolder, './db.sqlite'));
-// export const db: BetterSQLite3Database = drizzle(sqliteDatabase, { logger: true });
-const tursoDatabase = createLibSQLClient({
-  url: process.env.TURSO_DB_URL as string,
-  authToken: process.env.TURSO_DB_TOKEN
+const pgDatabase = new Pool({
+  connectionString: process.env.BASE_URL as string
 });
 
-export const db = isDev
-  ? drizzleBetterSqlite3(sqliteDatabase, { logger: false })
-  : drizzleLibSQL(tursoDatabase, { logger: false });
+export const db = drizzle(pgDatabase, { logger: true });
 
-// supabase postgres: https://supabase.com/docs/guides/auth/social-login
-
-const adapter = new DrizzleMySQLAdapter(db, userSession, user);
+const adapter = new DrizzlePostgreSQLAdapter(db, userSession, user);
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
@@ -39,11 +26,12 @@ export const lucia = new Lucia(adapter, {
   },
   getUserAttributes: (attributes) => {
     return {
+      // TODO: fix types
       // @ts-expect-error
-      externalId: attributes.external_id,
+      externalId: attributes.externalId,
       // @ts-expect-error
-      // cast boolean because sqlite returns number
-      emailVerified: Boolean(attributes.email_verified),
+      emailVerified: attributes.emailVerified,
+      // @ts-expect-error
       avatar: attributes.avatar
     };
   }

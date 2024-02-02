@@ -56,7 +56,11 @@ const responseText = computed(() => {
   }
 });
 
-function subscribeEmailToNewsletter() {
-  return request.execute();
+async function subscribeEmailToNewsletter() {
+  await request.execute();
+
+  if (request.status.value === "success") {
+    navigateTo("/profile");
+  }
 }
 </script>

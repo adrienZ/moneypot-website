@@ -65,8 +65,8 @@
 
     <hr />
     <footer>
-      <UContainer clas>
-        <DebugUsersDbDump />
+      <UContainer>
+        <!-- <DebugUsersDbDump /> -->
       </UContainer>
     </footer>
   </div>

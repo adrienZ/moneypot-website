@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="container mx-auto">
     <form v-if="profile" novalidate>
       <UAvatar size="xl" :src="profile.avatar" alt="Avatar" />
 
@@ -38,10 +38,9 @@ definePageMeta({
 });
 
 const user = useUser();
-const { data: profile } = await useAsyncData(
-  `${user.value?.externalId}-profile`,
-  () => $fetch("/api/me")
-);
+const { data: profile } = await useFetch(() => "/api/me", {
+  key: `profile-${user.value?.externalId}`
+});
 
 const {
   status,

@@ -6,6 +6,13 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true
   },
+
+  build: {
+    transpile: [
+      // pg is written in commonjs
+      "pg"
+    ]
+  },
   modules: [
     "@nuxt/devtools",
     "@vue-email/nuxt",
@@ -43,10 +50,9 @@ export default defineNuxtConfig({
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
+      DATABASE_URL?: string;
       RESEND_API_KEY?: string;
       RESEND_AUDIENCE_ID?: string;
-      TURSO_DB_URL?: string;
-      TURSO_DB_TOKEN?: string;
       GITHUB_CLIENT_ID?: string;
       GITHUB_CLIENT_SECRET?: string;
       BASE_URL?: string;

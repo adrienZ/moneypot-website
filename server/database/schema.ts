@@ -1,21 +1,26 @@
-import { text, integer, sqliteTableCreator } from "drizzle-orm/sqlite-core";
-import { sql } from "drizzle-orm";
+import {
+  text,
+  boolean,
+  timestamp,
+  integer,
+  varchar,
+  serial,
+  pgTableCreator
+} from "drizzle-orm/pg-core";
 
 const TABLE_PREFIX = "auth_layer_";
-const sqliteTable = sqliteTableCreator((name) => `${TABLE_PREFIX}${name}`);
+const sqliteTable = pgTableCreator((name) => `${TABLE_PREFIX}${name}`);
 
 // user table
 export const user = sqliteTable("user", {
-  id: integer("id").notNull().primaryKey({ autoIncrement: true }),
+  id: serial("id").primaryKey(),
   externalId: text("external_id").notNull().unique(),
   username: text("username"),
   // password is optional because of oauth
   password: text("password"),
-  emailVerified: integer("email_verified", { mode: "boolean" })
-    .notNull()
-    .default(false),
+  emailVerified: boolean("email_verified").notNull().default(false),
   email: text("email").notNull().unique(),
-  avatar: text("avatar", { length: 512 }).default(
+  avatar: varchar("avatar", { length: 512 }).default(
     "https://www.gravatar.com/avatar"
   )
 });
@@ -28,12 +33,12 @@ export const userSession = sqliteTable("user_session", {
   userId: integer("user_id")
     .notNull()
     .references(() => user.id),
-  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull()
+  expiresAt: timestamp("expires_at").notNull()
 });
 
 const oauthProviders = ["github", "discord"] as const;
 export const oauthAccount = sqliteTable("oauth_account", {
-  id: integer("id").notNull().primaryKey({ autoIncrement: true }),
+  id: serial("id").primaryKey(),
   providerID: text("provider_id", {
     enum: oauthProviders
   }).notNull(),
@@ -44,27 +49,27 @@ export const oauthAccount = sqliteTable("oauth_account", {
 });
 
 export const emailVerificationCode = sqliteTable("email_verification_code", {
-  id: integer("id").notNull().primaryKey({ autoIncrement: true }),
+  id: serial("id").primaryKey(),
   code: text("code").notNull(),
   userId: text("user_id").notNull().unique(),
   email: text("email").notNull(),
   // date
-  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull()
+  expiresAt: timestamp("expires_at").notNull()
 });
 
 export const passwordResetToken = sqliteTable("password_reset_token", {
-  id: integer("id").notNull().primaryKey({ autoIncrement: true }),
+  id: serial("id").primaryKey(),
   token: text("token").notNull(),
   userId: integer("user_id")
     .notNull()
     .references(() => user.id),
   // date
-  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull()
+  expiresAt: timestamp("expires_at").notNull()
 });
 
 export const emailAudience = sqliteTable("email_audience", {
-  id: integer("id").notNull().primaryKey({ autoIncrement: true }),
+  id: serial("id").primaryKey(),
   email: text("email").notNull(),
   providerContactID: text("provider_contact_id").notNull(),
-  date: text("date").default(sql`CURRENT_TIMESTAMP`)
+  date: timestamp("date").defaultNow()
 });

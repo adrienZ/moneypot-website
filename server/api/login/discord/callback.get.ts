@@ -67,14 +67,19 @@ export default defineEventHandler(async (event) => {
 
     const userId = generateId(15);
 
+    // https://discord.com/developers/docs/reference#image-formatting-image-base-url
+    const DISCORD_CDN_BASE_URL = "https://cdn.discordapp.com";
+    // https://discord.com/developers/docs/reference#image-formatting-cdn-endpoints
+    const DISCORD_AVATAR_URL = `${DISCORD_CDN_BASE_URL}/avatars/${discordUser.id}/${discordUser.avatar}.jpg`;
     const createdUser = await myAuth.userTable.insertUser({
       externalId: userId,
       username: discordUser.global_name,
       email: discordUser.email,
-      emailVerified: discordUser.verified
+      emailVerified: discordUser.verified,
+      avatar: discordUser.avatar ? DISCORD_AVATAR_URL : undefined
     });
 
-    myAuth.oauthAccountTable.insertOauthAccount({
+    await myAuth.oauthAccountTable.insertOauthAccount({
       providerID: "github",
       providerUserID: discordUser.id,
       userId: createdUser.id
@@ -103,9 +108,12 @@ export default defineEventHandler(async (event) => {
   }
 });
 
+// https://discord.com/developers/docs/resources/user#user-object-user-structure
+
 interface DiscordUser {
   id: string;
   global_name: string;
   email: string;
   verified: boolean;
+  avatar?: string;
 }

@@ -1,12 +1,17 @@
 <template>
   <main>
     <form v-if="profile" novalidate>
+      <UAvatar size="xl" :src="profile.avatar" alt="Avatar" />
+
       <UFormGroup label="Username">
         <UInput readonly name="Username" :value="profile.username" />
       </UFormGroup>
 
       <UFormGroup label="Email">
         <UInput readonly name="Email" :value="profile.email" />
+        <template v-if="profile.emailVerified" #hint>
+          <UBadge>Verified</UBadge>
+        </template>
       </UFormGroup>
 
       <div>

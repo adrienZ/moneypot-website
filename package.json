@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "pnpm typecheck && pnpm lint",
     "build": "nuxt build",
-    "dev": "BASE_URL=http://localhost:3000 pnpm db:studio & nuxt dev",
+    "dev": "BASE_URL=http://localhost:3000 pnpm db:studio & BASE_URL=http://localhost:3000 nuxt dev",
     "generate": "nuxt generate",
     "preview": "BASE_URL=https://moneypot-website.onrender.com nuxt preview",
     "postinstall": "nuxt prepare",
@@ -40,7 +40,7 @@
     "better-sqlite3": "^9.3.0",
     "drizzle-orm": "^0.29.3",
     "lucia": "3.0.1",
-    "radix-vue": "^1.3.2",
+    "radix-vue": "^1.4.0",
     "resend": "^3.1.0",
     "vue-email": "^0.8.5"
   }

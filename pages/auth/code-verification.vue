@@ -1,43 +1,23 @@
 <template>
   <div>
     <div class="container mx-auto">
-      <div class="mb-12 text-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-key-icon text-primary mx-auto mb-3 h-12 w-12"
-        >
-          <circle cx="7.5" cy="15.5" r="5.5"></circle>
-          <path d="m21 2-9.6 9.6"></path>
-          <path d="m15.5 7.5 3 3L22 7l-3-3"></path>
-        </svg>
-        <h1 class="text-3xl font-bold lg:text-4xl">Get early access</h1>
-        <p class="mt-3 text-lg opacity-70">Be among the first to get access.</p>
-      </div>
       <div class="mx-auto max-w-lg">
         <form
           method="post"
-          data-action="/api/email/subscribe"
+          data-action="/api/"
           @submit.prevent="subscribeEmailToNewsletter"
         >
           <div class="flex items-end">
-            <UFormGroup label="Email" class="flex-grow mr-4">
+            <UFormGroup label="Code" class="flex-grow mr-4">
               <UInput
-                id="email"
-                v-model="email"
-                name="email"
+                id="code"
+                v-model="code"
+                name="code"
                 :loading="request.status.value === 'pending'"
               />
             </UFormGroup>
 
-            <UButton type="submit">Subscribe</UButton>
+            <UButton type="submit">Send</UButton>
           </div>
         </form>
 
@@ -54,13 +34,13 @@
 </template>
 
 <script lang="ts" setup>
-const email = ref("");
-const request = await useLazyFetch("/api/email/subscribe", {
+const code = ref("");
+const request = await useLazyFetch("/api/email-verification/:code", {
   method: "POST",
   // only submit with the form
   immediate: false,
   body: {
-    email
+    code
   },
   // do not trigger on each keystroke
   watch: false

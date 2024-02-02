@@ -8,6 +8,7 @@ interface IBase {
 
 interface ISendVerificationVerificationParams extends IBase {
   code: string;
+  pageUrl: string;
 }
 
 interface ISendResetPasswordRequestParams extends IBase {

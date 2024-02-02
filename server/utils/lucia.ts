@@ -23,8 +23,8 @@ const tursoDatabase = createLibSQLClient({
 });
 
 export const db = isDev
-  ? drizzleBetterSqlite3(sqliteDatabase, { logger: true })
-  : drizzleLibSQL(tursoDatabase, { logger: true });
+  ? drizzleBetterSqlite3(sqliteDatabase, { logger: false })
+  : drizzleLibSQL(tursoDatabase, { logger: false });
 
 // supabase postgres: https://supabase.com/docs/guides/auth/social-login
 

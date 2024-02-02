@@ -7,14 +7,15 @@
         <UInput readonly name="Username" :value="profile.username" />
       </UFormGroup>
 
-      <UFormGroup label="Email">
+      <UFormGroup label="Email" class="mt-4">
         <UInput readonly name="Email" :value="profile.email" />
-        <template v-if="profile.emailVerified" #hint>
-          <UBadge>Verified</UBadge>
+        <template #hint>
+          <UBadge v-if="profile.emailVerified">Verified</UBadge>
+          <UBadge v-else color="white" variant="solid">Not verified</UBadge>
         </template>
       </UFormGroup>
 
-      <div>
+      <div class="mt-4">
         <button
           type="button"
           :disabled="status === 'pending' || status === 'success'"

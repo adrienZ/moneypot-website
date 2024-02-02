@@ -3,8 +3,7 @@ import { createError } from "h3";
 
 export default defineEventHandler(async (event) => {
   const sessionId = getCookie(event, lucia.sessionCookieName) ?? null;
-  // const formData = await readFormData(event);
-  const formData = await getRouterParams(event);
+  const formData = await readBody(event);
 
   if (!sessionId) {
     return createError({

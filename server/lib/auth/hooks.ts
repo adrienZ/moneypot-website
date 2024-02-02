@@ -22,14 +22,19 @@ export class AuthHooks {
 
   async onUserCreation(event: H3Event, userData: IUserData) {
     myAuth.emailService.welcomeEmail({ targetEmail: userData.email });
+
     await this.onUserLogin(event, userData);
+
     const code = await generateEmailVerificationCode(
       String(userData.id),
       userData.email
     );
+    const pageUrl = `${process.env.BASE_URL}/auth/code-verification`;
+
     myAuth.emailService.sendEmailVerification({
       targetEmail: userData.email,
-      code
+      code,
+      pageUrl
     });
   }
 }

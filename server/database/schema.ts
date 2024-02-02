@@ -20,6 +20,7 @@ export const user = sqliteTable("user", {
   password: text("password"),
   emailVerified: boolean("email_verified").notNull().default(false),
   email: text("email").notNull().unique(),
+  twoFactorSecret: varchar("two_factor_secret", { length: 40 }),
   avatar: varchar("avatar", { length: 512 }).default(
     "https://www.gravatar.com/avatar"
   )

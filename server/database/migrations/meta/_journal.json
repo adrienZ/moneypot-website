@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1706895921489,
-      "tag": "0000_nebulous_smasher",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1706897198472,
-      "tag": "0001_familiar_doctor_faustus",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1706911413353,
-      "tag": "0002_bouncy_sandman",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1706913027040,
-      "tag": "0003_stale_marten_broadcloak",
+      "when": 1706914774410,
+      "tag": "0000_sparkling_king_bedlam",
       "breakpoints": true
     }
   ]

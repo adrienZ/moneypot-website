@@ -15,6 +15,9 @@
         </template>
       </UFormGroup>
 
+      <h3>2FA</h3>
+      <img :src="profile.qrcode" />
+
       <div class="mt-4">
         <button
           type="button"

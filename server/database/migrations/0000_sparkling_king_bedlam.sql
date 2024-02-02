@@ -35,15 +35,18 @@ CREATE TABLE IF NOT EXISTS "auth_layer_user" (
 	"password" text,
 	"email_verified" boolean DEFAULT false NOT NULL,
 	"email" text NOT NULL,
+	"two_factor_secret" varchar(40),
 	"avatar" varchar(512) DEFAULT 'https://www.gravatar.com/avatar',
 	CONSTRAINT "auth_layer_user_external_id_unique" UNIQUE("external_id"),
 	CONSTRAINT "auth_layer_user_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "auth_layer_user_session" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" text PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
-	"expires_at" timestamp NOT NULL
+	"expires_at" timestamp NOT NULL,
+	"create_at" timestamp DEFAULT now(),
+	"os" varchar(100)
 );
 --> statement-breakpoint
 DO $$ BEGIN

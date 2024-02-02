@@ -1,1 +1,0 @@
-ALTER TABLE "auth_layer_user_session" ALTER COLUMN "id" SET DATA TYPE text;

@@ -1,5 +1,5 @@
 {
-  "id": "f1391891-dfab-423c-ab0a-15d16fcc3530",
+  "id": "e96eec8e-b743-4154-8675-b7d4fa6228e3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -224,6 +224,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "two_factor_secret": {
+          "name": "two_factor_secret",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "avatar": {
           "name": "avatar",
           "type": "varchar(512)",
@@ -258,7 +264,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "text",
           "primaryKey": true,
           "notNull": true
         },
@@ -273,6 +279,19 @@
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true
+        },
+        "create_at": {
+          "name": "create_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "os": {
+          "name": "os",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},

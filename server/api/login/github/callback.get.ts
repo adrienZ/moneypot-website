@@ -83,6 +83,7 @@ export default defineEventHandler(async (event) => {
       externalId: userId,
       username: githubUser.login,
       email,
+      avatar: githubUser.avatar_url,
       // TRUE as we verified it with primaryEmail const
       emailVerified: true
     });
@@ -120,6 +121,7 @@ interface GitHubUser {
   id: string;
   login: string;
   email: string | null;
+  avatar_url: string;
 }
 
 interface GitHubEmail {

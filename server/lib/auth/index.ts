@@ -1,7 +1,8 @@
 import {
   user,
   oauthAccount,
-  emailVerificationCode
+  emailVerificationCode,
+  emailAudience
 } from "../../database/schema";
 import { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 import { LibSQLDatabase } from "drizzle-orm/libsql";
@@ -12,17 +13,20 @@ import { UserTable } from "./tables/user.table";
 import { OauthAccountTable } from "./tables/oauthAccount.table";
 import { EmailVerificationCodeTable } from "./tables/emailVerification.table";
 import { EmailService } from "~/server/lib/auth/emailService";
+import { EmailAudienceTable } from "./tables/emailAudience.table";
 
 type DbType = BetterSQLite3Database | LibSQLDatabase;
 type UserTableType = typeof user;
 type OauthAccountTableType = typeof oauthAccount;
 type EmailVerificationCodeTableType = typeof emailVerificationCode;
+type EmailAudienceTableType = typeof emailAudience;
 
 interface IConstructorParams {
   db: DbType;
   userTable: UserTableType;
   oauthAccountTable: OauthAccountTableType;
   emailVerificationCodeTable: EmailVerificationCodeTableType;
+  emailAudienceTable: EmailAudienceTableType;
 }
 
 export class Auth {
@@ -36,6 +40,7 @@ export class Auth {
   userTable: UserTable;
   oauthAccountTable: OauthAccountTable;
   emailVerificationCodeTable: EmailVerificationCodeTable;
+  emailAudienceTable: EmailAudienceTable;
 
   emailService: EmailService;
 
@@ -63,6 +68,7 @@ export class Auth {
       db,
       emailVerificationCode
     );
+    this.emailAudienceTable = new EmailAudienceTable(db, emailAudience);
   }
 
   // async OauthLinking() {

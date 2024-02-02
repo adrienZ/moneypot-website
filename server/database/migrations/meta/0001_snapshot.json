@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "e63cde7f-544a-4a27-a84c-ad5c57c34074",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "20983eac-de3d-48ee-a690-440af742b711",
+  "prevId": "e63cde7f-544a-4a27-a84c-ad5c57c34074",
   "tables": {
     "auth_layer_email_audience": {
       "name": "auth_layer_email_audience",
@@ -37,15 +37,7 @@
           "default": "CURRENT_TIMESTAMP"
         }
       },
-      "indexes": {
-        "auth_layer_email_audience_email_unique": {
-          "name": "auth_layer_email_audience_email_unique",
-          "columns": [
-            "email"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}

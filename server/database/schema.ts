@@ -1,4 +1,6 @@
 import { text, integer, sqliteTableCreator } from "drizzle-orm/sqlite-core";
+import { sql } from "drizzle-orm";
+
 const TABLE_PREFIX = "auth_layer_";
 const sqliteTable = sqliteTableCreator((name) => `${TABLE_PREFIX}${name}`);
 
@@ -12,7 +14,10 @@ export const user = sqliteTable("user", {
   emailVerified: integer("email_verified", { mode: "boolean" })
     .notNull()
     .default(false),
-  email: text("email").notNull().unique()
+  email: text("email").notNull().unique(),
+  avatar: text("avatar", { length: 512 }).default(
+    "https://www.gravatar.com/avatar"
+  )
 });
 
 export type User = typeof user.$inferSelect;
@@ -55,4 +60,11 @@ export const passwordResetToken = sqliteTable("password_reset_token", {
     .references(() => user.id),
   // date
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull()
+});
+
+export const emailAudience = sqliteTable("email_audience", {
+  id: integer("id").notNull().primaryKey({ autoIncrement: true }),
+  email: text("email").notNull(),
+  providerContactID: text("provider_contact_id").notNull(),
+  date: text("date").default(sql`CURRENT_TIMESTAMP`)
 });

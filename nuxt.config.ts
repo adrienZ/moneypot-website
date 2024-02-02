@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     "@nuxt/devtools",
     "@vue-email/nuxt",
     "@nuxt/ui",
-    "@nuxtjs/tailwindcss"
+    "@nuxtjs/tailwindcss",
+    "@nuxt/image"
   ],
   alias: {
     "#myauth": fileURLToPath(new URL("./server/lib/auth", import.meta.url))
@@ -43,6 +44,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       RESEND_API_KEY?: string;
+      RESEND_AUDIENCE_ID?: string;
       TURSO_DB_URL?: string;
       TURSO_DB_TOKEN?: string;
       GITHUB_CLIENT_ID?: string;

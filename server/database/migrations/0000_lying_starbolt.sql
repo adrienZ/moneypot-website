@@ -1,3 +1,10 @@
+CREATE TABLE `auth_layer_email_audience` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`email` text NOT NULL,
+	`provider_contact_id` text NOT NULL,
+	`date` text DEFAULT CURRENT_TIMESTAMP
+);
+--> statement-breakpoint
 CREATE TABLE `auth_layer_email_verification_code` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`code` text NOT NULL,
@@ -28,7 +35,8 @@ CREATE TABLE `auth_layer_user` (
 	`username` text,
 	`password` text,
 	`email_verified` integer DEFAULT false NOT NULL,
-	`email` text NOT NULL
+	`email` text NOT NULL,
+	`avatar` text(512) DEFAULT 'https://www.gravatar.com/avatar'
 );
 --> statement-breakpoint
 CREATE TABLE `auth_layer_user_session` (
@@ -38,6 +46,7 @@ CREATE TABLE `auth_layer_user_session` (
 	FOREIGN KEY (`user_id`) REFERENCES `auth_layer_user`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE UNIQUE INDEX `auth_layer_email_audience_email_unique` ON `auth_layer_email_audience` (`email`);--> statement-breakpoint
 CREATE UNIQUE INDEX `auth_layer_email_verification_code_user_id_unique` ON `auth_layer_email_verification_code` (`user_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `auth_layer_user_external_id_unique` ON `auth_layer_user` (`external_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `auth_layer_user_email_unique` ON `auth_layer_user` (`email`);

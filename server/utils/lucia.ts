@@ -43,7 +43,8 @@ export const lucia = new Lucia(adapter, {
       externalId: attributes.external_id,
       // @ts-expect-error
       // cast boolean because sqlite returns number
-      emailVerified: Boolean(attributes.email_verified)
+      emailVerified: Boolean(attributes.email_verified),
+      avatar: attributes.avatar
     };
   }
 });
@@ -55,6 +56,6 @@ declare module "lucia" {
   interface DatabaseUserAttributes
     extends Pick<
       import("../database/schema").User,
-      "id" | "externalId" | "emailVerified"
+      "id" | "externalId" | "emailVerified" | "avatar"
     > {}
 }

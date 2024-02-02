@@ -1,9 +1,7 @@
-<script lang="ts" setup>
-definePageMeta({
-  middleware: ["protected-middleware"]
-});
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <h1>HOMEPAGE</h1>
+  <section>
+    <NewsletterInput />
+  </section>
 </template>

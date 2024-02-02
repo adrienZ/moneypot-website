@@ -1,4 +1,5 @@
 import { text, integer, sqliteTableCreator } from "drizzle-orm/sqlite-core";
+const TABLE_PREFIX = "auth_layer_";
 const sqliteTable = sqliteTableCreator((name) => `${TABLE_PREFIX}${name}`);
 
 // user table
@@ -34,7 +35,7 @@ export const oauthAccount = sqliteTable("oauth_account", {
   providerUserID: text("provider_user_id").notNull(),
   userId: integer("user_id")
     .notNull()
-    .references(() => user.externalId)
+    .references(() => user.id)
 });
 
 export const emailVerificationCode = sqliteTable("email_verification_code", {

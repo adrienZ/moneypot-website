@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "c2024889-f103-4615-a3cb-236ff895b867",
+  "id": "249c02af-e9f5-48e4-bab8-00ff7977b3fe",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "auth_layer_email_verification_code": {
@@ -90,15 +90,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "auth_layer_oauth_account_user_id_auth_layer_user_external_id_fk": {
-          "name": "auth_layer_oauth_account_user_id_auth_layer_user_external_id_fk",
+        "auth_layer_oauth_account_user_id_auth_layer_user_id_fk": {
+          "name": "auth_layer_oauth_account_user_id_auth_layer_user_id_fk",
           "tableFrom": "auth_layer_oauth_account",
           "tableTo": "auth_layer_user",
           "columnsFrom": [
             "user_id"
           ],
           "columnsTo": [
-            "external_id"
+            "id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"

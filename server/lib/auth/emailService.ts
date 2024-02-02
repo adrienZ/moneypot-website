@@ -18,15 +18,15 @@ export class EmailService implements IEmailService {
   resend = new Resend(process.env.RESEND_API_KEY);
 
   async welcomeEmail(params: IBase) {
-    const emailContent = await useCompiler(
-      "signup.email.vue",
-      {
-        props: {
-          username: "John Doe"
-        }
-      },
-      true
-    );
+    // const emailContent = await useCompiler(
+    //   "signup.email.vue",
+    //   {
+    //     props: {
+    //       username: "John Doe"
+    //     }
+    //   },
+    //   true
+    // );
 
     try {
       // const data = await this.resend.emails.send({
@@ -36,7 +36,7 @@ export class EmailService implements IEmailService {
       //   html: emailContent.html,
       // });
 
-      return data;
+      return {};
     } catch (error) {
       console.log(error, "WELCOME ", params.targetEmail);
       return { error };

@@ -1,5 +1,5 @@
 import { TimeSpan, createDate } from "oslo";
-import { generateRandomString, alphabet } from "oslo/random";
+import { generateRandomString, alphabet } from "oslo/crypto";
 
 export async function generateEmailVerificationCode(
   userId: string,

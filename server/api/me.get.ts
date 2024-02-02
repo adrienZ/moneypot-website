@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   const [me] = await db
     .select()
     .from(user)
-    .where(eq(user.externalId, event.context.user.externalId))
+    .where(eq(user.id, event.context.user.id))
     .limit(1);
 
   return me;

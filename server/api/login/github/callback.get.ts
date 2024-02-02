@@ -87,7 +87,7 @@ export default defineEventHandler(async (event) => {
       emailVerified: true
     });
 
-    myAuth.oauthAccountTable.insertOauthAccount({
+    await myAuth.oauthAccountTable.insertOauthAccount({
       providerID: "github",
       providerUserID: githubUser.id,
       userId: createdUser.id

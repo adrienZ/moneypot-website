@@ -1,4 +1,4 @@
-// import { migrate } from "drizzle-orm/better-sqlite3/migrator";
+// import { migrate } from "drizzle-orm/postgres-js/migrator";
 // import { resolve } from "path";
 // import { fileURLToPath } from "url";
 

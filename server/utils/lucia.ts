@@ -3,17 +3,18 @@ import { user, userSession } from "../database/schema";
 // lucia
 import { Lucia } from "lucia";
 // drizzle
-import { drizzle } from "drizzle-orm/node-postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 // db clients
-import { Pool } from "pg";
+import postgres from "postgres";
 
 const isDev = process.env.NODE_ENV === "development";
-const pgDatabase = new Pool({
-  connectionString: process.env.BASE_URL as string
+const pgDatabase = postgres(process.env.DATABASE_URL as string, {
+  prepare: false
 });
 
-export const db = drizzle(pgDatabase, { logger: true });
+// https://supabase.com/docs/guides/database/connecting-to-postgres#connecting-with-drizzle
+export const db = drizzle(pgDatabase, { logger: false });
 
 const adapter = new DrizzlePostgreSQLAdapter(db, userSession, user);
 
@@ -24,7 +25,7 @@ export const lucia = new Lucia(adapter, {
       sameSite: "strict"
     }
   },
-  getUserAttributes: (attributes) => {
+  getUserAttributes(attributes) {
     return {
       // TODO: fix types
       // @ts-expect-error
@@ -34,16 +35,26 @@ export const lucia = new Lucia(adapter, {
       // @ts-expect-error
       avatar: attributes.avatar
     };
+  },
+  getSessionAttributes(attributes) {
+    return attributes;
   }
 });
 
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
+    DatabaseSessionAttributes: Pick<
+      import("../database/schema").UserSession,
+      "os"
+    >;
   }
   interface DatabaseUserAttributes
     extends Pick<
       import("../database/schema").User,
       "id" | "externalId" | "emailVerified" | "avatar"
     > {}
+
+  interface DatabaseSessionAttributes
+    extends Pick<import("../database/schema").UserSession, "createdAt"> {}
 }

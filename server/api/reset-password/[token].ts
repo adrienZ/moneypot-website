@@ -77,6 +77,4 @@ export default defineEventHandler(async (event) => {
       "Set-Cookie": sessionCookie.serialize()
     }
   });
-
-  return {};
 });

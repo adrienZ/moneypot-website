@@ -1,6 +1,5 @@
 import { Argon2id } from "oslo/password";
 import { generateId } from "lucia";
-import { SqliteError } from "better-sqlite3";
 import { isValidEmail } from "#myauth/helpers/email";
 
 export default eventHandler(async (event) => {
@@ -39,12 +38,6 @@ export default eventHandler(async (event) => {
       id: createdUser.id
     });
   } catch (e) {
-    if (e instanceof SqliteError && e.code === "SQLITE_CONSTRAINT_UNIQUE") {
-      throw createError({
-        message: "id or email already used",
-        statusCode: 500
-      });
-    }
     throw createError({
       message: "An unknown error occurred",
       statusCode: 500

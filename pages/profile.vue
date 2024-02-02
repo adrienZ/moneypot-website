@@ -29,10 +29,27 @@
         <p v-if="status === 'error'">{{ error }}</p>
       </div>
     </form>
+
+    <div class="mt-8">
+      <h3>Sessions</h3>
+
+      <UTable
+        v-model="selectedSessions"
+        :columns="
+          Object.keys(profile.sessions.at(0)).map((label) => ({
+            key: label,
+            label
+          }))
+        "
+        :rows="profile.sessions"
+      />
+    </div>
   </main>
 </template>
 
 <script setup lang="ts">
+import type { Session } from "lucia";
+
 definePageMeta({
   middleware: ["protected-middleware"]
 });
@@ -42,6 +59,7 @@ const { data: profile } = await useFetch(() => "/api/me", {
   key: `profile-${user.value?.externalId}`
 });
 
+const selectedSessions = ref<Session[]>([]);
 const {
   status,
   refresh: resetPassword,

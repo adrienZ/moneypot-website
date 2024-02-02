@@ -4,8 +4,7 @@ import {
   emailVerificationCode,
   emailAudience
 } from "../../database/schema";
-import { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
-import { LibSQLDatabase } from "drizzle-orm/libsql";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { GitHub, Discord } from "arctic";
 import { AuthHooks } from "./hooks";
 
@@ -15,7 +14,7 @@ import { EmailVerificationCodeTable } from "./tables/emailVerification.table";
 import { EmailService } from "~/server/lib/auth/emailService";
 import { EmailAudienceTable } from "./tables/emailAudience.table";
 
-type DbType = BetterSQLite3Database | LibSQLDatabase;
+type DbType = PostgresJsDatabase;
 type UserTableType = typeof user;
 type OauthAccountTableType = typeof oauthAccount;
 type EmailVerificationCodeTableType = typeof emailVerificationCode;

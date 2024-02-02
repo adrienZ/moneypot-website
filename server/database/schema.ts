@@ -33,8 +33,12 @@ export const userSession = sqliteTable("user_session", {
   userId: integer("user_id")
     .notNull()
     .references(() => user.id),
-  expiresAt: timestamp("expires_at").notNull()
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("create_at").defaultNow(),
+  os: varchar("os", { length: 100 })
 });
+
+export type UserSession = typeof userSession.$inferSelect;
 
 const oauthProviders = ["github", "discord"] as const;
 export const oauthAccount = sqliteTable("oauth_account", {

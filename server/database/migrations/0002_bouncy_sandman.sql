@@ -1,0 +1,1 @@
+ALTER TABLE "auth_layer_user_session" ADD COLUMN "create_at" timestamp DEFAULT now();

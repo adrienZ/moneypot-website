@@ -1,9 +1,8 @@
 import { oauthAccount } from "../../../database/schema";
 import { eq, and } from "drizzle-orm";
-import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
-import type { LibSQLDatabase } from "drizzle-orm/libsql";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
-type DbType = BetterSQLite3Database | LibSQLDatabase;
+type DbType = PostgresJsDatabase;
 
 type OauthAccount = typeof oauthAccount;
 type OauthAccountInsert = typeof oauthAccount.$inferInsert;

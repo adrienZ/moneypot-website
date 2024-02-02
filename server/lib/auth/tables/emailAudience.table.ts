@@ -1,8 +1,7 @@
 import type { emailAudience } from "../../../database/schema";
-import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
-import type { LibSQLDatabase } from "drizzle-orm/libsql";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
-type DbType = BetterSQLite3Database | LibSQLDatabase;
+type DbType = PostgresJsDatabase;
 
 type TableType = typeof emailAudience;
 type InsertType = typeof emailAudience.$inferInsert;

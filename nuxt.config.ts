@@ -7,12 +7,6 @@ export default defineNuxtConfig({
     enabled: true
   },
 
-  build: {
-    transpile: [
-      // pg is written in commonjs
-      "pg"
-    ]
-  },
   modules: [
     "@nuxt/devtools",
     "@vue-email/nuxt",

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container mx-auto">
       <div class="mb-12 text-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -41,6 +41,8 @@ export class EmailService implements IEmailService {
         html: emailContent.html
       });
 
+      console.log("WELCOME EMAIL DATA", data);
+
       return data;
     } catch (error) {
       console.log(error, "WELCOME ", params.targetEmail);

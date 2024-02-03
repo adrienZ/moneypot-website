@@ -29,6 +29,20 @@ export class UserTable {
 
     return users.at(0) ?? null;
   }
+  async getUserByExternalId(uuid: string) {
+    if (!uuid) {
+      return null;
+    }
+
+    const users = await this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.externalId, uuid))
+      .limit(1)
+      .execute();
+
+    return users.at(0) ?? null;
+  }
 
   async insertUser(data: typeof user.$inferInsert) {
     const [inserted] = await this.db
@@ -50,4 +64,25 @@ export class UserTable {
 
     return inserted;
   }
+
+  async getTwoFactorSecretById(userId: number) {
+    const user = await db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.id, userId));
+
+    return user.at(0);
+  }
+
+  async updateUserTwoFactorEnabledById(userId: number) {
+    return db
+      .update(this.table)
+      .set({
+        twoFactorEnabled: true
+      })
+      .where(eq(this.table.id, userId))
+      .returning();
+  }
+
+  asy;
 }

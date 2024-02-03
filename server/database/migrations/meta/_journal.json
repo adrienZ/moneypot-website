@@ -8,6 +8,20 @@
       "when": 1706914774410,
       "tag": "0000_sparkling_king_bedlam",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1706919608996,
+      "tag": "0001_steady_bloodstrike",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1706919974719,
+      "tag": "0002_flawless_pandemic",
+      "breakpoints": true
     }
   ]
 }

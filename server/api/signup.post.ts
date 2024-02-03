@@ -2,6 +2,7 @@ import { Argon2id } from "oslo/password";
 import { generateId } from "lucia";
 import { isValidEmail } from "#myauth/helpers/email";
 import { encodeHex } from "oslo/encoding";
+import { HMAC } from "oslo/crypto";
 
 export default eventHandler(async (event) => {
   const formData = await readFormData(event);
@@ -26,8 +27,7 @@ export default eventHandler(async (event) => {
 
   const hashedPassword = await new Argon2id().hash(password);
   const userId = generateId(15);
-  const twoFactorSecret = crypto.getRandomValues(new Uint8Array(20));
-  console.log(encodeHex(twoFactorSecret));
+  const twoFactorSecret = await new HMAC("SHA-1").generateKey();
 
   try {
     const createdUser = await myAuth.userTable.insertUser({

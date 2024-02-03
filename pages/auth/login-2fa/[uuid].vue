@@ -30,13 +30,19 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+  middleware: ["unlogged-middleware"]
+});
+
+const { params } = useRoute("auth-login-2fa-otp");
 const code = ref("");
-const request = await useLazyFetch("/api/email-verification/:code", {
+const request = await useLazyFetch("/api/auth/login-2fa", {
   method: "POST",
   // only submit with the form
   immediate: false,
   body: {
-    code
+    code,
+    userId: params.uuid
   },
   // do not trigger on each keystroke
   watch: false
@@ -44,7 +50,7 @@ const request = await useLazyFetch("/api/email-verification/:code", {
 
 const responseText = computed(() => {
   if (request.status.value === "error") {
-    return "error: " + request.error.value;
+    return "error: " + request.error.value?.message;
   }
 
   if (request.status.value === "success") {
@@ -56,7 +62,7 @@ async function subscribeEmailToNewsletter() {
   await request.execute();
 
   if (request.status.value === "success") {
-    navigateTo("/profile");
+    navigateTo("/");
   }
 }
 </script>

@@ -1,0 +1,1 @@
+ALTER TABLE "auth_layer_user" ALTER COLUMN "two_factor_secret" SET DATA TYPE varchar(128);

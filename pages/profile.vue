@@ -15,10 +15,13 @@
         </template>
       </UFormGroup>
 
-      <h3>2FA</h3>
-      <img :src="profile.qrcode" />
+      <ProfileTwoFactorAuth
+        class="mt-8"
+        :api-dedupe-key="PROFILE_KEY_DEDUPE"
+        :enabled="profile.twoFactorEnabled"
+      />
 
-      <div class="mt-4">
+      <UCard class="mt-4">
         <button
           type="button"
           :disabled="status === 'pending' || status === 'success'"
@@ -30,10 +33,10 @@
           Your password reset link was sent to your inbox
         </p>
         <p v-if="status === 'error'">{{ error }}</p>
-      </div>
+      </UCard>
     </form>
 
-    <div class="mt-8">
+    <UCard class="mt-8">
       <h3>Sessions</h3>
 
       <UTable
@@ -46,7 +49,7 @@
         "
         :rows="profile.sessions"
       />
-    </div>
+    </UCard>
   </main>
 </template>
 
@@ -58,8 +61,9 @@ definePageMeta({
 });
 
 const user = useUser();
+const PROFILE_KEY_DEDUPE = `profile-${user.value?.externalId}`;
 const { data: profile } = await useFetch(() => "/api/me", {
-  key: `profile-${user.value?.externalId}`
+  key: PROFILE_KEY_DEDUPE
 });
 
 const selectedSessions = ref<Session[]>([]);

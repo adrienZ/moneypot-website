@@ -33,6 +33,8 @@ export const lucia = new Lucia(adapter, {
       // @ts-expect-error
       emailVerified: attributes.emailVerified,
       // @ts-expect-error
+      twoFactorEnabled: attributes.twoFactorEnabled,
+      // @ts-expect-error
       avatar: attributes.avatar
     };
   },
@@ -52,7 +54,7 @@ declare module "lucia" {
   interface DatabaseUserAttributes
     extends Pick<
       import("../database/schema").User,
-      "id" | "externalId" | "emailVerified" | "avatar"
+      "id" | "externalId" | "emailVerified" | "avatar" | "twoFactorEnabled"
     > {}
 
   interface DatabaseSessionAttributes

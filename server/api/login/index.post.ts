@@ -55,8 +55,16 @@ export default eventHandler(async (event) => {
     });
   }
 
-  await myAuth.hooks.onUserLogin(event, {
-    email: existingUser.email,
-    id: existingUser.id
-  });
+  if (!existingUser.twoFactorEnabled) {
+    await myAuth.hooks.onUserLogin(event, {
+      email: existingUser.email,
+      id: existingUser.id
+    });
+  }
+
+  return {
+    redirect: existingUser.twoFactorEnabled
+      ? "/auth/login-2fa/" + existingUser.externalId
+      : "/"
+  };
 });

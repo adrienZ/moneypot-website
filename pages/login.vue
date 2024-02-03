@@ -13,7 +13,8 @@ async function login(e: Event) {
   if (result.error.value) {
     error.value = result.error.value.data?.message ?? null;
   } else {
-    await navigateTo("/");
+    debugger;
+    await navigateTo(result.data.value?.redirect);
   }
 }
 </script>

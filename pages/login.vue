@@ -13,7 +13,6 @@ async function login(e: Event) {
   if (result.error.value) {
     error.value = result.error.value.data?.message ?? null;
   } else {
-    debugger;
     await navigateTo(result.data.value?.redirect);
   }
 }

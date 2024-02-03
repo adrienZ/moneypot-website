@@ -31,7 +31,7 @@ export class AuthHooks {
   }
 
   async onUserCreation(event: H3Event, userData: IUserData) {
-    myAuth.emailService.welcomeEmail({
+    await myAuth.emailService.welcomeEmail({
       targetEmail: userData.email,
       username: userData.username ?? undefined
     });

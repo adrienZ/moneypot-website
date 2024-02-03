@@ -1,6 +1,5 @@
 import { generateEmailVerificationCode } from "./helpers/verificationCode";
 import { LoginThrottlingService } from "./services/loginThrottlingService";
-import parser from "ua-parser-js";
 
 type H3Event = Parameters<Parameters<typeof defineEventHandler>[0]>[0];
 
@@ -14,10 +13,12 @@ export class AuthHooks {
     LoginThrottlingService.getInstance().onValidate(userData.email);
 
     const ua = getRequestHeader(event, "User-Agent");
-    const parsedInfos = ua ? parser(ua) : null;
+    const ip = getRequestIP(event, { xForwardedFor: true }) ?? null;
 
     const session = await lucia.createSession(String(userData.id), {
-      os: parsedInfos?.os?.name ?? null
+      // varchar(500)
+      userAgent: ua?.substring(0, 500) ?? null,
+      ip
     });
     appendHeader(
       event,

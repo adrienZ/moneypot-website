@@ -22,6 +22,20 @@
       "when": 1706919974719,
       "tag": "0002_flawless_pandemic",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1706981587487,
+      "tag": "0003_past_secret_warriors",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1706985479661,
+      "tag": "0004_next_roland_deschain",
+      "breakpoints": true
     }
   ]
 }

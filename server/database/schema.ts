@@ -37,7 +37,8 @@ export const userSession = sqliteTable("user_session", {
     .references(() => user.id),
   expiresAt: timestamp("expires_at").notNull(),
   createdAt: timestamp("create_at").defaultNow(),
-  os: varchar("os", { length: 100 })
+  userAgent: varchar("user_agent", { length: 500 }),
+  ip: varchar("ip", { length: 45 })
 });
 
 export type UserSession = typeof userSession.$inferSelect;

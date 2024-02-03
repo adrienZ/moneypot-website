@@ -48,7 +48,7 @@ declare module "lucia" {
     Lucia: typeof lucia;
     DatabaseSessionAttributes: Pick<
       import("../database/schema").UserSession,
-      "os"
+      "userAgent" | "ip"
     >;
   }
   interface DatabaseUserAttributes
@@ -58,5 +58,8 @@ declare module "lucia" {
     > {}
 
   interface DatabaseSessionAttributes
-    extends Pick<import("../database/schema").UserSession, "createdAt"> {}
+    extends Pick<
+      import("../database/schema").UserSession,
+      "createdAt" | "userAgent"
+    > {}
 }

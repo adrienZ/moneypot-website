@@ -69,11 +69,10 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    const existingUser = existingUserByProvider ?? existingUserByEmail;
-    if (existingUser) {
+    if (existingUserByEmail) {
       myAuth.hooks.onUserLogin(event, {
-        email: existingUser.email,
-        id: existingUser.id
+        email: existingUserByEmail.email,
+        id: existingUserByEmail.id
       });
     }
 

@@ -15,11 +15,15 @@
         </template>
       </UFormGroup>
 
+      <UDivider class="my-4" />
+
       <ProfileTwoFactorAuth
         class="mt-8"
         :api-dedupe-key="PROFILE_KEY_DEDUPE"
         :enabled="profile.twoFactorEnabled"
       />
+
+      <UDivider class="my-4" />
 
       <UCard class="mt-4">
         <button
@@ -36,19 +40,32 @@
       </UCard>
     </form>
 
+    <UDivider class="my-4" />
+
     <UCard class="mt-8">
       <h3>Sessions</h3>
 
-      <UTable
-        v-model="selectedSessions"
-        :columns="
-          Object.keys(profile.sessions.at(0)).map((label) => ({
-            key: label,
-            label
-          }))
-        "
-        :rows="profile.sessions"
-      />
+      <div class="mt-4" v-for="session in profile.sessions" :key="session.id">
+        <UDivider class="my-4" />
+
+        <div>
+          <span v-if="session.os">{{ session.os.name }}</span>
+          <span v-if="session.browser"> - {{ session.browser.name }}</span>
+        </div>
+        <div>
+          {{ session.ip
+          }}<UBadge v-if="session.isCurrentSession">This device</UBadge>
+        </div>
+        <time class="block" :datetime="session.createdAt">
+          {{
+            new Date(session.createdAt).toLocaleTimeString(undefined, {
+              day: "numeric",
+              month: "long",
+              year: "numeric"
+            })
+          }}
+        </time>
+      </div>
     </UCard>
   </main>
 </template>

@@ -83,6 +83,4 @@ export class UserTable {
       .where(eq(this.table.id, userId))
       .returning();
   }
-
-  asy;
 }

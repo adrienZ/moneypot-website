@@ -39,7 +39,8 @@ export default eventHandler(async (event) => {
 
     await myAuth.hooks.onUserCreation(event, {
       email: createdUser.email,
-      id: createdUser.id
+      id: createdUser.id,
+      username: createdUser.username
     });
   } catch (e) {
     throw createError({

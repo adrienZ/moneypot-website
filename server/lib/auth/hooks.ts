@@ -6,6 +6,7 @@ type H3Event = Parameters<Parameters<typeof defineEventHandler>[0]>[0];
 interface IUserData {
   id: number;
   email: string;
+  username?: string | null;
 }
 
 export class AuthHooks {
@@ -30,7 +31,10 @@ export class AuthHooks {
   }
 
   async onUserCreation(event: H3Event, userData: IUserData) {
-    myAuth.emailService.welcomeEmail({ targetEmail: userData.email });
+    myAuth.emailService.welcomeEmail({
+      targetEmail: userData.email,
+      username: userData.username ?? undefined
+    });
 
     await this.onUserLogin(event, userData);
 

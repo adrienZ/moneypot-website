@@ -1,9 +1,12 @@
 import { IEmailService } from "./interfaces/IEmailService";
 import { Resend } from "resend";
 import { useCompiler } from "#vue-email";
-import { emailAudience } from "../../database/schema";
 interface IBase {
   targetEmail: string;
+}
+
+interface IWelcomeParams extends IBase {
+  username?: string;
 }
 
 interface ISendVerificationVerificationParams extends IBase {
@@ -17,27 +20,28 @@ interface ISendResetPasswordRequestParams extends IBase {
 
 export class EmailService implements IEmailService {
   resend = new Resend(process.env.RESEND_API_KEY);
+  senderAddress = "Adrien <onboarding@resend.dev>";
 
-  async welcomeEmail(params: IBase) {
-    // const emailContent = await useCompiler(
-    //   "signup.email.vue",
-    //   {
-    //     props: {
-    //       username: "John Doe"
-    //     }
-    //   },
-    //   true
-    // );
+  async welcomeEmail(params: IWelcomeParams) {
+    const emailContent = await useCompiler(
+      "welcome.email.vue",
+      {
+        props: {
+          username: params.username
+        }
+      },
+      true
+    );
 
     try {
-      // const data = await this.resend.emails.send({
-      //   from: 'Acme <onboarding@resend.dev>',
-      //   to: [params.targetEmail],
-      //   subject: 'Hello world',
-      //   html: emailContent.html,
-      // });
+      const data = await this.resend.emails.send({
+        from: this.senderAddress,
+        to: [params.targetEmail],
+        subject: "Welcome to moneypot website",
+        html: emailContent.html
+      });
 
-      return {};
+      return data;
     } catch (error) {
       console.log(error, "WELCOME ", params.targetEmail);
       return { error };

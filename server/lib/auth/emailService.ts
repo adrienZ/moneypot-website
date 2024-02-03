@@ -18,9 +18,12 @@ interface ISendResetPasswordRequestParams extends IBase {
   url: string;
 }
 
+const isDev = process.env.NODE_ENV === "development";
+const EMAIL_DOMAIN = isDev ? "resend.dev" : "resend.adrienzaganelli.com";
+
 export class EmailService implements IEmailService {
   resend = new Resend(process.env.RESEND_API_KEY);
-  senderAddress = "Adrien <onboarding@resend.dev>";
+  senderAddress = `Adrien <no-reply@${EMAIL_DOMAIN}>`;
 
   async welcomeEmail(params: IWelcomeParams) {
     const emailContent = await useCompiler(

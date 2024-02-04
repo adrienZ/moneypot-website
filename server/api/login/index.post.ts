@@ -1,29 +1,24 @@
 import { Argon2id } from "oslo/password";
 import { LoginThrottlingService } from "#myauth/services/loginThrottlingService";
-// import { LegacyScrypt } from "lucia"
+import { z } from "zod";
+
+const formDataSchema = z.object({
+  email: z.string().min(1).email(),
+  password: z.string().min(6).max(255)
+});
 
 export default eventHandler(async (event) => {
-  const formData = await readFormData(event);
+  const form = formDataSchema.safeParse(await readFormData(event));
 
-  const password = formData.get("password");
-  if (
-    typeof password !== "string" ||
-    password.length < 6 ||
-    password.length > 255
-  ) {
+  if (!form.success) {
+    const firstError = form.error.errors[0];
     throw createError({
-      message: "Invalid password",
+      message: `${firstError.path}: ${firstError.message}`,
       statusCode: 400
     });
   }
 
-  const email = formData.get("email");
-  if (!email || typeof email !== "string") {
-    throw createError({
-      message: "Invalid email",
-      statusCode: 400
-    });
-  }
+  const { password, email } = form.data;
 
   await LoginThrottlingService.getInstance().run(event, email);
 

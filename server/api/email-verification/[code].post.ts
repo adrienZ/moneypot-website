@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const formData = await readBody(event);
 
   if (!sessionId) {
-    return createError({
+    throw createError({
       status: 401
     });
   }
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   const { user } = await lucia.validateSession(sessionId);
 
   if (!user) {
-    return createError({
+    throw createError({
       status: 401
     });
   }
@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
 
   // check for length
   if (typeof code !== "string" || code.length !== 8) {
-    return new Response("invalid code", {
+    throw new Response("invalid code", {
       status: 400
     });
   }
@@ -40,19 +40,19 @@ export default defineEventHandler(async (event) => {
   }
 
   if (!databaseCode || databaseCode.code !== code) {
-    return new Response(null, {
+    throw new Response(null, {
       status: 400
     });
   }
 
   if (!isWithinExpirationDate(databaseCode.expiresAt)) {
-    return new Response(null, {
+    throw new Response(null, {
       status: 400
     });
   }
 
   // if (!user || user.email !== databaseCode.email) {
-  // 	return new Response(null, {
+  // 	throw new Response(null, {
   // 		status: 400
   // 	});
   // }

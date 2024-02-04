@@ -13,7 +13,6 @@ const pgDatabase = postgres(process.env.DATABASE_URL as string, {
   prepare: false
 });
 
-// https://supabase.com/docs/guides/database/connecting-to-postgres#connecting-with-drizzle
 export const db = drizzle(pgDatabase, { logger: false });
 
 const adapter = new DrizzlePostgreSQLAdapter(db, userSession, user);

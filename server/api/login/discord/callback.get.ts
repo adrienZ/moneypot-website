@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
     const discordUser: DiscordUser = await discordUserResponse.json();
 
     if (!discordUser.verified) {
-      return createError({
+      throw createError({
         status: 400,
         message: "discord user not verified"
       });
@@ -51,7 +51,7 @@ export default defineEventHandler(async (event) => {
       !existingUserByEmail.emailVerified &&
       !existingUserByProvider
     ) {
-      return createError({
+      throw createError({
         status: 400,
         message: "user email not verified"
       });

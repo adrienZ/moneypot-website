@@ -1,0 +1,1 @@
+ALTER TABLE "moneypot_website_moneypot_category" ADD CONSTRAINT "moneypot_website_moneypot_category_value_unique" UNIQUE("value");

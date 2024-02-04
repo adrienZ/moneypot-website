@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
     .limit(1);
 
   if (!storedUser || !storedUser.emailVerified) {
-    return new Response("Invalid email", {
+    throw new Response("Invalid email", {
       status: 400
     });
   }
@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
     url: verificationLink
   });
 
-  return new Response(null, {
+  throw new Response(null, {
     status: 200
   });
 });

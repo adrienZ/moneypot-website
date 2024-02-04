@@ -36,6 +36,20 @@
       "when": 1706985479661,
       "tag": "0004_next_roland_deschain",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1707010379860,
+      "tag": "0005_curved_lester",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1707011831170,
+      "tag": "0006_fantastic_scorpion",
+      "breakpoints": true
     }
   ]
 }

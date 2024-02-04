@@ -53,8 +53,31 @@ export class EmailService implements IEmailService {
     }
   }
 
-  sendEmailVerification(params: ISendVerificationVerificationParams): void {
-    console.log("SEND VERIFICATION CODE " + JSON.stringify(params, null, 2));
+  async sendEmailVerification(params: ISendVerificationVerificationParams) {
+    const emailContent = await useCompiler(
+      "email-code-verification.email.vue",
+      {
+        props: {
+          code: params.code,
+          pageUrl: params.pageUrl
+        }
+      },
+      true
+    );
+
+    try {
+      const data = await this.resend.emails.send({
+        from: this.senderAddress,
+        to: [params.targetEmail],
+        subject: "Verifiy your email address",
+        html: emailContent.html
+      });
+
+      return data;
+    } catch (error) {
+      console.log("SEND VERIFICATION CODE " + JSON.stringify(params, null, 2));
+      return { error };
+    }
   }
 
   sendResetPasswordRequest(params: ISendResetPasswordRequestParams): void {

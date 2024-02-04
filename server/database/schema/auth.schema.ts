@@ -60,7 +60,6 @@ export const emailVerificationCode = sqliteTable("email_verification_code", {
   code: text("code").notNull(),
   userId: text("user_id").notNull().unique(),
   email: text("email").notNull(),
-  // date
   expiresAt: timestamp("expires_at").notNull()
 });
 

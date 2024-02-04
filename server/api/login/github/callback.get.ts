@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
     }
 
     if (!email) {
-      return createError({
+      throw createError({
         status: 400,
         message: "github user not verified"
       });
@@ -63,7 +63,7 @@ export default defineEventHandler(async (event) => {
       !existingUserByEmail.emailVerified &&
       !existingUserByProvider
     ) {
-      return createError({
+      throw createError({
         status: 400,
         message: "user email not verified"
       });

@@ -7,7 +7,7 @@ import parser from "ua-parser-js";
 
 export default defineEventHandler(async (event) => {
   if (!event.context.user) {
-    return new Response(null, {
+    throw new Response(null, {
       status: 401
     });
   }

@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
   }
 
   if (!token) {
-    return new Response("token is missing", {
+    throw new Response("token is missing", {
       status: 400
     });
   }
@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
     await db
       .delete(passwordResetToken)
       .where(eq(passwordResetToken.token, token.token));
-    return new Response("invalid token", {
+    throw new Response("invalid token", {
       status: 400
     });
   }

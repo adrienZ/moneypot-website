@@ -68,10 +68,10 @@ const request = await useLazyFetch("/api/email/subscribe", {
 
 const responseText = computed(() => {
   if (request.status.value === "error") {
-    return "error: " + request.error.value;
+    return request.error.value?.data.message;
   }
 
-  if (request.status.value === "success") {
+  if (request.status.value === "success" && request.data.value?.id) {
     return "sucess";
   }
 });

@@ -1,29 +1,27 @@
 import { Argon2id } from "oslo/password";
 import { generateId } from "lucia";
-import { isValidEmail } from "#myauth/helpers/email";
 import { encodeHex } from "oslo/encoding";
 import { HMAC } from "oslo/crypto";
+import { z } from "zod";
+import { zfd } from "zod-form-data";
+
+const formDataSchema = zfd.formData({
+  password: z.string().min(6).max(255),
+  email: z.string().min(1).email()
+});
 
 export default eventHandler(async (event) => {
-  const formData = await readFormData(event);
-  const password = formData.get("password");
-  if (
-    typeof password !== "string" ||
-    password.length < 6 ||
-    password.length > 255
-  ) {
+  const form = formDataSchema.safeParse(await readFormData(event));
+
+  if (!form.success) {
+    const firstError = form.error.errors[0];
     throw createError({
-      message: "Invalid password",
+      message: `${firstError.path}: ${firstError.message}`,
       statusCode: 400
     });
   }
 
-  const email = formData.get("email");
-  if (!email || typeof email !== "string" || !isValidEmail(email)) {
-    return new Response("Invalid email", {
-      status: 400
-    });
-  }
+  const { password, email } = form.data;
 
   const hashedPassword = await new Argon2id().hash(password);
   const userId = generateId(15);

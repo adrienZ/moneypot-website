@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
 
   const otp = body.code;
   if (typeof otp !== "string" || otp.length !== 6) {
-    return new Response("invalid code", {
+    throw new Response("invalid code", {
       status: 400
     });
   }

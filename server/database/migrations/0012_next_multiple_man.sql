@@ -1,0 +1,1 @@
+ALTER TABLE "moneypot_website_moneypot" ALTER COLUMN "creator_id" SET DATA TYPE varchar(15);

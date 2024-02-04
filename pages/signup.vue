@@ -32,8 +32,6 @@ async function signup(e: Event) {
       <UButton type="submit">Submit</UButton>
     </form>
 
-    <UAlert v-if="error" color="red" variant="soft" :title="error"></UAlert>
-
     <NuxtLink to="/login">Sign in</NuxtLink>
   </div>
 </template>

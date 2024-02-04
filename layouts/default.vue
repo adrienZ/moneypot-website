@@ -2,7 +2,12 @@
   <div>
     <header>
       <UContainer class="flex justify-between py-2">
-        <NuxtLink to="/">Home</NuxtLink>
+        <div class="flex items-baseline">
+          <NuxtLink to="/">Home</NuxtLink>
+          <UButton class="ml-2" to="/create-moneypot">Create moneypot</UButton>
+        </div>
+
+        <NuxtLoadingIndicator :height="8" />
 
         <div class="flex">
           <nav>
@@ -66,6 +71,7 @@
     <hr />
     <footer>
       <UContainer>
+        footer
         <!-- <DebugUsersDbDump /> -->
       </UContainer>
     </footer>

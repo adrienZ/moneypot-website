@@ -1,0 +1,1 @@
+ALTER TABLE "moneypot_website_moneypot" ALTER COLUMN "category_id" SET DATA TYPE varchar(10);

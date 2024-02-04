@@ -50,6 +50,48 @@
       "when": 1707011831170,
       "tag": "0006_fantastic_scorpion",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1707066121667,
+      "tag": "0007_rich_warpath",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1707066572446,
+      "tag": "0008_flawless_serpent_society",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1707067447427,
+      "tag": "0009_previous_colossus",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1707070815406,
+      "tag": "0010_curly_santa_claus",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1707072346056,
+      "tag": "0011_talented_maelstrom",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1707073978273,
+      "tag": "0012_next_multiple_man",
+      "breakpoints": true
     }
   ]
 }

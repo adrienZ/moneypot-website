@@ -1,0 +1,2 @@
+ALTER TABLE "moneypot_website_moneypot" ADD COLUMN "external_id" varchar(15) NOT NULL;--> statement-breakpoint
+ALTER TABLE "moneypot_website_moneypot" ADD CONSTRAINT "moneypot_website_moneypot_external_id_unique" UNIQUE("external_id");

@@ -22,7 +22,7 @@ const { data: moneypots } = await useAsyncData("last-moneypots", () =>
         <div
           v-for="category in categories"
           :key="category.externalId"
-          class="w-1/8"
+          class="w-2/12"
         >
           <NuxtLink
             :to="{

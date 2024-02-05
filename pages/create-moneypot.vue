@@ -1,11 +1,11 @@
 <template>
   <main class="container mx-auto">
     <h3 class="font-bold text-xl mb-4">Choose category</h3>
-    <div class="flex flex-wrap gap-y-10 gap-x-6">
+    <div class="flex flex-wrap gap-y-4 gap-x-4">
       <div
         v-for="category in categories"
         :key="category.externalId"
-        class="w-1/7"
+        class="w-2/12"
       >
         <button class="block w-full" @click="setActiveCategory(category)">
           <UCard

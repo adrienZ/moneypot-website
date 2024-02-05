@@ -1,5 +1,5 @@
 <template>
-  <UContainer class="mx-auto">
+  <UiContainer class="mx-auto">
     <div v-if="moneypot" class="md:flex">
       <section class="md:w-3/4">
         <AspectRatio :ratio="16 / 9">
@@ -25,7 +25,7 @@
         </UCard>
       </section>
     </div>
-  </UContainer>
+  </UiContainer>
 </template>
 
 <script lang="ts" setup>

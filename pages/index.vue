@@ -15,7 +15,7 @@ const { data: moneypots } = await useAsyncData("last-moneypots", () =>
 </script>
 
 <template>
-  <main>
+  <UiContainer as="main">
     <section>
       <h2 class="text-3xl font-bold mb-4">Create your own moneypot</h2>
       <div class="flex flex-nowrap gap-4">
@@ -97,5 +97,5 @@ const { data: moneypots } = await useAsyncData("last-moneypots", () =>
     <UDivider class="my-10"></UDivider>
 
     <NewsletterInput class="mb-10" />
-  </main>
+  </UiContainer>
 </template>

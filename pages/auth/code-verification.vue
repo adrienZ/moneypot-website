@@ -56,7 +56,7 @@ async function subscribeEmailToNewsletter() {
   await request.execute();
 
   if (request.status.value === "success") {
-    navigateTo("/profile");
+    navigateTo("/settings");
   }
 }
 </script>

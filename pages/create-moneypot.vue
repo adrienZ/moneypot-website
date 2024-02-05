@@ -1,5 +1,5 @@
 <template>
-  <main class="container mx-auto">
+  <UiContainer as="main">
     <h3 class="font-bold text-xl mb-4">Choose category</h3>
     <div class="flex flex-wrap gap-y-4 gap-x-4">
       <div
@@ -68,7 +68,7 @@
       variant="subtle"
       :title="responseText"
     />
-  </main>
+  </UiContainer>
 </template>
 
 <script lang="ts" setup>

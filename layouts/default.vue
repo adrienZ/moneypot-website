@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <UContainer class="flex justify-between py-2">
+      <UiContainer class="flex justify-between">
         <div class="flex items-baseline">
           <NuxtLink to="/">Home</NuxtLink>
           <UButton class="ml-2" to="/create-moneypot">Create moneypot</UButton>
@@ -22,7 +22,7 @@
                 </form>
               </li>
               <li v-if="connectedUser">
-                <NuxtLink class="block" to="/profile">
+                <NuxtLink class="block" to="/settings">
                   <UAvatar
                     chip-color="primary"
                     chip-text=""
@@ -57,20 +57,18 @@
             </template>
           </ClientOnly>
         </div>
-      </UContainer>
+      </UiContainer>
     </header>
     <hr />
     <br />
 
-    <UContainer>
-      <slot />
-    </UContainer>
+    <slot />
 
     <br />
 
     <hr />
     <footer>
-      <UContainer> footer </UContainer>
+      <UiContainer> footer </UiContainer>
     </footer>
   </div>
 </template>

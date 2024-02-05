@@ -1,5 +1,11 @@
 <template>
-  <main v-if="profile" class="container mx-auto">
+  <UiContainer v-if="profile" as="main">
+    <header>
+      <h1 class="text-xl font-bold">Settings</h1>
+    </header>
+
+    <UDivider class="my-4" />
+
     <form novalidate>
       <UAvatar size="xl" :src="profile.avatar" alt="Avatar" />
 
@@ -71,7 +77,7 @@
         </time>
       </div>
     </UCard>
-  </main>
+  </UiContainer>
 </template>
 
 <script setup lang="ts">

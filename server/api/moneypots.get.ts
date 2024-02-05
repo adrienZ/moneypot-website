@@ -3,7 +3,7 @@ import { z } from "zod";
 import { IPagination } from "~/server/interfaces/pagination";
 
 const schema = z.object({
-  limit: z.string().optional()
+  limit: z.coerce.number().optional()
 });
 
 export default defineEventHandler(async (event) => {

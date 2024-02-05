@@ -4,16 +4,16 @@ import {
   timestamp,
   integer,
   varchar,
-  serial,
   pgTableCreator
 } from "drizzle-orm/pg-core";
+import { creationColumns, primaryKeyColumn } from "./helpers/dbColumnHelpers";
 
 const TABLE_PREFIX = "auth_layer_";
 const sqliteTable = pgTableCreator((name) => `${TABLE_PREFIX}${name}`);
 
-// user table
 export const user = sqliteTable("user", {
-  id: serial("id").primaryKey(),
+  ...primaryKeyColumn,
+  ...creationColumns,
   externalId: text("external_id").notNull().unique(),
   username: text("username"),
   // password is optional because of oauth
@@ -22,30 +22,26 @@ export const user = sqliteTable("user", {
   email: text("email").notNull().unique(),
   twoFactorSecret: varchar("two_factor_secret", { length: 128 }),
   twoFactorEnabled: boolean("two_factor_enabled").notNull().default(false),
-  avatar: varchar("avatar", { length: 512 }).default(
-    "https://www.gravatar.com/avatar"
-  )
+  avatar: varchar("avatar", { length: 512 })
+    .notNull()
+    .default("https://www.gravatar.com/avatar")
 });
 
-export type User = typeof user.$inferSelect;
-
-// user_session table
 export const userSession = sqliteTable("user_session", {
   id: text("id").notNull().primaryKey(),
+  ...creationColumns,
   userId: integer("user_id")
     .notNull()
     .references(() => user.id),
   expiresAt: timestamp("expires_at").notNull(),
-  createdAt: timestamp("create_at").defaultNow(),
   userAgent: varchar("user_agent", { length: 500 }),
   ip: varchar("ip", { length: 45 })
 });
 
-export type UserSession = typeof userSession.$inferSelect;
-
 const oauthProviders = ["github", "discord"] as const;
 export const oauthAccount = sqliteTable("oauth_account", {
-  id: serial("id").primaryKey(),
+  ...primaryKeyColumn,
+  ...creationColumns,
   providerID: text("provider_id", {
     enum: oauthProviders
   }).notNull(),
@@ -56,7 +52,8 @@ export const oauthAccount = sqliteTable("oauth_account", {
 });
 
 export const emailVerificationCode = sqliteTable("email_verification_code", {
-  id: serial("id").primaryKey(),
+  ...primaryKeyColumn,
+  ...creationColumns,
   code: text("code").notNull(),
   userId: text("user_id").notNull().unique(),
   email: text("email").notNull(),
@@ -64,18 +61,18 @@ export const emailVerificationCode = sqliteTable("email_verification_code", {
 });
 
 export const passwordResetToken = sqliteTable("password_reset_token", {
-  id: serial("id").primaryKey(),
+  ...primaryKeyColumn,
+  ...creationColumns,
   token: text("token").notNull(),
   userId: integer("user_id")
     .notNull()
     .references(() => user.id),
-  // date
   expiresAt: timestamp("expires_at").notNull()
 });
 
 export const emailAudience = sqliteTable("email_audience", {
-  id: serial("id").primaryKey(),
+  ...primaryKeyColumn,
+  ...creationColumns,
   email: text("email").notNull(),
-  providerContactID: text("provider_contact_id").notNull(),
-  date: timestamp("date").defaultNow()
+  providerContactID: text("provider_contact_id").notNull()
 });

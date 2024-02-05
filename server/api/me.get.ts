@@ -4,6 +4,7 @@ import { createTOTPKeyURI } from "oslo/otp";
 import QRCode from "qrcode";
 import { decodeHex } from "oslo/encoding";
 import parser from "ua-parser-js";
+import type { DatabaseSessionAttributes, Lucia } from "lucia";
 
 export default defineEventHandler(async (event) => {
   if (!event.context.user) {
@@ -12,10 +13,13 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const sessions = await lucia.getUserSessions(event.context.user.id);
+  // TODO: understand lucia type system and avoid "as"
+  const sessions = (await lucia.getUserSessions(
+    event.context.user.id
+  )) as unknown as DatabaseSessionAttributes[];
+
   const sessionsWithParsedUserAgent = sessions.map(($session) => ({
     id: $session.id,
-    // @ts-expect-error
     createdAt: $session.createdAt,
     ...parser($session.userAgent ?? undefined),
     isCurrentSession: $session.id === event.context.session?.id,

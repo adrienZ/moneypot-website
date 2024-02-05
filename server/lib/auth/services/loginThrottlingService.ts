@@ -94,7 +94,7 @@ export class LoginThrottlingService {
       if (Date.now() < timeoutUntil) {
         // 429 too many requests
         throw createError({
-          status: 429
+          statusCode: 429
         });
       }
 

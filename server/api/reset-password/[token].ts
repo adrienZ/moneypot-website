@@ -48,12 +48,16 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  let connectedUser = event.context.user;
+  const connectedUser =
+    event.context.user ??
+    (await db.select().from(user).where(eq(user.id, token.userId)).limit(1)).at(
+      0
+    );
+
   if (!connectedUser) {
-    const userFromDb = (
-      await db.select().from(user).where(eq(user.id, token.userId)).limit(1)
-    ).at(0);
-    connectedUser = userFromDb;
+    throw createError({
+      status: 403
+    });
   }
 
   await lucia.invalidateUserSessions(String(connectedUser.id));
@@ -64,11 +68,16 @@ export default defineEventHandler(async (event) => {
     .set({
       password: hashedPassword
     })
-    .where(eq(user.id, connectedUser.id));
+    .where(eq(user.id, Number(connectedUser.id)));
 
-  console.log("UPDATED");
+  const ua = getRequestHeader(event, "User-Agent");
+  const ip = getRequestIP(event, { xForwardedFor: true }) ?? null;
 
-  const session = await lucia.createSession(connectedUser.id, {});
+  const session = await lucia.createSession(String(connectedUser.id), {
+    // varchar(500)
+    userAgent: ua?.substring(0, 500) ?? null,
+    ip
+  });
   const sessionCookie = lucia.createSessionCookie(session.id);
   return new Response(null, {
     status: 302,

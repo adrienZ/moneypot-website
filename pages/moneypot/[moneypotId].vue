@@ -1,13 +1,13 @@
 <template>
   <UContainer class="mx-auto">
-    <div v-if="moneypot" class="flex">
-      <section class="w-3/4">
+    <div v-if="moneypot" class="md:flex">
+      <section class="md:w-3/4">
         <AspectRatio :ratio="16 / 9">
           <NuxtImg class="h-full w-full object-cover" :src="moneypot.image" />
         </AspectRatio>
       </section>
-      <section class="w-1/4">
-        <UCard class="ml-8">
+      <section class="md:w-1/4 md:pl-8">
+        <UCard>
           <template #header>
             <h1 class="text-3xl font-bold">{{ moneypot.title }}</h1>
           </template>
@@ -30,17 +30,14 @@
 
 <script lang="ts" setup>
 import { AspectRatio } from "radix-vue";
-import type { User } from "~/server/database/schema";
-import type { Moneypot } from "~/server/database/schema/types";
+import type { MoneypotState } from "~/models/MoneypotState";
 
 const route = useRoute("moneypot-moneypotId");
 
 const { data: moneypot } = await useAsyncData(
   `moneypot-${route.params.moneypotId}`,
   () =>
-    $fetch<Moneypot & { creator: User }>(
-      "/api/moneypot/" + route.params.moneypotId
-    )
+    $fetch<MoneypotState["data"]>("/api/moneypot/" + route.params.moneypotId)
 );
 </script>
 

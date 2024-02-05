@@ -82,13 +82,15 @@ definePageMeta({
 const route = useRoute();
 const activeCategory = ref<MoneyPotCategory>();
 
-const { data: categories } = await useAsyncData("moneypot-categories", () =>
-  $fetch("/api/moneypot-categories")
+const { data: categories } = await useAsyncData(
+  "moneypot-categories",
+  () => $fetch("/api/moneypot-categories") satisfies Promise<MoneyPotCategory[]>
 );
 
 const categoryFromRoutQuery = categories.value?.find(
   (category) => category.externalId === route.query.categoryId
 );
+
 if (categoryFromRoutQuery) {
   activeCategory.value = categoryFromRoutQuery;
 }

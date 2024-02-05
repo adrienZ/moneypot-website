@@ -1,3 +1,7 @@
+import { DatabaseUserAttributes } from "lucia";
+
 export default defineEventHandler((event) => {
-  return event.context.user;
+  // TODO: Find to a way to override default `User` type in `lucia`
+  // @ts-expect-error
+  return event.context.user as DatabaseUserAttributes;
 });

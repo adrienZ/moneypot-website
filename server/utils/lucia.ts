@@ -7,6 +7,7 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 // db clients
 import postgres from "postgres";
+import { User, UserSession } from "../database/schema/types";
 
 const isDev = process.env.NODE_ENV === "development";
 const pgDatabase = postgres(process.env.DATABASE_URL as string, {
@@ -15,6 +16,7 @@ const pgDatabase = postgres(process.env.DATABASE_URL as string, {
 
 export const db = drizzle(pgDatabase, { logger: false });
 
+// @ts-expect-error lucia wants userSession id to be a string
 const adapter = new DrizzlePostgreSQLAdapter(db, userSession, user);
 
 export const lucia = new Lucia(adapter, {
@@ -42,23 +44,26 @@ export const lucia = new Lucia(adapter, {
   }
 });
 
+/**
+ * LET'S TWEAK LUCIA'S MODULE TYPINGS
+ */
+
+interface ILuciaSession
+  extends Pick<UserSession, "createdAt" | "userAgent" | "id" | "ip"> {}
+
+interface ILuciaSessionRegister extends Pick<UserSession, "userAgent" | "ip"> {}
+
+interface ILuciaUser
+  extends Pick<
+    User,
+    "id" | "externalId" | "emailVerified" | "avatar" | "twoFactorEnabled"
+  > {}
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
-    DatabaseSessionAttributes: Pick<
-      import("../database/schema").UserSession,
-      "userAgent" | "ip"
-    >;
+    DatabaseSessionAttributes: ILuciaSessionRegister;
   }
-  interface DatabaseUserAttributes
-    extends Pick<
-      import("../database/schema").User,
-      "id" | "externalId" | "emailVerified" | "avatar" | "twoFactorEnabled"
-    > {}
+  interface DatabaseUserAttributes extends ILuciaUser {}
 
-  interface DatabaseSessionAttributes
-    extends Pick<
-      import("../database/schema").UserSession,
-      "createdAt" | "userAgent"
-    > {}
+  interface DatabaseSessionAttributes extends ILuciaSession {}
 }

@@ -13,7 +13,7 @@ const formDataSchema = zfd.formData({
 export default defineEventHandler(async (event) => {
   if (!event.context.user) {
     throw createError({
-      status: 401
+      statusCode: 401
     });
   }
 
@@ -21,7 +21,6 @@ export default defineEventHandler(async (event) => {
 
   if (!form.success) {
     const firstError = form.error.errors[0];
-    console.log(form.error);
 
     throw createError({
       message: `${firstError.path}: ${firstError.message}`,
@@ -35,19 +34,25 @@ export default defineEventHandler(async (event) => {
     await MoneypotService.getMoneypotCategoryById(categoryId);
   if (!moneypotCategory) {
     throw createError({
-      status: 400,
-      message: "invalid category id"
+      statusCode: 403,
+      statusMessage: "invalid category id"
     });
   }
 
-  const creator = await UserService.getUserById(event.context.user.id);
+  const creator = await UserService.getUserById(Number(event.context.user.id));
+  if (!creator) {
+    throw createError({
+      statusCode: 403,
+      statusMessage: "invalid creator"
+    });
+  }
 
   const createdMoneypot = await MoneypotService.insertMoneypot({
     categoryId: moneypotCategory.externalId,
     description,
     title,
     externalId: generateId(10),
-    creatorId: creator?.externalId
+    creatorId: creator.externalId
   });
 
   return createdMoneypot;

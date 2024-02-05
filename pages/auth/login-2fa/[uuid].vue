@@ -34,7 +34,7 @@ definePageMeta({
   middleware: ["unlogged-middleware"]
 });
 
-const { params } = useRoute("auth-login-2fa-otp");
+const { params } = useRoute("auth-login-2fa-uuid");
 const code = ref("");
 const request = await useLazyFetch("/api/auth/login-2fa", {
   method: "POST",

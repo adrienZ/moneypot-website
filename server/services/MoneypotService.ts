@@ -2,6 +2,7 @@ import { eq, desc } from "drizzle-orm";
 import { moneypotCategory, moneypot, user } from "../database/schema";
 import { MoneypotInsert } from "../database/schema/types";
 import { IPagination } from "../interfaces/pagination";
+import { MoneypotState } from "~/models/MoneypotState";
 
 export class MoneypotService {
   static async getMoneypotCategoryById(externalId: string) {
@@ -44,21 +45,25 @@ export class MoneypotService {
   }
 
   static async getAllMoneypots(params?: IPagination) {
-    console.log({ params });
-
     const query = db
       .select({
         externalId: moneypot.externalId,
         description: moneypot.description,
         title: moneypot.title,
         image: moneypotCategory.image,
-        categoryId: moneypot.categoryId
+        categoryId: moneypot.categoryId,
+        creator: {
+          externalId: user.externalId,
+          avatar: user.avatar,
+          username: user.username
+        }
       })
       .from(moneypot)
       .leftJoin(
         moneypotCategory,
         eq(moneypot.categoryId, moneypotCategory.externalId)
       )
+      .leftJoin(user, eq(moneypot.creatorId, user.externalId))
       .orderBy(desc(moneypot.id));
 
     if (params?.limit) {

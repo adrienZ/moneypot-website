@@ -70,10 +70,7 @@
 
     <hr />
     <footer>
-      <UContainer>
-        footer
-        <!-- <DebugUsersDbDump /> -->
-      </UContainer>
+      <UContainer> footer </UContainer>
     </footer>
   </div>
 </template>

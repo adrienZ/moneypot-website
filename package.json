@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prebuild": "pnpm lint",
+    "prebuild": "pnpm lint && pnpm typecheck",
     "build": "nuxt build",
     "dev": "BASE_URL=http://localhost:3000 pnpm db:studio & BASE_URL=http://localhost:3000 nuxt dev --host 0.0.0.0",
     "generate": "nuxt generate",

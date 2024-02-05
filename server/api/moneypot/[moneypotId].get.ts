@@ -1,6 +1,6 @@
 import { MoneypotService } from "~/server/services/MoneypotService";
 import { z } from "zod";
-
+import { MoneypotState } from "~/models/MoneypotState";
 const schema = z.object({
   moneypotId: z.string().min(1)
 });
@@ -20,5 +20,18 @@ export default defineEventHandler(async (event) => {
     form.data.moneypotId
   );
 
-  return item;
+  if (!item) {
+    throw createError({
+      statusCode: 404
+    });
+  }
+
+  if (!item.creator) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "invalid moneypot data"
+    });
+  }
+
+  return new MoneypotState(item).data;
 });

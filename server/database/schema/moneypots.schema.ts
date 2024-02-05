@@ -1,24 +1,22 @@
-import {
-  varchar,
-  serial,
-  pgTableCreator,
-  text,
-  integer
-} from "drizzle-orm/pg-core";
+import { varchar, serial, pgTableCreator, text } from "drizzle-orm/pg-core";
+import { creationColumns, primaryKeyColumn } from "./helpers/dbColumnHelpers";
+
 import { user } from "./auth.schema";
 
 const TABLE_PREFIX = "moneypot_website_";
 const pgTable = pgTableCreator((name) => `${TABLE_PREFIX}${name}`);
 
 export const moneypotCategory = pgTable("moneypot_category", {
-  id: serial("id").primaryKey(),
+  ...primaryKeyColumn,
+  ...creationColumns,
   externalId: varchar("external_id", { length: 10 }).notNull().unique(),
   value: varchar("value", { length: 100 }).notNull().unique(),
   image: varchar("image", { length: 255 }).notNull()
 });
 
 export const moneypot = pgTable("moneypot", {
-  id: serial("id").primaryKey(),
+  ...primaryKeyColumn,
+  ...creationColumns,
   externalId: varchar("external_id", { length: 15 }).notNull().unique(),
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description").notNull(),

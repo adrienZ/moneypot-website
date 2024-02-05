@@ -30,8 +30,8 @@ dependencies:
     specifier: ^1.5.3
     version: 1.5.3
   radix-vue:
-    specifier: ^1.4.0
-    version: 1.4.0(vue@3.4.15)
+    specifier: ^1.4.1
+    version: 1.4.1(vue@3.4.15)
   resend:
     specifier: ^3.1.0
     version: 3.1.0
@@ -8489,8 +8489,8 @@ packages:
   /queue-tick@1.0.1:
     resolution: {integrity: sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==}
 
-  /radix-vue@1.4.0(vue@3.4.15):
-    resolution: {integrity: sha512-KqG1Ed7/LL+9yh+VBPLZgWCkblBjGEo/AueMLD/g6Sx0Wb7ZAvfXPUSVTriVRj3IczMZecgleiLnVOEfwM2AXg==}
+  /radix-vue@1.4.1(vue@3.4.15):
+    resolution: {integrity: sha512-eJsyIHDZPfIdH0iqrfTODuklPqDXfO0iNDNI1isOYIr+ejmeCjP6Yw1LA7LtDryPnjsSkqj0t04DF7eBn2wtMQ==}
     dependencies:
       '@floating-ui/dom': 1.6.1
       '@floating-ui/vue': 1.0.6(vue@3.4.15)

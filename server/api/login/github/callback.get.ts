@@ -2,6 +2,8 @@ import { OAuth2RequestError } from "arctic";
 import { generateId } from "lucia";
 import { createError } from "h3";
 
+// TODO: fix
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
   const code = query.code?.toString() ?? null;

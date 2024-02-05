@@ -20,18 +20,35 @@ export default defineEventHandler(async (event) => {
     form.data.moneypotId
   );
 
+  // fighting against typescript object narrowing...
+  const creator = item?.creator;
+  const image = item?.image;
+
   if (!item) {
     throw createError({
       statusCode: 404
     });
   }
 
-  if (!item.creator) {
+  if (!creator) {
     throw createError({
       statusCode: 400,
       statusMessage: "invalid moneypot data"
     });
   }
 
-  return new MoneypotState(item).data;
+  if (!image) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "invalid image data"
+    });
+  }
+
+  const moneypot = {
+    ...item,
+    image,
+    creator
+  };
+
+  return new MoneypotState(moneypot).data;
 });

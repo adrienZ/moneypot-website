@@ -1,4 +1,4 @@
-import { DatabaseUserAttributes } from "lucia";
+import type { DatabaseUserAttributes } from "lucia";
 
 export default defineEventHandler((event) => {
   // TODO: Find to a way to override default `User` type in `lucia`

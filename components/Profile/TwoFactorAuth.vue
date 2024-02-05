@@ -1,12 +1,12 @@
 <template>
   <section>
-    <UCard>
+    <UCard v-if="profile && profile.qrcode">
       <div>
         Two factor Authentication:
         <UBadge v-if="profile.twoFactorEnabled">ON</UBadge>
         <UBadge v-else color="white" variant="solid">NOT ACTIVATED</UBadge>
       </div>
-      <div class="mt-4" v-if="!profile.twoFactorEnabled">
+      <div v-if="!profile.twoFactorEnabled" class="mt-4">
         <UButton
           v-if="!enabled"
           color="white"

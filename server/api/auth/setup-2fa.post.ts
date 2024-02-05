@@ -20,7 +20,9 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const existingUser = await myAuth.userTable.getTwoFactorSecretById(user.id);
+  const existingUser = await myAuth.userTable.getTwoFactorSecretById(
+    Number(user.id)
+  );
   if (!existingUser) {
     throw createError({
       message: "user not found",
@@ -51,7 +53,7 @@ export default defineEventHandler(async (event) => {
   );
 
   if (validOTP) {
-    await myAuth.userTable.updateUserTwoFactorEnabledById(user.id);
+    await myAuth.userTable.updateUserTwoFactorEnabledById(Number(user.id));
   } else {
     throw createError({
       message: "code not valid",

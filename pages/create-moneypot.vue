@@ -82,9 +82,9 @@ definePageMeta({
 const route = useRoute();
 const activeCategory = ref<MoneyPotCategory>();
 
-const { data: categories } = await useAsyncData(
-  "moneypot-categories",
-  () => $fetch("/api/moneypot-categories") satisfies Promise<MoneyPotCategory[]>
+const { data: categories } = await useAsyncData("moneypot-categories", () =>
+  // TODO: try to auto infer type with $fetch
+  $fetch<MoneyPotCategory[]>("/api/moneypot-categories")
 );
 
 const categoryFromRoutQuery = categories.value?.find(

@@ -1,6 +1,6 @@
 import { MoneypotService } from "~/server/services/MoneypotService";
 import { z } from "zod";
-import { IPagination } from "~/server/interfaces/pagination";
+import type { IPagination } from "~/server/interfaces/pagination";
 
 const schema = z.object({
   limit: z.coerce.number().optional()
@@ -21,7 +21,5 @@ export default defineEventHandler(async (event) => {
     limit: form.data.limit
   };
 
-  const items = await MoneypotService.getAllMoneypots(pagination);
-
-  return items;
+  return await MoneypotService.getAllMoneypots(pagination);
 });

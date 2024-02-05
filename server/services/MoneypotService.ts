@@ -1,8 +1,7 @@
 import { eq, desc } from "drizzle-orm";
 import { moneypotCategory, moneypot, user } from "../database/schema";
-import { MoneypotInsert } from "../database/schema/types";
-import { IPagination } from "../interfaces/pagination";
-import { MoneypotState } from "~/models/MoneypotState";
+import type { MoneypotInsert } from "../database/schema/types";
+import type { IPagination } from "../interfaces/pagination";
 
 export class MoneypotService {
   static async getMoneypotCategoryById(externalId: string) {

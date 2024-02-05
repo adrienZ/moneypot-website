@@ -1,6 +1,6 @@
-import { user } from "../../../database/schema";
+import type { user } from "../../../database/schema";
 import { eq } from "drizzle-orm";
-import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
 type DbType = PostgresJsDatabase;
 

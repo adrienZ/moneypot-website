@@ -1,4 +1,4 @@
-import { IEmailService } from "./interfaces/IEmailService";
+import type { IEmailService } from "./interfaces/IEmailService";
 import { Resend } from "resend";
 import { useCompiler } from "#vue-email";
 interface IBase {
@@ -66,14 +66,12 @@ export class EmailService implements IEmailService {
     );
 
     try {
-      const data = await this.resend.emails.send({
+      return await this.resend.emails.send({
         from: this.senderAddress,
         to: [params.targetEmail],
         subject: "Verifiy your email address",
         html: emailContent.html
       });
-
-      return data;
     } catch (error) {
       console.log("SEND VERIFICATION CODE " + JSON.stringify(params, null, 2));
       return { error };
@@ -100,11 +98,9 @@ export class EmailService implements IEmailService {
       throw new Error("something went wrong with provider response");
     }
 
-    const contact = myAuth.emailAudienceTable.insert({
+    return myAuth.emailAudienceTable.insert({
       email,
       providerContactID: providerContact.id
     });
-
-    return contact;
   }
 }

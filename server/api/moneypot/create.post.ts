@@ -47,13 +47,11 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const createdMoneypot = await MoneypotService.insertMoneypot({
+  return await MoneypotService.insertMoneypot({
     categoryId: moneypotCategory.externalId,
     description,
     title,
     externalId: generateId(10),
     creatorId: creator.externalId
   });
-
-  return createdMoneypot;
 });

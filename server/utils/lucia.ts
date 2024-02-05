@@ -7,7 +7,7 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 // db clients
 import postgres from "postgres";
-import { User, UserSession } from "../database/schema/types";
+import type { User, UserSession } from "../database/schema/types";
 
 const isDev = process.env.NODE_ENV === "development";
 const pgDatabase = postgres(process.env.DATABASE_URL as string, {

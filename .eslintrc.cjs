@@ -4,6 +4,7 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "@nuxt/eslint-config",
+    "plugin:sonarjs/recommended",
     "@vue/eslint-config-prettier"
   ],
   parserOptions: {
@@ -17,5 +18,11 @@ module.exports = {
       ],
       rules: { "vue/multi-word-component-names": "off" }
     }
-  ]
+  ],
+  rules: {
+    "@typescript-eslint/no-unused-vars": "error",
+    // import with type attribute when importing types
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/no-import-type-side-effects": "error"
+  }
 };

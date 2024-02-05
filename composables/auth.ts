@@ -1,8 +1,7 @@
 import type { DatabaseUserAttributes } from "lucia";
 
 export const useUser = () => {
-  const user = useState<DatabaseUserAttributes | null>("user", () => null);
-  return user;
+  return useState<DatabaseUserAttributes | null>("user", () => null);
 };
 
 export const useAuthenticatedUser = () => {

@@ -16,7 +16,5 @@ export default defineEventHandler(async (event) => {
   }
 
   const email = validation.data.email;
-  const createdContact = await myAuth.emailService.addContact(email);
-
-  return createdContact;
+  return await myAuth.emailService.addContact(email);
 });

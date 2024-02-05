@@ -22,7 +22,8 @@ export default defineNuxtConfig({
     githubClientSecret: ""
   },
   typescript: {
-    strict: true
+    strict: true,
+    typeCheck: true
   },
   experimental: {
     typedPages: true

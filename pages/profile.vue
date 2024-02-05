@@ -1,6 +1,6 @@
 <template>
-  <main class="container mx-auto">
-    <form v-if="profile" novalidate>
+  <main v-if="profile" class="container mx-auto">
+    <form novalidate>
       <UAvatar size="xl" :src="profile.avatar" alt="Avatar" />
 
       <UFormGroup label="Username">
@@ -45,7 +45,7 @@
     <UCard class="mt-8">
       <h3>Sessions</h3>
 
-      <div class="mt-4" v-for="session in profile.sessions" :key="session.id">
+      <div v-for="session in profile.sessions" :key="session.id" class="mt-4">
         <UDivider class="my-4" />
 
         <div>
@@ -56,7 +56,11 @@
           {{ session.ip
           }}<UBadge v-if="session.isCurrentSession">This device</UBadge>
         </div>
-        <time class="block" :datetime="session.createdAt">
+        <time
+          v-if="session.createdAt"
+          class="block"
+          :datetime="session.createdAt"
+        >
           {{
             new Date(session.createdAt).toLocaleTimeString(undefined, {
               day: "numeric",
@@ -71,8 +75,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Session } from "lucia";
-
 definePageMeta({
   middleware: ["protected-middleware"]
 });
@@ -83,7 +85,6 @@ const { data: profile } = await useFetch(() => "/api/me", {
   key: PROFILE_KEY_DEDUPE
 });
 
-const selectedSessions = ref<Session[]>([]);
 const {
   status,
   refresh: resetPassword,

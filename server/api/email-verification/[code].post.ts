@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
   await lucia.invalidateUserSessions(user.id);
 
   const updatedUser = await myAuth.userTable.updateUserEmailVerificationById(
-    user.id
+    Number(user.id)
   );
 
   myAuth.hooks.onUserLogin(event, {

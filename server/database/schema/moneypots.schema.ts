@@ -1,4 +1,4 @@
-import { varchar, serial, pgTableCreator, text } from "drizzle-orm/pg-core";
+import { varchar, pgTableCreator, text } from "drizzle-orm/pg-core";
 import { creationColumns, primaryKeyColumn } from "./helpers/dbColumnHelpers";
 
 import { user } from "./auth.schema";

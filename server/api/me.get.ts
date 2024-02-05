@@ -4,7 +4,7 @@ import { createTOTPKeyURI } from "oslo/otp";
 import QRCode from "qrcode";
 import { decodeHex } from "oslo/encoding";
 import parser from "ua-parser-js";
-import type { DatabaseSessionAttributes, Lucia } from "lucia";
+import type { DatabaseSessionAttributes } from "lucia";
 
 export default defineEventHandler(async (event) => {
   if (!event.context.user) {

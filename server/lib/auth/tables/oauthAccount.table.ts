@@ -1,12 +1,11 @@
-import { oauthAccount } from "../../../database/schema";
+import type { oauthAccount } from "../../../database/schema";
 import { eq, and } from "drizzle-orm";
-import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
 type DbType = PostgresJsDatabase;
 
 type OauthAccount = typeof oauthAccount;
 type OauthAccountInsert = typeof oauthAccount.$inferInsert;
-type OauthAccountSelect = typeof oauthAccount.$inferSelect;
 
 export class OauthAccountTable {
   private table: OauthAccount;

@@ -89,11 +89,7 @@ export default defineEventHandler(async (event) => {
       userId: createdUser.id
     });
 
-    await myAuth.hooks.onUserCreation(event, {
-      email: createdUser.email,
-      id: createdUser.id,
-      username: createdUser.username
-    });
+    await myAuth.hooks.onUserCreation(event, createdUser);
   } catch (e) {
     if (
       e instanceof OAuth2RequestError &&

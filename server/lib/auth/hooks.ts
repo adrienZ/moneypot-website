@@ -1,5 +1,8 @@
+import type { User } from "~/server/database/schema/types";
 import { generateEmailVerificationCode } from "./helpers/verificationCode";
 import { LoginThrottlingService } from "./services/loginThrottlingService";
+import { AssetsService } from "~/server/services/AssetsService";
+import { UserService } from "~/server/services/UserService";
 
 type H3Event = Parameters<Parameters<typeof defineEventHandler>[0]>[0];
 
@@ -30,7 +33,12 @@ export class AuthHooks {
     return sendRedirect(event, "/");
   }
 
-  async onUserCreation(event: H3Event, userData: IUserData) {
+  async onUserCreation(event: H3Event, userData: User) {
+    if (!userData.avatar.includes("https://www.gravatar.com/avatar")) {
+      const avatarCdnUrl = await AssetsService.uploadFile(userData.avatar);
+      await UserService.updateUserAvatar(avatarCdnUrl);
+    }
+
     await myAuth.emailService.welcomeEmail({
       targetEmail: userData.email,
       username: userData.username ?? undefined

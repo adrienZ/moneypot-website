@@ -35,11 +35,7 @@ export default eventHandler(async (event) => {
       twoFactorSecret: encodeHex(twoFactorSecret)
     });
 
-    await myAuth.hooks.onUserCreation(event, {
-      email: createdUser.email,
-      id: createdUser.id,
-      username: createdUser.username
-    });
+    await myAuth.hooks.onUserCreation(event, createdUser);
   } catch (e) {
     throw createError({
       message: "An unknown error occurred",

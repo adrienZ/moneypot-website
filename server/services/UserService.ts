@@ -11,4 +11,12 @@ export class UserService {
 
     return userFounded.at(0);
   }
+
+  static async updateUserAvatar(imageUrl: string): Promise<boolean> {
+    const updated = await db.update(user).set({
+      avatar: imageUrl
+    });
+
+    return Boolean(updated.length > 0);
+  }
 }

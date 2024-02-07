@@ -7,7 +7,7 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: mac-os-13-xlarge
+    runs-on: ubuntu-latest
     env:
       UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
       RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}

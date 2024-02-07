@@ -19,30 +19,42 @@ async function signup(e: Event) {
 </script>
 
 <template>
-  <UiContainer>
-    <h1 class="text-2xl font-bold">Create an account</h1>
-    <form
-      class="mt-4"
-      method="post"
-      action="/api/signup"
-      @submit.prevent="signup"
-    >
-      <UFormGroup label="Avatar">
-        <UiUploadableAvatar name="avatar" :image-src="avatar" />
-      </UFormGroup>
+  <UiContainer size="xs">
+    <UCard class="my-10">
+      <h1 class="title-1">Create an account</h1>
 
-      <UFormGroup class="mt-4" label="email">
-        <UInput id="email " name="email" />
-      </UFormGroup>
-      <UFormGroup class="mt-4" label="password">
-        <UInput id="password" type="password" name="password" />
-      </UFormGroup>
+      <form
+        class="mt-4"
+        method="post"
+        action="/api/signup"
+        @submit.prevent="signup"
+      >
+        <UFormGroup label="Avatar">
+          <UiUploadableAvatar name="avatar" :image-src="avatar" />
+        </UFormGroup>
 
-      <UButton class="mt-4" type="submit">Submit</UButton>
-    </form>
+        <UFormGroup class="mt-2" label="email">
+          <UInput id="email " name="email" />
+        </UFormGroup>
+        <UFormGroup class="mt-2" label="password">
+          <UInput id="password" type="password" name="password" />
+        </UFormGroup>
 
-    <div class="mt-4">
-      <NuxtLink to="/login">Sign in</NuxtLink>
-    </div>
+        <UButton class="mt-4" type="submit">Submit</UButton>
+      </form>
+
+      <UDivider class="my-4" label="OR" />
+
+      <div class="mt-4">
+        <AuthGithubButton />
+        <AuthDiscordButton class="mt-2" />
+      </div>
+
+      <UDivider class="my-4" label="OR" />
+
+      <div class="mt-4">
+        <NuxtLink to="/login">Sign in</NuxtLink>
+      </div>
+    </UCard>
   </UiContainer>
 </template>

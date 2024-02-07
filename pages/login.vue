@@ -22,58 +22,47 @@ async function login() {
 </script>
 
 <template>
-  <UCard>
-    <h1>Sign in</h1>
-    <UButton
-      block
-      variant="solid"
-      color="white"
-      external
-      to="/api/login/github"
-    >
-      <UIcon name="i-logos-github-icon" class="h-6 w-6 m-1" /> Sign in with
-      Github
-    </UButton>
+  <UiContainer size="xs" class="my-auto">
+    <UCard class="my-10">
+      <h1 class="title-1">Sign in</h1>
 
-    <UButton
-      block
-      variant="solid"
-      color="white"
-      external
-      to="/api/login/discord"
-    >
-      <UIcon name="i-logos-discord-icon" class="h-6 w-6 m-1" /> Sign in with
-      Discord
-    </UButton>
+      <form
+        method="post"
+        action="/api/login"
+        class="mt-4"
+        ref="formRef"
+        @submit.prevent="login"
+      >
+        <UFormGroup label="Email">
+          <UInput id="email" name="email" />
+        </UFormGroup>
+        <UFormGroup class="mt-2" label="Password">
+          <UInput id="password" type="password" name="password" />
+        </UFormGroup>
 
-    <UDivider class="my-4" label="OR" />
+        <UButton class="mt-2" type="submit">Submit</UButton>
+      </form>
 
-    <form
-      method="post"
-      action="/api/login"
-      ref="formRef"
-      @submit.prevent="login"
-    >
-      <UFormGroup label="Email">
-        <UInput id="email" name="email" />
-      </UFormGroup>
-      <UFormGroup label="Password">
-        <UInput id="password" type="password" name="password" />
-      </UFormGroup>
+      <UAlert v-if="error" color="red" variant="soft" :title="error"></UAlert>
 
-      <UButton type="submit">Submit</UButton>
-    </form>
+      <UDivider class="my-4" label="OR" />
 
-    <UAlert v-if="error" color="red" variant="soft" :title="error"></UAlert>
+      <div class="mt-4">
+        <AuthGithubButton />
+        <AuthDiscordButton class="mt-2" />
+      </div>
 
-    <p class="text-sm mt-4">
-      Don't have an account?
-      <br />
-      <NuxtLink to="/signup" class="text-primary"> Sign up </NuxtLink>
-      <br />
-      <NuxtLink to="/reset-password" class="text-primary">
-        forgotten password
-      </NuxtLink>
-    </p>
-  </UCard>
+      <UDivider class="my-4" label="OR" />
+
+      <p class="text-sm">
+        Don't have an account?
+        <br />
+        <NuxtLink to="/signup" class="text-primary"> Sign up </NuxtLink>
+        <br />
+        <NuxtLink to="/reset-password" class="text-primary">
+          forgotten password
+        </NuxtLink>
+      </p>
+    </UCard>
+  </UiContainer>
 </template>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <header>
+  <div class="flex flex-col layout-default">
+    <header class="py-2 border-b">
       <UiContainer class="flex justify-between">
         <div class="flex items-baseline">
           <NuxtLink to="/">Home</NuxtLink>
@@ -53,16 +53,13 @@
         </div>
       </UiContainer>
     </header>
-    <hr />
-    <br />
 
-    <slot />
+    <div class="flex-grow">
+      <slot />
+    </div>
 
-    <br />
-
-    <hr />
-    <footer>
-      <UiContainer> footer </UiContainer>
+    <footer class="py-2 border-t">
+      <UiContainer>@{{ new Date().getFullYear() }}</UiContainer>
     </footer>
   </div>
 </template>
@@ -89,3 +86,9 @@ const isDark = computed({
   }
 });
 </script>
+
+<style scoped>
+.layout-default {
+  min-height: 100svh;
+}
+</style>

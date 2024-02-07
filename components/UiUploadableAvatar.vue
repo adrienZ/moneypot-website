@@ -24,7 +24,7 @@
           role="button"
           tabindex="0"
           :for="inputId"
-          class="flex items-center text-center justify-center border-2 border-red-300 h-full w-full rounded"
+          class="flex items-center text-center justify-center border border-gray-300 h-full w-full rounded"
         >
           <span>Upload your avatar here</span>
         </label>

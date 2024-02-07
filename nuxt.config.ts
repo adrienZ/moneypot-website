@@ -1,4 +1,5 @@
 import { fileURLToPath } from "node:url";
+import tailwindTypography from "@tailwindcss/typography";
 const isDev = process.env.NODE_ENV === "development";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -38,6 +39,11 @@ export default defineNuxtConfig({
   ui: {
     global: true,
     icons: ["heroicons", "logos"]
+  },
+  tailwindcss: {
+    config: {
+      plugins: [tailwindTypography]
+    }
   },
   // vscode debugging
   sourcemap: isDev

@@ -20,4 +20,8 @@ body {
 .error {
   color: red;
 }
+
+.title-1 {
+  @apply font-bold text-3xl;
+}
 </style>

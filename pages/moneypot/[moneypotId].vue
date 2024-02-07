@@ -12,7 +12,24 @@
             <h1 class="text-3xl font-bold">{{ moneypot.title }}</h1>
           </template>
 
-          <p>{{ moneypot.description }}</p>
+          <a
+            target="_blank"
+            class="border p-2 block"
+            :href="moneypot.share.facebook"
+            >share facebook</a
+          >
+          <a
+            target="_blank"
+            class="border p-2 block"
+            :href="moneypot.share.twitter"
+            >share twitter</a
+          >
+          <a
+            target="_blank"
+            class="border p-2 block"
+            :href="moneypot.share.linkedin"
+            >share linkedin</a
+          >
 
           <template v-if="moneypot.creator" #footer>
             <div class="flex items-center">

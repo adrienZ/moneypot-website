@@ -9,27 +9,33 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-      # with:
-      #   version: 8
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: "pnpm"
-      - name: Install dependencies
-        run: npm install -g pnpm && pnpm install
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps chromium
-      - name: Run Playwright tests
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-        run: pnpm test
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+      - name: test env
+      shell: bash
+      env:
+        RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      run: |
+        echo "$RESEND_API_KEY"
+      # - uses: actions/checkout@v3
+      # - uses: pnpm/action-setup@v2
+      # # with:
+      # #   version: 8
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 20
+      #     cache: "pnpm"
+      # - name: Install dependencies
+      #   run: npm install -g pnpm && pnpm install
+      # - name: Install Playwright Browsers
+      #   run: pnpm exec playwright install --with-deps chromium
+      # - name: Run Playwright tests
+      #   env:
+      #     DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      #     UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
+      #     RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      #   run: pnpm test
+      # - uses: actions/upload-artifact@v3
+      #   if: always()
+      #   with:
+      #     name: playwright-report
+      #     path: playwright-report/
+      #     retention-days: 30

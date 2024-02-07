@@ -5,10 +5,13 @@ definePageMeta({
 
 const error = ref<string | null>(null);
 
-async function login(e: Event) {
+const formRef = ref<HTMLFormElement>();
+const { data: formData } = useFormData(formRef);
+
+async function login() {
   const result = await useFetch("/api/login", {
     method: "POST",
-    body: new FormData(e.target as HTMLFormElement)
+    body: formData
   });
   if (result.error.value) {
     error.value = result.error.value.data?.message ?? null;
@@ -45,7 +48,12 @@ async function login(e: Event) {
 
     <UDivider class="my-4" label="OR" />
 
-    <form method="post" action="/api/login" @submit.prevent="login">
+    <form
+      method="post"
+      action="/api/login"
+      ref="formRef"
+      @submit.prevent="login"
+    >
       <UFormGroup label="Email">
         <UInput id="email" name="email" />
       </UFormGroup>

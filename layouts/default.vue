@@ -13,13 +13,7 @@
           <nav>
             <ul class="flex items-center">
               <li v-if="connectedUser" class="mr-2">
-                <form
-                  method="post"
-                  action="/api/logout"
-                  @submit.prevent="handleLogout"
-                >
-                  <input type="submit" value="Sign out" />
-                </form>
+                <UButton @click="handleLogout">Sign out</UButton>
               </li>
               <li v-if="connectedUser">
                 <NuxtLink class="block" to="/settings">

@@ -1,14 +1,16 @@
 import { Argon2id } from "oslo/password";
 import { LoginThrottlingService } from "#myauth/services/loginThrottlingService";
 import { z } from "zod";
+import { zfd } from "zod-form-data";
 
-const formDataSchema = z.object({
+const formDataSchema = zfd.formData({
   email: z.string().min(1).email(),
   password: z.string().min(6).max(255)
 });
 
 export default eventHandler(async (event) => {
-  const form = formDataSchema.safeParse(await readFormData(event));
+  const rawForMData = await readFormData(event);
+  const form = formDataSchema.safeParse(rawForMData);
 
   if (!form.success) {
     const firstError = form.error.errors[0];

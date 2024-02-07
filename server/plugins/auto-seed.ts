@@ -1,6 +1,8 @@
 import { db } from "../utils/lucia";
 import { generateId } from "lucia";
 import { moneypotCategory } from "../database/schema/moneypots.schema";
+import { user } from "../database/schema/auth.schema";
+import { testUser } from "~/e2e/helpers/tests-seed";
 
 type InsertMoneyPotCategory = typeof moneypotCategory.$inferInsert;
 
@@ -45,13 +47,14 @@ const moneypotCategoriesSeed: Array<
 ];
 
 export default defineNitroPlugin(() => {
-  moneypotCategoriesSeed.forEach(async (values) =>
-    db
-      .insert(moneypotCategory)
+  moneypotCategoriesSeed.forEach(async (values) => {
+    db.insert(moneypotCategory)
       .values({
         ...values,
         externalId: generateId(10)
       })
-      .onConflictDoNothing()
-  );
+      .onConflictDoNothing();
+
+    await db.insert(user).values(testUser).onConflictDoNothing();
+  });
 });

@@ -8,9 +8,6 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    env:
-      UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
-      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
@@ -25,7 +22,7 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps chromium
       - name: Run Playwright tests
-        run: pnpm test
+        run: UPLOADTHING_SECRET="sk_mock" RESEND_API_KEY="r_mock" pnpm test
       - uses: actions/upload-artifact@v3
         if: always()
         with:

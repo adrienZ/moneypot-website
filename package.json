@@ -2,6 +2,7 @@
   "name": "app",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@8.11.0",
   "scripts": {
     "prebuild": "pnpm lint",
     "build": "nuxt build",

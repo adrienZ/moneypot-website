@@ -1,7 +1,7 @@
 name: Playwright Tests
-  env:
-    UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
-    RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+env:
+  UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
+  RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
 on:
   push:
     branches: [main]

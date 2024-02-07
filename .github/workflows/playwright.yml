@@ -22,7 +22,11 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps chromium
       - name: Run Playwright tests
-        run: UPLOADTHING_SECRET="sk_mock" RESEND_API_KEY="r_mock" pnpm test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: pnpm test
       - uses: actions/upload-artifact@v3
         if: always()
         with:

@@ -6,10 +6,17 @@
 
     <UDivider class="my-4" />
 
-    <form novalidate>
-      <UAvatar size="xl" :src="profile.avatar" alt="Avatar" />
+    <form>
+      <UFormGroup label="Avatar">
+        <UiUploadableAvatar
+          name="avatar"
+          :image-src="profile.avatar"
+          :isUploadig="avatarIsUploading"
+          @change="handleAvatar"
+        />
+      </UFormGroup>
 
-      <UFormGroup label="Username">
+      <UFormGroup class="mt-4" label="Username">
         <UInput readonly name="Username" :value="profile.username" />
       </UFormGroup>
 
@@ -87,9 +94,12 @@ definePageMeta({
 
 const user = useUser();
 const PROFILE_KEY_DEDUPE = `profile-${user.value?.externalId}`;
-const { data: profile } = await useFetch(() => "/api/me", {
-  key: PROFILE_KEY_DEDUPE
-});
+const { data: profile, refresh: refreshProfile } = await useFetch(
+  () => "/api/me",
+  {
+    key: PROFILE_KEY_DEDUPE
+  }
+);
 
 const {
   status,
@@ -102,4 +112,24 @@ const {
     email: profile.value?.email
   }
 });
+
+const avatarIsUploading = ref(false);
+async function handleAvatar(avatarFile: File) {
+  const formData = new FormData();
+  formData.set("avatar", avatarFile);
+  avatarIsUploading.value = true;
+
+  try {
+    const response = await $fetch("/api/auth/avatar", {
+      method: "post",
+      body: formData
+    });
+
+    if (response.isUserUpdated) {
+      refreshProfile();
+    }
+  } finally {
+    avatarIsUploading.value = false;
+  }
+}
 </script>

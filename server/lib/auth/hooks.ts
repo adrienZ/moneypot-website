@@ -35,8 +35,10 @@ export class AuthHooks {
 
   async onUserCreation(event: H3Event, userData: User) {
     if (!userData.avatar.includes("https://www.gravatar.com/avatar")) {
-      const avatarCdnUrl = await AssetsService.uploadFile(userData.avatar);
-      await UserService.updateUserAvatar(avatarCdnUrl);
+      const avatarCdnUrl = await AssetsService.uploadFileFromUrl(
+        userData.avatar
+      );
+      await UserService.updateUserAvatar(userData.externalId, avatarCdnUrl);
     }
 
     await myAuth.emailService.welcomeEmail({

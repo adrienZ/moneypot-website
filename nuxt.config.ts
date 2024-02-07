@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   },
   typescript: {
     strict: true,
+    shim: false,
     typeCheck: process.env.NODE_ENV === "production"
   },
   experimental: {

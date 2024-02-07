@@ -4,7 +4,7 @@ definePageMeta({
 });
 
 const error = ref<string | null>(null);
-
+const avatar = ref("");
 async function signup(e: Event) {
   const result = await useFetch("/api/signup", {
     method: "POST",
@@ -19,19 +19,30 @@ async function signup(e: Event) {
 </script>
 
 <template>
-  <div>
-    <h1>Create an account</h1>
-    <form method="post" action="/api/signup" @submit.prevent="signup">
-      <UFormGroup label="email">
+  <UiContainer>
+    <h1 class="text-2xl font-bold">Create an account</h1>
+    <form
+      class="mt-4"
+      method="post"
+      action="/api/signup"
+      @submit.prevent="signup"
+    >
+      <UFormGroup label="Avatar">
+        <UiUploadableAvatar name="avatar" :image-src="avatar" />
+      </UFormGroup>
+
+      <UFormGroup class="mt-4" label="email">
         <UInput id="email " name="email" />
       </UFormGroup>
-      <UFormGroup label="password">
+      <UFormGroup class="mt-4" label="password">
         <UInput id="password" type="password" name="password" />
       </UFormGroup>
 
-      <UButton type="submit">Submit</UButton>
+      <UButton class="mt-4" type="submit">Submit</UButton>
     </form>
 
-    <NuxtLink to="/login">Sign in</NuxtLink>
-  </div>
+    <div class="mt-4">
+      <NuxtLink to="/login">Sign in</NuxtLink>
+    </div>
+  </UiContainer>
 </template>

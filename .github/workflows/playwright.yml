@@ -1,7 +1,4 @@
 name: Playwright Tests
-env:
-  UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
-  RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
 on:
   push:
     branches: [main]
@@ -10,7 +7,10 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: mac-os-13-xlarge
+    env:
+      UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2

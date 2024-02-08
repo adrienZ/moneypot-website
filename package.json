@@ -51,6 +51,7 @@
     "qrcode": "^1.5.3",
     "radix-vue": "^1.4.2",
     "resend": "^3.1.0",
+    "stripe": "^14.15.0",
     "ua-parser-js": "^1.0.37",
     "vue-email": "^0.8.5",
     "zod": "^3.22.4",

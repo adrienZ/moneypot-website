@@ -32,7 +32,7 @@ export default eventHandler(async (event) => {
   try {
     let avatarUrl: string | null = null;
 
-    if (avatar) {
+    if (avatar && avatar.size > 0) {
       avatarUrl = await AssetsService.uploadFile(avatar);
     }
 

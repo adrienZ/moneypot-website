@@ -3,6 +3,8 @@ definePageMeta({
   middleware: ["unlogged-middleware"]
 });
 
+const route = useRoute();
+const email = ref(route.query.email?.toString() ?? "");
 const error = ref<string | null>(null);
 
 const formRef = ref<HTMLFormElement>();
@@ -14,7 +16,7 @@ async function login() {
     body: formData
   });
   if (result.error.value) {
-    error.value = result.error.value.data?.message ?? null;
+    result.error.value.data?.message ?? result.error.value.message;
   } else {
     await navigateTo(result.data.value?.redirect);
   }
@@ -34,7 +36,7 @@ async function login() {
         @submit.prevent="login"
       >
         <UFormGroup label="Email">
-          <UInput id="email" name="email" />
+          <UInput id="email" name="email" v-model="email" />
         </UFormGroup>
         <UFormGroup class="mt-2" label="Password">
           <UInput id="password" type="password" name="password" />
@@ -57,7 +59,17 @@ async function login() {
       <p class="text-sm">
         Don't have an account?
         <br />
-        <NuxtLink to="/signup" class="text-primary"> Sign up </NuxtLink>
+        <NuxtLink
+          :to="{
+            path: '/signup',
+            query: {
+              email
+            }
+          }"
+          class="text-primary"
+        >
+          Sign up
+        </NuxtLink>
         <br />
         <NuxtLink to="/reset-password" class="text-primary">
           forgotten password

@@ -60,6 +60,7 @@ declare global {
       BASE_URL?: string;
       UPLOADTHING_SECRET?: string;
       UPLOADTHING_APP_ID?: string;
+      STRIPE_SECRET_KEY?: string;
     }
   }
 }

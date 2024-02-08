@@ -3,6 +3,9 @@ definePageMeta({
   middleware: ["unlogged-middleware"]
 });
 
+const route = useRoute();
+const email = ref(route.query.email?.toString() ?? "");
+
 const error = ref<string | null>(null);
 const avatar = ref("");
 async function signup(e: Event) {
@@ -10,8 +13,10 @@ async function signup(e: Event) {
     method: "POST",
     body: new FormData(e.target as HTMLFormElement)
   });
+
   if (result.error.value) {
-    error.value = result.error.value.data?.message ?? null;
+    error.value =
+      result.error.value.data?.message ?? result.error.value.message;
   } else {
     await navigateTo("/");
   }
@@ -34,7 +39,7 @@ async function signup(e: Event) {
         </UFormGroup>
 
         <UFormGroup class="mt-2" label="email">
-          <UInput id="email " name="email" />
+          <UInput id="email" name="email" v-model="email" />
         </UFormGroup>
         <UFormGroup class="mt-2" label="password">
           <UInput id="password" type="password" name="password" />
@@ -42,6 +47,13 @@ async function signup(e: Event) {
 
         <UButton class="mt-4" type="submit">Submit</UButton>
       </form>
+      <UAlert
+        class="mt-2"
+        v-if="error"
+        color="red"
+        variant="soft"
+        :title="error"
+      ></UAlert>
 
       <UDivider class="my-4" label="OR" />
 
@@ -53,7 +65,16 @@ async function signup(e: Event) {
       <UDivider class="my-4" label="OR" />
 
       <div class="mt-4">
-        <NuxtLink to="/login">Sign in</NuxtLink>
+        <NuxtLink
+          :to="{
+            path: '/login',
+            query: {
+              email
+            }
+          }"
+          class="text-primary"
+          >Sign in</NuxtLink
+        >
       </div>
     </UCard>
   </UiContainer>

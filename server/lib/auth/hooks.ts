@@ -3,6 +3,7 @@ import { generateEmailVerificationCode } from "./helpers/verificationCode";
 import { LoginThrottlingService } from "./services/loginThrottlingService";
 import { AssetsService } from "~/server/services/AssetsService";
 import { UserService } from "~/server/services/UserService";
+import { StripeService } from "~/server/services/StripeService";
 
 type H3Event = Parameters<Parameters<typeof defineEventHandler>[0]>[0];
 
@@ -44,6 +45,10 @@ export class AuthHooks {
     await myAuth.emailService.welcomeEmail({
       targetEmail: userData.email,
       username: userData.username ?? undefined
+    });
+
+    await StripeService.createCustomer(userData.externalId, {
+      email: userData.email
     });
 
     await this.onUserLogin(event, userData);

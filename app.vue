@@ -5,23 +5,3 @@
     </NuxtLayout>
   </div>
 </template>
-
-<style>
-body {
-  font-family:
-    ui-sans-serif,
-    system-ui,
-    sans-serif,
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    Segoe UI Symbol,
-    "Noto Color Emoji";
-}
-.error {
-  color: red;
-}
-
-.title-1 {
-  @apply font-bold text-3xl;
-}
-</style>

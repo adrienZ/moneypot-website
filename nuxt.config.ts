@@ -1,5 +1,4 @@
 import { fileURLToPath } from "node:url";
-import tailwindTypography from "@tailwindcss/typography";
 const isDev = process.env.NODE_ENV === "development";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -12,9 +11,14 @@ export default defineNuxtConfig({
     "@nuxt/devtools",
     "@vue-email/nuxt",
     "@nuxt/ui",
+    // "@nuxtjs/color-mode",
     "@nuxtjs/tailwindcss",
     "@nuxt/image"
   ],
+  css: ["~/assets/css/main.css"],
+  tailwindcss: {
+    cssPath: false
+  },
   alias: {
     "#myauth": fileURLToPath(new URL("./server/lib/auth", import.meta.url))
   },
@@ -40,11 +44,6 @@ export default defineNuxtConfig({
     global: true,
     icons: ["heroicons", "logos"]
   },
-  tailwindcss: {
-    config: {
-      plugins: [tailwindTypography]
-    }
-  },
   // vscode debugging
   sourcemap: isDev
 });
@@ -61,6 +60,7 @@ declare global {
       UPLOADTHING_SECRET?: string;
       UPLOADTHING_APP_ID?: string;
       STRIPE_SECRET_KEY?: string;
+      STRIPE_MY_COMPANY_ACCOUNT_ID?: string;
     }
   }
 }

@@ -3,6 +3,7 @@ import { paymentAccount } from "../database/schema";
 
 export class StripeService {
   private static api = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+  private static myCompanyAccountId = process.env.STRIPE_MY_COMPANY_ACCOUNT_ID;
 
   static async createCustomer(
     userExternalId: string,
@@ -22,8 +23,7 @@ export class StripeService {
     return customer;
   }
 
-  static async getCustomer() {
-    // this.api.customers.retrieve();
-    console.log();
+  static async getMyCompanyAccount() {
+    return this.api.accounts.retrieve(this.myCompanyAccountId as string);
   }
 }

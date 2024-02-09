@@ -48,7 +48,8 @@ const moneypotCategoriesSeed: Array<
 
 export default defineNitroPlugin(() => {
   moneypotCategoriesSeed.forEach(async (values) => {
-    db.insert(moneypotCategory)
+    await db
+      .insert(moneypotCategory)
       .values({
         ...values,
         externalId: generateId(10)

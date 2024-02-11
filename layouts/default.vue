@@ -59,7 +59,10 @@
     </div>
 
     <footer class="py-2 border-t">
-      <UiContainer>@{{ new Date().getFullYear() }}</UiContainer>
+      <UiContainer>
+        <div>v{{ $config.public.clientVersion }}</div>
+        <div>@{{ new Date().getFullYear() }}</div></UiContainer
+      >
     </footer>
   </div>
 </template>

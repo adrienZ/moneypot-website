@@ -57,9 +57,9 @@
           variant="outline"
           placeholder="Your story..."
         />
-
-        <UButton type="submit" class="mt-2">Create</UButton>
+        <Editor v-model="value" editorStyle="height: 320px" />
       </UFormGroup>
+      <UButton type="submit" class="mt-2">Create</UButton>
     </form>
     <UAlert
       v-if="responseText"
@@ -74,6 +74,7 @@
 <script lang="ts" setup>
 import { AspectRatio } from "radix-vue";
 import type { MoneyPotCategory } from "~/server/database/schema/types";
+import Editor from "primevue/editor";
 
 definePageMeta({
   middleware: ["protected-middleware"]
@@ -90,6 +91,8 @@ const { data: categories } = await useAsyncData("moneypot-categories", () =>
 const categoryFromRoutQuery = categories.value?.find(
   (category) => category.externalId === route.query.categoryId
 );
+
+const value = ref("");
 
 if (categoryFromRoutQuery) {
   activeCategory.value = categoryFromRoutQuery;
@@ -128,6 +131,8 @@ const responseText = computed(() => {
 });
 
 async function createMoneyPot() {
+  console.log(value);
+
   await request.execute();
 
   if (request.status.value === "success") {

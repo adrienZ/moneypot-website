@@ -1,4 +1,6 @@
 import { fileURLToPath } from "node:url";
+import pkg from "./package.json";
+
 const isDev = process.env.NODE_ENV === "development";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -13,7 +15,8 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     // "@nuxtjs/color-mode",
     "@nuxtjs/tailwindcss",
-    "@nuxt/image"
+    "@nuxt/image",
+    "nuxt-primevue"
   ],
   css: ["~/assets/css/main.css"],
   tailwindcss: {
@@ -24,8 +27,12 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     githubClientId: "",
-    githubClientSecret: ""
+    githubClientSecret: "",
+    public: {
+      clientVersion: pkg.version
+    }
   },
+
   typescript: {
     strict: true,
     shim: false,
@@ -43,6 +50,25 @@ export default defineNuxtConfig({
   ui: {
     global: true,
     icons: ["heroicons", "logos"]
+  },
+  primevue: {
+    importPT: {
+      from: fileURLToPath(new URL("./assets/presets/primevue", import.meta.url))
+    },
+    options: {
+      unstyled: true
+      // pt: PrimeTheme
+    },
+    components: {
+      prefix: "Prime",
+      include: []
+    },
+    directives: {
+      include: []
+    },
+    composables: {
+      include: []
+    }
   },
   // vscode debugging
   sourcemap: isDev
@@ -62,5 +88,13 @@ declare global {
       STRIPE_SECRET_KEY?: string;
       STRIPE_MY_COMPANY_ACCOUNT_ID?: string;
     }
+  }
+}
+
+declare module "nuxt/schema" {
+  // interface RuntimeConfig {
+  // }
+  interface PublicRuntimeConfig {
+    clientVersion: string;
   }
 }

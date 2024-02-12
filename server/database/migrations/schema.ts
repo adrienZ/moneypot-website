@@ -6,6 +6,7 @@ import {
   unique,
   boolean,
   varchar,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   foreignKey,
   date,
   integer

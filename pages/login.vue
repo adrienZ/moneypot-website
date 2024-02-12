@@ -29,14 +29,14 @@ async function login() {
       <h1 class="title-1">Sign in</h1>
 
       <form
+        ref="formRef"
         method="post"
         action="/api/login"
         class="mt-4"
-        ref="formRef"
         @submit.prevent="login"
       >
         <UFormGroup label="Email">
-          <UInput id="email" name="email" v-model="email" />
+          <UInput id="email" v-model="email" name="email" />
         </UFormGroup>
         <UFormGroup class="mt-2" label="Password">
           <UInput id="password" type="password" name="password" />

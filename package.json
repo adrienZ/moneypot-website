@@ -34,7 +34,7 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "drizzle-kit": "^0.20.14",
     "eslint": "^8.56.0",
-    "eslint-plugin-sonarjs": "^0.23.0",
+    "eslint-plugin-sonarjs": "^0.24.0",
     "nuxt": "^3.10.1",
     "nuxt-primevue": "^0.3.0",
     "prettier": "^3.2.5",

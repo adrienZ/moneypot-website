@@ -10,6 +10,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: "latest"
   },
+  ignorePatterns: ["assets/presets/primevue/**/*.js"],
   overrides: [
     {
       files: [

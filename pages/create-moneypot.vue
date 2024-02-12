@@ -52,16 +52,16 @@
       <UFormGroup label="Description" class="mt-4">
         <UTextarea
           id="description"
+          v-model="value"
           name="description"
           color="white"
-          v-model="value"
           variant="outline"
         />
         <Editor
           v-show="false"
           v-model="value"
           placeholder="Your story..."
-          editorStyle="height: 320px"
+          editor-style="height: 320px"
         />
       </UFormGroup>
       <UButton type="submit" class="mt-2">Create</UButton>

@@ -22,7 +22,7 @@
             <UiUploadableAvatar
               name="avatar"
               :image-src="profile.avatar"
-              :isUploadig="avatarIsUploading"
+              :is-uploadig="avatarIsUploading"
               @change="handleAvatar"
             />
           </UFormGroup>
@@ -76,7 +76,7 @@
           >
             <UDivider class="my-4" />
 
-            <div class="flex" v-if="session.country">
+            <div v-if="session.country" class="flex">
               <NuxtImg class="w-6 mr-2" :src="session.country.flagSrc" />
               <div>{{ session.country.name }}</div>
             </div>

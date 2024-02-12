@@ -39,7 +39,7 @@ async function signup(e: Event) {
         </UFormGroup>
 
         <UFormGroup class="mt-2" label="email">
-          <UInput id="email" name="email" v-model="email" />
+          <UInput id="email" v-model="email" name="email" />
         </UFormGroup>
         <UFormGroup class="mt-2" label="password">
           <UInput id="password" type="password" name="password" />
@@ -48,8 +48,8 @@ async function signup(e: Event) {
         <UButton class="mt-4" type="submit">Submit</UButton>
       </form>
       <UAlert
-        class="mt-2"
         v-if="error"
+        class="mt-2"
         color="red"
         variant="soft"
         :title="error"

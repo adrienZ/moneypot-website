@@ -3,7 +3,7 @@
     <div v-if="imageSrc" class="relative inline-block">
       <UAvatar
         class="block overflow-hidden"
-        :imgClass="`object-cover transition ${isUploadig ? 'blur-sm' : 'blur-0'}`"
+        :img-class="`object-cover transition ${isUploadig ? 'blur-sm' : 'blur-0'}`"
         size="3xl"
         text="I"
         :src="imageSrc"

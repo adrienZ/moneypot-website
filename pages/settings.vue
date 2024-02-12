@@ -76,6 +76,13 @@
           >
             <UDivider class="my-4" />
 
+            <div class="flex" v-if="session.country">
+              <NuxtImg class="w-6 mr-2" :src="session.country.flagSrc" />
+              <div>{{ session.country.name }}</div>
+            </div>
+            <div v-if="session.city">
+              <div>{{ session.city }}</div>
+            </div>
             <div>
               <span v-if="session.os">{{ session.os.name }}</span>
               <span v-if="session.browser"> - {{ session.browser.name }}</span>

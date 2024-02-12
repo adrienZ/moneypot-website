@@ -54,10 +54,15 @@
           id="description"
           name="description"
           color="white"
+          v-model="value"
           variant="outline"
-          placeholder="Your story..."
         />
-        <Editor v-model="value" editorStyle="height: 320px" />
+        <Editor
+          v-show="false"
+          v-model="value"
+          placeholder="Your story..."
+          editorStyle="height: 320px"
+        />
       </UFormGroup>
       <UButton type="submit" class="mt-2">Create</UButton>
     </form>

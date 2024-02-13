@@ -1,7 +1,7 @@
 import { GeoIpDbName } from "geolite2-redist";
 import type { CityResponse } from "maxmind";
 import twemoji from "twemoji";
-// @tts-expect-error no types definition for jgeoip
+// @ts-expect-error no types definition for jgeoip
 import jGeoIP from "jgeoip";
 import { getMmdbPath } from "./plugins/mmdb-storage";
 

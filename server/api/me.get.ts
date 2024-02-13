@@ -5,7 +5,7 @@ import QRCode from "qrcode";
 import { decodeHex } from "oslo/encoding";
 import parser from "ua-parser-js";
 import type { DatabaseSessionAttributes } from "lucia";
-import { IpLocation } from "../lib/IpLocation";
+import { IpLookup } from "../lib/ipLookup/IpLookup";
 
 export default defineEventHandler(async (event) => {
   if (!event.context.user) {
@@ -19,22 +19,22 @@ export default defineEventHandler(async (event) => {
     event.context.user.id
   )) as unknown as DatabaseSessionAttributes[];
 
-  const reader = await IpLocation.createReader();
-  const sessionsWithParsedUserAgent = sessions.map(($session) => {
-    const location = $session.ip ? new IpLocation($session.ip, reader) : null;
+  const sessionsWithParsedUserAgent = Promise.all(
+    sessions.map(async ($session) => {
+      const location = $session.ip ? new IpLookup($session.ip) : null;
+      await location?.parse();
 
-    return {
-      city: location?.city,
-      country: location?.country,
-      id: $session.id,
-      createdAt: $session.createdAt,
-      ...parser($session.userAgent ?? undefined),
-      isCurrentSession: $session.id === event.context.session?.id,
-      ip: $session.ip
-    };
-  });
-  // Calling close() here shuts everything down nicely and clears up Node's event loop.
-  reader.close();
+      return {
+        city: location?.city,
+        country: location?.country,
+        id: $session.id,
+        createdAt: $session.createdAt,
+        ...parser($session.userAgent ?? undefined),
+        isCurrentSession: $session.id === event.context.session?.id,
+        ip: $session.ip
+      };
+    })
+  );
 
   const [me] = await db
     .select()
@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
 
   return {
     ...me,
-    sessions: sessionsWithParsedUserAgent,
+    sessions: await sessionsWithParsedUserAgent,
     qrcode
   };
 });

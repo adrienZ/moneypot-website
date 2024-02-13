@@ -16,7 +16,7 @@
           </ul>
         </nav>
       </section>
-      <section class="w-4/5 pl-4 flex-shrink-0">
+      <section class="w-4/5 md:pl-4 flex-shrink-0">
         <form>
           <UFormGroup label="Avatar">
             <UiUploadableAvatar

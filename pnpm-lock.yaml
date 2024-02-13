@@ -20,12 +20,12 @@ dependencies:
   geolite2-redist:
     specifier: ^3.0.4
     version: 3.0.4
+  jgeoip:
+    specifier: ^0.3.5
+    version: 0.3.5
   lucia:
     specifier: 3.0.1
     version: 3.0.1
-  maxmind:
-    specifier: ^4.3.18
-    version: 4.3.18
   pg:
     specifier: ^8.11.3
     version: 8.11.3
@@ -112,6 +112,9 @@ devDependencies:
   eslint-plugin-sonarjs:
     specifier: ^0.24.0
     version: 0.24.0(eslint@8.56.0)
+  maxmind:
+    specifier: ^4.3.18
+    version: 4.3.18
   nuxt:
     specifier: ^3.10.1
     version: 3.10.1(@types/node@20.11.17)(eslint@8.56.0)(typescript@5.3.3)(vite@5.0.12)(vue-tsc@1.8.27)
@@ -6893,6 +6896,10 @@ packages:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
+  /jgeoip@0.3.5:
+    resolution: {integrity: sha512-2jaE5DDsm+Pkd2lrlGwTvaTI75slfrZf2905ZPusdfx44KJr3dDlwDrmX9nneTTz/hpIV9YFPbU1cmc7jsOxTg==}
+    dev: false
+
   /jiti@1.21.0:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
@@ -7351,7 +7358,7 @@ packages:
     dependencies:
       mmdb-lib: 2.1.0
       tiny-lru: 11.2.5
-    dev: false
+    dev: true
 
   /mdn-data@2.0.28:
     resolution: {integrity: sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==}
@@ -7573,7 +7580,7 @@ packages:
   /mmdb-lib@2.1.0:
     resolution: {integrity: sha512-tdDTZmnI5G4UoSctv2KxM/3VQt2XRj4CmR5R4VsAWsOUcS3LysHR34wtixWm/pXxXdkBDuN92auxkC0T2+qd1Q==}
     engines: {node: '>=10', npm: '>=6'}
-    dev: false
+    dev: true
 
   /module-from-string@3.3.0:
     resolution: {integrity: sha512-VsjwtQtXZloDF7ZpBXON53U4Zz02K1/njJmfZcK+QDlYKgdL0ETq8/FeuU0G9EHxdG5XiTaITcGaldDAqJpGXA==}
@@ -9783,7 +9790,7 @@ packages:
   /tiny-lru@11.2.5:
     resolution: {integrity: sha512-JpqM0K33lG6iQGKiigcwuURAKZlq6rHXfrgeL4/I8/REoyJTGU+tEMszvT/oTRVHG2OiylhGDjqPp1jWMlr3bw==}
     engines: {node: '>=12'}
-    dev: false
+    dev: true
 
   /titleize@3.0.0:
     resolution: {integrity: sha512-KxVu8EYHDPBdUYdKZdKtU2aj2XfEx9AfjXxE/Aj0vT06w2icA09Vus1rh6eSu1y01akYg6BjIK/hxyLJINoMLQ==}

@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@8.11.0",
   "scripts": {
-    "prebuild": "pnpm lint",
+    "prebuild": "pnpm lint && pnpm ip:dl-dbs",
     "build": "nuxt build",
     "dev": "BASE_URL=http://localhost:3000 nuxt dev --host 0.0.0.0",
     "generate": "nuxt generate",
@@ -14,6 +14,7 @@
     "db:generate": "pnpm exec drizzle-kit generate:pg",
     "db:push": "pnpm exec drizzle-kit push:pg",
     "db:studio": "pnpm exec drizzle-kit studio",
+    "ip:dl-dbs": "node -e \"import('geolite2-redist').then(geolite => geolite.downloadDbs())\"",
     "lint": "eslint .",
     "test": "pnpm exec playwright test",
     "test:ui": "pnpm test -- --ui",

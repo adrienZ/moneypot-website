@@ -19,22 +19,20 @@ export default defineEventHandler(async (event) => {
     event.context.user.id
   )) as unknown as DatabaseSessionAttributes[];
 
-  const sessionsWithParsedUserAgent = Promise.all(
-    sessions.map(async ($session) => {
-      const location = $session.ip ? new IpLookup($session.ip) : null;
-      await location?.parse();
+  const ipReader = await IpLookup.createReader();
+  const sessionsWithParsedUserAgent = sessions.map(($session) => {
+    const location = $session.ip ? new IpLookup($session.ip, ipReader) : null;
 
-      return {
-        city: location?.city,
-        country: location?.country,
-        id: $session.id,
-        createdAt: $session.createdAt,
-        ...parser($session.userAgent ?? undefined),
-        isCurrentSession: $session.id === event.context.session?.id,
-        ip: $session.ip
-      };
-    })
-  );
+    return {
+      city: location?.city,
+      country: location?.country,
+      id: $session.id,
+      createdAt: $session.createdAt,
+      ...parser($session.userAgent ?? undefined),
+      isCurrentSession: $session.id === event.context.session?.id,
+      ip: $session.ip
+    };
+  });
 
   const [me] = await db
     .select()
@@ -52,7 +50,7 @@ export default defineEventHandler(async (event) => {
 
   return {
     ...me,
-    sessions: await sessionsWithParsedUserAgent,
+    sessions: sessionsWithParsedUserAgent,
     qrcode
   };
 });

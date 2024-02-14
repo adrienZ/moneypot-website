@@ -1,11 +1,23 @@
-import { GeoIpDbName } from "geolite2-redist";
-import type { CityResponse } from "maxmind";
 import twemoji from "twemoji";
-// @ts-expect-error no types definition for jgeoip
-import jGeoIP from "jgeoip";
-import { getMmdbPath } from "./plugins/mmdb-storage";
+import { GeoIpDbName, type WrappedReader, open } from "geolite2-redist";
+import maxmind, { type Reader, type CityResponse } from "maxmind";
 
-type Reader = any;
+/**
+ * IP LOOKUPS ARE HARD
+ *
+ * In most case a redis instance is what you need
+ * 1. you'll need to query the database from maxmind https://www.maxmind.com/en/geoip-demo
+ * 2. in our case we want the simplest infra possible so we use a local redistribution of the database: https://github.com/GitSquared/node-geolite2-redist
+ * 3. The city database is ~70mo... querying via filesystem is slow, putting the db in memory is very fast but cost a lot of memory
+ *
+ * tested:
+ * - jgeoip (https://github.com/jclo/jgeoip), in memory, very fast, but Nuxt output file is readonly and we can't download databases. Nuxt also handle dirname weirdly, file structure is not stable
+ * - maxmind (https://www.npmjs.com/package/maxmind) uses propriatary format (.mmdb) so no conversion from .csv still veryslow
+ * - fast-geoip (https://github.com/onramper/fast-geoip#readme) very interisting implementation both fast and simple to setup but only returns country ?
+ */
+
+// @ts-expect-error
+type CityReader = WrappedReader<Reader<CityResponse>>;
 
 export class IpLookup {
   private ip: string;
@@ -18,18 +30,16 @@ export class IpLookup {
     flagSrc: string;
   } | null;
 
-  static readerInstance: Reader | null;
-
-  constructor(ip: string) {
+  constructor(ip: string, reader: CityReader) {
     this.ip = ip;
     this.city = null;
     this.country = null;
-  }
 
-  async parse() {
-    const reader = await IpLookup.getReader();
-
-    const data: CityResponse | null = await reader.getRecord(this.ip);
+    const v0 = performance.now();
+    const data = reader.get(ip);
+    reader.close();
+    const v1 = performance.now();
+    console.log(ip, v1 - v0, data?.city);
 
     // @ts-ignore
     this.city = data?.city?.names.en ?? null;
@@ -51,6 +61,10 @@ export class IpLookup {
     }
   }
 
+  static createReader(): Promise<CityReader> {
+    return open(GeoIpDbName.City, (path) => maxmind.open<CityResponse>(path));
+  }
+
   private extractImgSrc(htmlString: string): string | null {
     // Regular expression to match the src attribute within an img tag
     const regex = /<img[^>]+src="([^">]+)"/g;
@@ -63,15 +77,6 @@ export class IpLookup {
 
     // If no match is found, return null
     return null;
-  }
-
-  static async getReader() {
-    if (!this.readerInstance) {
-      const dbPath = await getMmdbPath(GeoIpDbName.City);
-      this.readerInstance = new jGeoIP(dbPath.path);
-    } else {
-      return this.readerInstance;
-    }
   }
 
   private getFlagEmoji(countryCode: string) {

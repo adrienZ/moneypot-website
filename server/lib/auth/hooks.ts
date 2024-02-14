@@ -3,7 +3,7 @@ import { generateEmailVerificationCode } from "./helpers/verificationCode";
 import { LoginThrottlingService } from "./services/loginThrottlingService";
 import { AssetsService } from "~/server/services/AssetsService";
 import { UserService } from "~/server/services/UserService";
-import { StripeService } from "~/server/services/StripeService";
+// import { StripeService } from "~/server/services/StripeService";
 
 type H3Event = Parameters<Parameters<typeof defineEventHandler>[0]>[0];
 
@@ -25,6 +25,7 @@ export class AuthHooks {
       userAgent: ua?.substring(0, 500) ?? null,
       ip
     });
+
     appendHeader(
       event,
       "Set-Cookie",
@@ -42,16 +43,10 @@ export class AuthHooks {
       await UserService.updateUserAvatar(userData.externalId, avatarCdnUrl);
     }
 
-    await myAuth.emailService.welcomeEmail({
+    myAuth.emailService.welcomeEmail({
       targetEmail: userData.email,
       username: userData.username ?? undefined
     });
-
-    await StripeService.createCustomer(userData.externalId, {
-      email: userData.email
-    });
-
-    await this.onUserLogin(event, userData);
 
     const code = await generateEmailVerificationCode(
       String(userData.id),
@@ -64,5 +59,7 @@ export class AuthHooks {
       code,
       pageUrl
     });
+
+    await this.onUserLogin(event, userData);
   }
 }

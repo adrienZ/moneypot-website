@@ -30,6 +30,8 @@ export class IpLookup {
     flagSrc: string;
   } | null;
 
+  static readerInstance: CityReader | null = null;
+
   constructor(ip: string, reader: CityReader) {
     this.ip = ip;
     this.city = null;
@@ -61,8 +63,14 @@ export class IpLookup {
     }
   }
 
-  static createReader(): Promise<CityReader> {
-    return open(GeoIpDbName.City, (path) => maxmind.open<CityResponse>(path));
+  static async createReader(): Promise<CityReader> {
+    if (!this.readerInstance) {
+      this.readerInstance = await open(GeoIpDbName.City, (path) =>
+        maxmind.open<CityResponse>(path)
+      );
+    }
+
+    return this.readerInstance;
   }
 
   private extractImgSrc(htmlString: string): string | null {

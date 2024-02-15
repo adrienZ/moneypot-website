@@ -9,12 +9,13 @@ const error = ref<string | null>(null);
 
 const formRef = ref<HTMLFormElement>();
 const { data: formData } = useFormData(formRef);
+const result = await useFetch("/api/login", {
+  method: "POST",
+  body: formData,
+  immediate: false
+});
 
 async function login() {
-  const result = await useFetch("/api/login", {
-    method: "POST",
-    body: formData
-  });
   if (result.error.value) {
     result.error.value.data?.message ?? result.error.value.message;
   } else {

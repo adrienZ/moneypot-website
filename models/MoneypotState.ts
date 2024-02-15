@@ -22,6 +22,9 @@ interface IMoneypotShare {
   facebook: string;
   linkedin: string;
   twitter: string;
+  mail: string;
+  whatsapp: string;
+  raw: string;
 }
 
 interface IMoneypotConstructorState
@@ -38,17 +41,20 @@ export class MoneypotState {
   data: IMoneypotState;
 
   constructor(data: IMoneypotConstructorState) {
-    const share = new SocialShare(
-      new URL(process.env.BASE_URL + "/moneypot/" + data.externalId),
-      data.title
+    const rawShareUrl = new URL(
+      process.env.BASE_URL + "/moneypot/" + data.externalId
     );
+    const share = new SocialShare(rawShareUrl, data.title);
 
     this.data = {
       ...data,
       share: {
         facebook: share.getFacebookShareUrl(),
         twitter: share.getTwitterShareUrl(),
-        linkedin: share.getLinkedinShareUrl()
+        linkedin: share.getLinkedinShareUrl(),
+        mail: share.getMailShareUrl(),
+        whatsapp: share.getWhatsappShareUrl(),
+        raw: rawShareUrl.href
       }
     };
   }

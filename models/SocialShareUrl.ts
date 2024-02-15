@@ -29,6 +29,25 @@ export class SocialShare {
     return `https://twitter.com/intent/tweet?${params.toString()}`;
   }
 
+  getMailShareUrl() {
+    const { title, url } = this;
+    const params = new URLSearchParams({
+      subject: title,
+      body: `${title} ${url.href}`
+    });
+
+    return `mailto:?${params.toString()}`;
+  }
+
+  getWhatsappShareUrl() {
+    const { title, url } = this;
+    const params = new URLSearchParams({
+      text: `${title} - ${url.href}`
+    });
+
+    return `https://web.whatsapp.com/send?${params.toString()}`;
+  }
+
   getLinkedinShareUrl() {
     const { url } = this;
 

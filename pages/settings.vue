@@ -1,6 +1,6 @@
 <template>
   <UiContainer v-if="profile">
-    <header>
+    <header class="mt-4">
       <h1 class="text-xl font-bold">Settings</h1>
     </header>
 
@@ -41,11 +41,11 @@
 
           <UDivider class="my-4" />
 
-          <ProfileTwoFactorAuth
+          <!-- <ProfileTwoFactorAuth
             class="mt-8"
             :api-dedupe-key="PROFILE_KEY_DEDUPE"
             :enabled="profile.twoFactorEnabled"
-          />
+          /> -->
 
           <UDivider class="my-4" />
 

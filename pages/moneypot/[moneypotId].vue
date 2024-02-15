@@ -1,35 +1,53 @@
 <template>
-  <UiContainer class="mx-auto">
+  <UiContainer class="mx-auto mt-10">
     <div v-if="moneypot" class="md:flex">
-      <section class="md:w-3/4">
+      <section class="md:w-8/12">
         <AspectRatio :ratio="16 / 9">
           <NuxtImg class="h-full w-full object-cover" :src="moneypot.image" />
         </AspectRatio>
       </section>
-      <section class="md:w-1/4 md:pl-8">
+      <section class="md:w-4/12 md:pl-8">
         <UCard>
           <template #header>
             <h1 class="text-3xl font-bold">{{ moneypot.title }}</h1>
           </template>
 
-          <a
-            target="_blank"
-            class="border p-2 block"
-            :href="moneypot.share.facebook"
-            >share facebook</a
-          >
-          <a
-            target="_blank"
-            class="border p-2 block"
-            :href="moneypot.share.twitter"
-            >share twitter</a
-          >
-          <a
-            target="_blank"
-            class="border p-2 block"
-            :href="moneypot.share.linkedin"
-            >share linkedin</a
-          >
+          <UModal v-model="shareModalOpen">
+            <div class="p-4">
+              <a
+                target="_blank"
+                class="border p-2 block"
+                :href="moneypot.share.facebook"
+                >share facebook</a
+              >
+              <a
+                target="_blank"
+                class="border p-2 block"
+                :href="moneypot.share.twitter"
+                >share twitter</a
+              >
+              <a
+                target="_blank"
+                class="border p-2 block"
+                :href="moneypot.share.linkedin"
+                >share linkedin</a
+              >
+              <a
+                target="_blank"
+                class="border p-2 block"
+                :href="moneypot.share.mail"
+                >share mail</a
+              >
+              <a
+                target="_blank"
+                class="border p-2 block"
+                :href="moneypot.share.whatsapp"
+                >share whatsapp</a
+              >
+
+              <UInput class="mt-8" :value="moneypot.share.raw" readonly />
+            </div>
+          </UModal>
 
           <template v-if="moneypot.creator" #footer>
             <div class="flex items-center">
@@ -37,7 +55,12 @@
               <div class="ml-2">{{ moneypot.creator.username }}</div>
             </div>
             <UDivider class="my-4" />
-            <div class="underline">{{ moneypot.creator.externalId }}</div>
+            <UButton
+              block
+              label="Share moneypot"
+              color="gray"
+              @click="shareModalOpen = true"
+            />
           </template>
         </UCard>
       </section>
@@ -56,6 +79,8 @@ const { data: moneypot } = await useAsyncData(
   () =>
     $fetch<MoneypotState["data"]>("/api/moneypot/" + route.params.moneypotId)
 );
+
+const shareModalOpen = ref(false);
 </script>
 
 <style></style>

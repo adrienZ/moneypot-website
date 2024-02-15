@@ -18,12 +18,8 @@ const { data: moneypots } = await useAsyncData("last-moneypots", () =>
   <UiContainer as="main">
     <section>
       <h2 class="text-3xl font-bold mb-4">Create your own moneypot</h2>
-      <div class="flex flex-nowrap gap-4">
-        <div
-          v-for="category in categories"
-          :key="category.externalId"
-          class="w-2/12"
-        >
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-4">
+        <div v-for="category in categories" :key="category.externalId">
           <NuxtLink
             :to="{
               path: '/create-moneypot',

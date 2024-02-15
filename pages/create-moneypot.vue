@@ -1,54 +1,57 @@
 <template>
-  <UiContainer as="main">
-    <h3 class="font-bold text-xl mb-4">Choose category</h3>
-    <div class="flex flex-wrap gap-y-4 gap-x-4">
-      <div
-        v-for="category in categories"
-        :key="category.externalId"
-        class="w-2/12"
-      >
-        <button class="block w-full" @click="setActiveCategory(category)">
-          <UCard
-            :ui="{
-              strategy: 'override',
-              body: {
-                padding: 'p-0'
-              },
-              footer: {
-                background:
-                  category.id === activeCategory?.id ? 'bg-green-400' : ''
-              }
-            }"
-          >
-            <template #footer>
-              <div>
-                {{ category.value }}
-              </div>
-            </template>
-            <AspectRatio :ratio="4 / 3">
-              <NuxtImg
-                class="h-full w-full object-cover"
-                :alt="category.value"
-                :src="category.image"
-              />
-            </AspectRatio>
-          </UCard>
-        </button>
-      </div>
-    </div>
-
-    <UDivider class="my-4" label="Create your moneypot"></UDivider>
-
+  <UiContainer as="main" size="xs" class="my-10">
     <form ref="formRef" @submit.prevent="createMoneyPot">
+      <h3 class="font-bold text-xl mb-4">Choose category</h3>
+      <USelectMenu
+        v-if="categories"
+        v-model="activeCategory"
+        :options="categories"
+        @update:model-value="setActiveCategory"
+      >
+        <template #label>
+          <div v-if="activeCategory" class="flex items-center">
+            <div class="h-44 w-44">
+              <AspectRatio :ratio="1 / 1">
+                <NuxtImg
+                  class="h-full w-full object-cover"
+                  :alt="activeCategory.value"
+                  :src="activeCategory.image"
+                />
+              </AspectRatio>
+            </div>
+            <div class="ml-4">{{ activeCategory.value }}</div>
+          </div>
+          <span v-else class="opacity-50">Category</span>
+        </template>
+        <template #option="{ option: item }">
+          <div class="flex items-center">
+            <div class="h-16 w-16">
+              <AspectRatio :ratio="1 / 1">
+                <NuxtImg
+                  class="h-full w-full object-cover"
+                  :alt="item.value"
+                  :src="item.image"
+                />
+              </AspectRatio>
+            </div>
+            <div class="ml-4">{{ item.value }}</div>
+          </div>
+        </template>
+      </USelectMenu>
+
+      <UDivider class="my-4" label="Create your moneypot"></UDivider>
+
       <input
         id="categoryId"
         type="hidden"
         name="categoryId"
         :value="activeCategory?.externalId"
       />
+
       <UFormGroup label="Title">
         <UInput id="title" type="string" name="title" />
       </UFormGroup>
+
       <UFormGroup label="Description" class="mt-4">
         <UTextarea
           id="description"
@@ -99,15 +102,19 @@ const categoryFromRoutQuery = categories.value?.find(
 
 const value = ref("");
 
-if (categoryFromRoutQuery) {
-  activeCategory.value = categoryFromRoutQuery;
-}
-
 const formRef = ref<HTMLFormElement>();
 const { data: formData, update } = useFormData(formRef);
 
+onMounted(() => {
+  if (categoryFromRoutQuery) {
+    setActiveCategory(categoryFromRoutQuery);
+  }
+});
+
 function setActiveCategory(item: MoneyPotCategory) {
   activeCategory.value = item;
+  console.log(item);
+
   update();
 }
 
@@ -136,8 +143,6 @@ const responseText = computed(() => {
 });
 
 async function createMoneyPot() {
-  console.log(value);
-
   await request.execute();
 
   if (request.status.value === "success") {

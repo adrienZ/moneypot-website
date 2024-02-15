@@ -37,11 +37,8 @@ export class IpLookup {
     this.city = null;
     this.country = null;
 
-    const v0 = performance.now();
     const data = reader.get(ip);
     reader.close();
-    const v1 = performance.now();
-    console.log(ip, v1 - v0, data?.city);
 
     // @ts-ignore
     this.city = data?.city?.names.en ?? null;

@@ -19,11 +19,7 @@ export default defineEventHandler(async (event) => {
     event.context.user.id
   )) as unknown as DatabaseSessionAttributes[];
 
-  const v0 = performance.now();
   const ipReader = await IpLookup.createReader();
-  const v1 = performance.now();
-  console.log("reader", v1 - v0);
-
   const sessionsWithParsedUserAgent = sessions.map(($session) => {
     const location = $session.ip ? new IpLookup($session.ip, ipReader) : null;
 

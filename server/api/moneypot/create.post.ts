@@ -7,7 +7,8 @@ import { UserService } from "~/server/services/UserService";
 const formDataSchema = zfd.formData({
   categoryId: z.string().length(10),
   title: z.string().min(3).max(255),
-  description: z.string().min(1)
+  description: z.string().min(1),
+  targetAmount: z.coerce.number().optional()
 });
 
 export default defineEventHandler(async (event) => {
@@ -28,7 +29,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const { categoryId, description, title } = form.data;
+  const { categoryId, description, title, targetAmount } = form.data;
 
   const moneypotCategory =
     await MoneypotService.getMoneypotCategoryById(categoryId);
@@ -51,6 +52,7 @@ export default defineEventHandler(async (event) => {
     categoryId: moneypotCategory.externalId,
     description,
     title,
+    targetAmount,
     externalId: generateId(10),
     creatorId: creator.externalId
   });

@@ -67,6 +67,11 @@
           editor-style="height: 320px"
         />
       </UFormGroup>
+
+      <UFormGroup class="mt-4" label="Target amount in € (optional)">
+        <UInput id="targetAmount" type="number" name="targetAmount" />
+      </UFormGroup>
+
       <UButton type="submit" class="mt-2">Create</UButton>
     </form>
     <UAlert
@@ -113,8 +118,6 @@ onMounted(() => {
 
 function setActiveCategory(item: MoneyPotCategory) {
   activeCategory.value = item;
-  console.log(item);
-
   update();
 }
 

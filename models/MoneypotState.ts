@@ -8,7 +8,12 @@ import { SocialShare } from "./SocialShareUrl";
 interface IMoneypotData
   extends Pick<
     Moneypot,
-    "externalId" | "description" | "title" | "categoryId"
+    | "externalId"
+    | "description"
+    | "title"
+    | "categoryId"
+    | "targetAmount"
+    | "currency"
   > {}
 
 interface IMoneypotCategoryData {

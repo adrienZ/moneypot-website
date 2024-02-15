@@ -8,7 +8,7 @@ const { data: categories } = await useAsyncData("moneypot-categories", () =>
 const { data: moneypots } = await useAsyncData("last-moneypots", () =>
   $fetch("/api/moneypots", {
     params: {
-      limit: 3
+      limit: 4
     }
   })
 );
@@ -54,12 +54,8 @@ const { data: moneypots } = await useAsyncData("last-moneypots", () =>
 
     <section v-if="moneypots?.length">
       <h2 class="text-3xl font-bold mb-4">Last moneypots</h2>
-      <div class="flex flex-nowrap gap-y-10 gap-x-10">
-        <div
-          v-for="moneypot in moneypots"
-          :key="moneypot.externalId"
-          class="w-1/3"
-        >
+      <div class="grid grid-cols-4 gap-10">
+        <div v-for="moneypot in moneypots" :key="moneypot.externalId">
           <NuxtLink
             :to="{
               name: 'moneypot-moneypotId',

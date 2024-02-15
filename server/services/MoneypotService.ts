@@ -26,6 +26,8 @@ export class MoneypotService {
         title: moneypot.title,
         image: moneypotCategory.image,
         categoryId: moneypot.categoryId,
+        targetAmount: moneypot.targetAmount,
+        currency: moneypot.currency,
         creator: {
           externalId: user.externalId,
           avatar: user.avatar,

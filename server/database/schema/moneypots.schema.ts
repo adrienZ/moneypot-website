@@ -1,4 +1,4 @@
-import { varchar, pgTableCreator, text } from "drizzle-orm/pg-core";
+import { varchar, pgTableCreator, text, integer } from "drizzle-orm/pg-core";
 import { creationColumns, primaryKeyColumn } from "./helpers/dbColumnHelpers";
 
 import { user } from "./auth.schema";
@@ -25,5 +25,8 @@ export const moneypot = pgTable("moneypot", {
     .references(() => user.externalId),
   categoryId: varchar("category_id", { length: 10 })
     .notNull()
-    .references(() => moneypotCategory.externalId)
+    .references(() => moneypotCategory.externalId),
+  // https://www.iso.org/iso-4217-currency-codes.html
+  currency: varchar("currency", { length: 3 }).notNull().default("EUR"),
+  targetAmount: integer("target_amount")
 });

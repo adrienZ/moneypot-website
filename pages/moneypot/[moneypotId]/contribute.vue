@@ -61,7 +61,7 @@ definePageMeta({
   middleware: ["protected-middleware"]
 });
 
-const route = useRoute("moneypot-moneypotId-moneypotId.contribute");
+const route = useRoute("moneypot-moneypotId-contribute");
 const { data: moneypot } = await useAsyncData(
   `moneypot-${route.params.moneypotId}`,
   () =>

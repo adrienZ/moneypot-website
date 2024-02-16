@@ -148,8 +148,8 @@ const responseText = computed(() => {
 async function createMoneyPot() {
   await request.execute();
 
-  if (request.status.value === "success") {
-    navigateTo("/");
+  if (request.status.value === "success" && request.data.value) {
+    navigateTo("/moneypot/" + request.data.value.externalId);
   }
 }
 </script>

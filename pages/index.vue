@@ -16,7 +16,7 @@ const { data: moneypots } = await useAsyncData("last-moneypots", () =>
 
 <template>
   <UiContainer as="main">
-    <section>
+    <section class="mt-10">
       <h2 class="text-3xl font-bold mb-4">Create your own moneypot</h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-4">
         <div v-for="category in categories" :key="category.externalId">

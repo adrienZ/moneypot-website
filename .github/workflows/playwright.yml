@@ -11,15 +11,13 @@ jobs:
     environment: test-env
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-      # with:
-      #   version: 8
+      - uses: pnpm/action-setup@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: "pnpm"
       - name: Install dependencies
-        run: npm install -g pnpm && pnpm install
+        run: pnpm install
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps chromium
       - name: Run Playwright tests

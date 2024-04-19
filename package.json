@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "packageManager": "pnpm@9.0.4",
+  "packageManager": "pnpm@9.0.2",
   "scripts": {
     "prebuild": "pnpm lint",
     "postbuild": "pnpm ip:dl-dbs",

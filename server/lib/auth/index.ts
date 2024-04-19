@@ -55,7 +55,7 @@ export class Auth {
     this.discord = new Discord(
       process.env.DISCORD_APPLICATION_ID as string,
       process.env.DISCORD_PUBLIC_KEY as string,
-      process.env.BASE_URL + "/api/login/discord/callback"
+      process.env.BASE_URL + "/login/discord/callback"
     );
 
     this.hooks = new AuthHooks();

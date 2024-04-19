@@ -16,6 +16,7 @@ import maxmind, { type Reader, type CityResponse } from "maxmind";
  * - fast-geoip (https://github.com/onramper/fast-geoip#readme) very interisting implementation both fast and simple to setup but only returns country ?
  */
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 type CityReader = WrappedReader<Reader<CityResponse>>;
 
@@ -40,9 +41,7 @@ export class IpLookup {
     const data = reader.get(ip);
     reader.close();
 
-    // @ts-ignore
     this.city = data?.city?.names.en ?? null;
-    // @ts-ignore
     const country = data?.country;
 
     if (country?.iso_code && country.names) {

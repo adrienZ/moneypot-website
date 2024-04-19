@@ -74,6 +74,8 @@ const responseText = computed(() => {
   if (request.status.value === "success" && request.data.value?.id) {
     return "sucess";
   }
+
+  return undefined;
 });
 
 function subscribeEmailToNewsletter() {

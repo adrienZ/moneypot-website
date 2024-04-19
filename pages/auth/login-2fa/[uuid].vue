@@ -56,6 +56,8 @@ const responseText = computed(() => {
   if (request.status.value === "success") {
     return "sucess";
   }
+
+  return undefined;
 });
 
 async function subscribeEmailToNewsletter() {

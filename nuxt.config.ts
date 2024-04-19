@@ -12,11 +12,11 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/devtools",
     "@vue-email/nuxt",
-    "@nuxt/ui",
-    // "@nuxtjs/color-mode",
+    "@nuxt/ui", // "@nuxtjs/color-mode",
     "@nuxtjs/tailwindcss",
     "@nuxt/image",
-    "nuxt-primevue"
+    "nuxt-primevue",
+    "@nuxt/eslint"
   ],
   css: ["~/assets/css/main.css"],
   tailwindcss: {
@@ -75,6 +75,7 @@ export default defineNuxtConfig({
 });
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace NodeJS {
     interface ProcessEnv {
       DATABASE_URL?: string;

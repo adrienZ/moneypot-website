@@ -2,8 +2,6 @@ import { type DiscordTokens, OAuth2RequestError } from "arctic";
 import { generateId } from "lucia";
 import { createError } from "h3";
 
-// TODO: fix
-// eslint-disable-next-line sonarjs/cognitive-complexity
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
   const code = query.code?.toString() ?? null;
@@ -63,6 +61,7 @@ export default defineEventHandler(async (event) => {
     if (existingUser) {
       myAuth.hooks.onUserLogin(event, {
         // FIXME THIS COULD CAUSE BUGS
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         email: existingUser.email,
         id: existingUser.id

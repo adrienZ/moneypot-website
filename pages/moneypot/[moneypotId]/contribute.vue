@@ -11,7 +11,7 @@
 
     <h1 class="text-2xl font-bold">Contribute to: {{ moneypot?.title }}</h1>
 
-    <form class="mt-8" ref="formRef" @submit.prevent="contribute">
+    <form ref="formRef" class="mt-8" @submit.prevent="contribute">
       <UFormGroup label="Amount in €">
         <UInput type="number" name="amount" size="xl" autofocus />
       </UFormGroup>
@@ -96,6 +96,8 @@ const responseText = computed(() => {
   if (request.status.value === "success") {
     return "sucess";
   }
+
+  return undefined;
 });
 
 async function contribute() {

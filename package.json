@@ -22,9 +22,10 @@
     "typecheck": "nuxt prepare && nuxt typecheck"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.0.2",
     "@lucia-auth/adapter-drizzle": "^1.0.7",
     "@nuxt/devtools": "^1.2.0",
-    "@nuxt/eslint-config": "^0.3.8",
+    "@nuxt/eslint": "^0.3.8",
     "@nuxt/image": "^1.5.0",
     "@nuxtjs/color-mode": "^3.4.0",
     "@nuxtjs/tailwindcss": "^6.11.4",
@@ -35,7 +36,7 @@
     "@vue-email/nuxt": "^0.8.19",
     "@vue/eslint-config-prettier": "^9.0.0",
     "drizzle-kit": "^0.20.16",
-    "eslint": "^8.56.0",
+    "eslint": "^9.1.0",
     "eslint-plugin-sonarjs": "^0.25.1",
     "nuxt": "^3.11.2",
     "nuxt-primevue": "^0.3.1",

@@ -29,12 +29,16 @@ export const lucia = new Lucia(adapter, {
   getUserAttributes(attributes) {
     return {
       // TODO: fix types
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       externalId: attributes.externalId,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       emailVerified: attributes.emailVerified,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       twoFactorEnabled: attributes.twoFactorEnabled,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       avatar: attributes.avatar
     };

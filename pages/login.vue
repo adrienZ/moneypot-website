@@ -16,6 +16,7 @@ const result = await useFetch("/api/login", {
 });
 
 async function login() {
+  await result.execute();
   if (result.error.value) {
     result.error.value.data?.message ?? result.error.value.message;
   } else {

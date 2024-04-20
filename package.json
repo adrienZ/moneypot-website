@@ -37,7 +37,6 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "drizzle-kit": "^0.20.16",
     "eslint": "^9.1.0",
-    "eslint-plugin-sonarjs": "^0.25.1",
     "nuxt": "^3.11.2",
     "nuxt-primevue": "^0.3.1",
     "prettier": "^3.2.5",
@@ -61,10 +60,10 @@
     "quill": "^2.0.0",
     "radix-vue": "^1.7.1",
     "resend": "^3.2.0",
-    "stripe": "^14.16.0",
+    "stripe": "^15.3.0",
     "twemoji": "^14.0.2",
     "ua-parser-js": "^1.0.37",
-    "vue-email": "^0.8.5",
+    "vue-email": "^0.8.11",
     "zod": "^3.22.5",
     "zod-form-data": "^2.0.2"
   }

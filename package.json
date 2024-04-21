@@ -14,7 +14,7 @@
     "dev": "BASE_URL=http://localhost:3000 nuxt dev --host 0.0.0.0",
     "generate": "nuxt generate",
     "preview": "BASE_URL=https://moneypot-website.onrender.com nuxt preview",
-    "postinstall": "nuxt prepare",
+    "postinstalll": "nuxt prepare",
     "db:generate": "pnpm exec drizzle-kit generate:pg",
     "db:push": "pnpm exec drizzle-kit push:pg",
     "db:studio": "pnpm exec drizzle-kit studio",

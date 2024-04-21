@@ -4,6 +4,9 @@
   "version": "0.0.1",
   "type": "module",
   "packageManager": "pnpm@9.0.2",
+  "engines": {
+    "node": "20.9.0"
+  },
   "scripts": {
     "prebuild": "pnpm lint",
     "postbuild": "pnpm ip:dl-dbs",

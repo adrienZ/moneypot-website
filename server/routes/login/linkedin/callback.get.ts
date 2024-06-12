@@ -28,11 +28,13 @@ export default defineEventHandler(async (event) => {
     );
 
     const linkedinUser: LinkedInResponse = await linkedinUserResponse.json();
+    console.log(linkedinUser);
+    
 
     if (!linkedinUser.email_verified) {
       throw createError({
         status: 400,
-        message: "discord user not verified"
+        message: "linkedin user not verified"
       });
     }
 

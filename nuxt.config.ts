@@ -83,6 +83,8 @@ declare global {
       RESEND_AUDIENCE_ID?: string;
       GITHUB_CLIENT_ID?: string;
       GITHUB_CLIENT_SECRET?: string;
+      LINKEDIN_CLIENT_ID?: string;
+      LINKEDIN_CLIENT_SECRET?: string;
       BASE_URL?: string;
       UPLOADTHING_SECRET?: string;
       UPLOADTHING_APP_ID?: string;

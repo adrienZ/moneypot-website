@@ -38,7 +38,7 @@ export const userSession = sqliteTable("user_session", {
   ip: varchar("ip", { length: 45 })
 });
 
-const oauthProviders = ["github", "discord"] as const;
+const oauthProviders = ["github", "discord", "linkedin"] as const;
 export const oauthAccount = sqliteTable("oauth_account", {
   ...primaryKeyColumn,
   ...creationColumns,

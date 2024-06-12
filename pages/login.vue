@@ -54,6 +54,7 @@ async function login() {
       <div class="mt-4">
         <AuthGithubButton />
         <AuthDiscordButton class="mt-2" />
+        <AuthLinkedinButton class="mt-2" />
       </div>
 
       <UDivider class="my-4" label="OR" />

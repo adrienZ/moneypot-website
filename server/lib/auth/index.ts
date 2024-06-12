@@ -5,7 +5,7 @@ import {
   emailAudience
 } from "../../database/schema";
 import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
-import { GitHub, Discord } from "arctic";
+import { GitHub, Discord, LinkedIn } from "arctic";
 import { AuthHooks } from "./hooks";
 
 import { UserTable } from "./tables/user.table";
@@ -33,6 +33,7 @@ export class Auth {
 
   github: GitHub;
   discord: Discord;
+  linkedin: LinkedIn;
 
   hooks: AuthHooks;
 
@@ -56,6 +57,12 @@ export class Auth {
       process.env.DISCORD_APPLICATION_ID as string,
       process.env.DISCORD_PUBLIC_KEY as string,
       process.env.BASE_URL + "/login/discord/callback"
+    );
+
+    this.linkedin = new LinkedIn(
+      process.env.LINKEDIN_CLIENT_ID as string,
+      process.env.LINKEDIN_CLIENT_SECRET as string,
+      process.env.BASE_URL + "/login/linkedin/callback"
     );
 
     this.hooks = new AuthHooks();

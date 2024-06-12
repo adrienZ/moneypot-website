@@ -14,7 +14,7 @@ test("Auth", async ({ page }) => {
   await page.waitForURL("/");
   await page.waitForLoadState();
 
-  await page.getByRole("link", { name: "Avatar" }).click();
+  await page.getByAltText("Avatar").click();
   await page.waitForURL("/settings");
 
   expect(page.url()).toBe("http://localhost:3000/settings");
@@ -27,5 +27,5 @@ test("Auth", async ({ page }) => {
   await page.waitForURL("/login");
   await page.waitForLoadState();
 
-  expect(page.getByRole("link", { name: "Avatar" })).toHaveCount(0);
+  expect(await page.getByAltText("Avatar")).toHaveCount(0);
 });

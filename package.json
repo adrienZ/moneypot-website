@@ -40,7 +40,7 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "drizzle-kit": "^0.22.7",
     "eslint": "^9.4.0",
-    "nuxt": "^3.11.2",
+    "nuxt": "^3.12.1",
     "nuxt-primevue": "^0.3.1",
     "prettier": "^3.3.2",
     "uploadthing": "^6.12.0",

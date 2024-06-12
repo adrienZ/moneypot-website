@@ -8,7 +8,7 @@
     "node": "20.12.2"
   },
   "scripts": {
-    "prebuild": "pnpm nuxt prepare && pnpm lint",
+    "prebuild": "pnpm typecheck && pnpm lint",
     "postbuild": "pnpm ip:dl-dbs",
     "build": "nuxt build",
     "dev": "BASE_URL=http://localhost:3000 nuxt dev --host 0.0.0.0",
@@ -22,7 +22,7 @@
     "lint": "eslint .",
     "test": "pnpm exec playwright test",
     "test:ui": "pnpm test -- --ui",
-    "typecheck": "nuxt prepare && nuxt typecheck"
+    "typecheck": "nuxt typecheck"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",

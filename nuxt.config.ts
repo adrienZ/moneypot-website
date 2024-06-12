@@ -36,7 +36,10 @@ export default defineNuxtConfig({
   typescript: {
     strict: true,
     shim: false,
-    typeCheck: process.env.NODE_ENV === "production"
+    // https://github.com/vuejs/language-tools/issues/3969
+    // disabled while this is an issue use pakcage.json script instead
+    typeCheck: false
+    // typeCheck: process.env.NODE_ENV === "production"
   },
   experimental: {
     typedPages: true

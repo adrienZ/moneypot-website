@@ -1,6 +1,6 @@
 import twemoji from "twemoji";
 import { GeoIpDbName, type WrappedReader, open } from "geolite2-redist";
-import maxmind, { type Reader, type CityResponse } from "maxmind";
+import maxmind, { type Reader, type CountryResponse } from "maxmind";
 
 /**
  * IP LOOKUPS ARE HARD
@@ -18,7 +18,7 @@ import maxmind, { type Reader, type CityResponse } from "maxmind";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-type CityReader = WrappedReader<Reader<CityResponse>>;
+type CityReader = WrappedReader<Reader<CountryResponse>>;
 
 export class IpLookup {
   private ip: string;
@@ -41,7 +41,7 @@ export class IpLookup {
     const data = reader.get(ip);
     reader.close();
 
-    this.city = data?.city?.names.en ?? null;
+    // this.city = data?.city?.names.en ?? null;
     const country = data?.country;
 
     if (country?.iso_code && country.names) {
@@ -61,8 +61,8 @@ export class IpLookup {
 
   static async createReader(): Promise<CityReader> {
     if (!this.readerInstance) {
-      this.readerInstance = await open(GeoIpDbName.City, (path) =>
-        maxmind.open<CityResponse>(path)
+      this.readerInstance = await open(GeoIpDbName.Country, (path) =>
+        maxmind.open<CountryResponse>(path)
       );
     }
 

@@ -8,7 +8,7 @@
     "node": "20.12.2"
   },
   "scripts": {
-    "prebuild": "pnpm prepare && pnpm lint",
+    "prebuild": "pnpm nuxt prepare && pnpm lint",
     "postbuild": "pnpm ip:dl-dbs",
     "build": "nuxt build",
     "dev": "BASE_URL=http://localhost:3000 nuxt dev --host 0.0.0.0",
